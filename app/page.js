@@ -1,6 +1,7 @@
 // === app/page.js (fixed, production-ready) ===
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 /**
  * IMPORTANT:
@@ -869,7 +870,14 @@ export default function Page() {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <BrandWordmark label={t.brand} />
+            <Image
+        src="/assets/logo/wonnymed-logo.png"
+        alt="Wonnymed"
+        width={148}
+        height={40}
+        priority
+        className="h-8 w-auto"
+      />
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">
               HQ 🇭🇰 Hong Kong
             </span>
@@ -1200,7 +1208,7 @@ export default function Page() {
                 </a>
               </li>
               <li>contato@wonnymed.com</li>
-              <li>🇭🇰 Hong Kong • 🇧🇷 Brazil</li>
+              <li>Instagram: @wonnymed</li>
               <li>
                 <a href="mailto:contato@wonnymed.com?subject=Portal%20Wonnymed" className="underline">
                   {nav.portal}
