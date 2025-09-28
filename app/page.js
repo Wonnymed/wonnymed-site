@@ -1207,8 +1207,8 @@ export default function Page() {
                   WhatsApp: +1 561 596 6097
                 </a>
               </li>
-              <li>contato@wonnymed.com</li>
               <li>Instagram: @wonnymed</li>
+              <li>contato@wonnymed.com</li>
               <li>
                 <a href="mailto:contato@wonnymed.com?subject=Portal%20Wonnymed" className="underline">
                   {nav.portal}
