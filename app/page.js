@@ -41,10 +41,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"Soluções",
      lines:[
--      {title:"Hemostáticos",desc:"Controle de sangramento com documentação completa. Fornecedores auditados na 🇨🇳 China."},
--      {title:"Suturas",desc:"Absorvíveis e não absorvíveis com compatibilidades e IFUs. Parceiros auditados na 🇨🇳 China."},
--      {title:"Drills PPU",desc:"Pay-per-use com AFE neutra, uptime ≥ 98% e swap em 72h."},
--      {title:"Dermato Pro (Beauty)",desc:"Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. Fabricantes líderes da 🇰🇷 Coreia."}
+-    
 +      {
 +        title:"Hemostáticos",
 +        desc:"Controle de sangramento com documentação completa. Fornecedores auditados na 🇨🇳 China.",
@@ -147,10 +144,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"Solutions",
      lines:[
--      {title:"Hemostatics",desc:"Bleeding control with complete documentation. Audited partners in 🇨🇳 China."},
--      {title:"Sutures",desc:"Absorbable & non-absorbable with typical compatibilities and IFUs. Audited partners in 🇨🇳 China."},
--      {title:"Drills PPU",desc:"Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap."},
--      {title:"Derma Pro (Beauty)",desc:"Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. Leading manufacturers in 🇰🇷 Korea."}
+-      
 +      {
 +        title:"Hemostatics",
 +        desc:"Bleeding control with complete documentation. Audited partners in 🇨🇳 China.",
@@ -245,10 +239,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"Soluciones",
      lines:[
--      {title:"Hemostáticos",desc:"Control de sangrado con documentación completa. Socios auditados en 🇨🇳 China."},
--      {title:"Suturas",desc:"Absorbibles y no absorbibles con compatibilidades e IFUs. Socios auditados en 🇨🇳 China."},
--      {title:"Taladros PPU",desc:"Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h."},
--      {title:"Derma Pro (Beauty)",desc:"Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. Fabricantes líderes en 🇰🇷 Corea."}
+-     
 +      {
 +        title:"Hemostáticos",
 +        desc:"Control de sangrado con documentación completa. Socios auditados en 🇨🇳 China.",
@@ -343,10 +334,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"解决方案",
      lines:[
--      {title:"止血材料",desc:"完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。"},
--      {title:"缝合线",desc:"可吸收/不可吸收与兼容信息。经审核的 🇨🇳 中国合作伙伴。"},
--      {title:"按次付费钻机",desc:"中性 AFE，正常运行 ≥98%，72 小时更换。"},
--      {title:"专业皮肤科（美业）",desc:"高端医美供给 — 重点交付 🇧🇷 巴西、🇦🇪 阿联酋、🇸🇦 沙特、🇰🇼 科威特。来自 🇰🇷 韩国领先制造商。"}
+-    
 +      {
 +        title:"止血材料",
 +        desc:"完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。",
@@ -440,10 +428,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"الحلول",
      lines:[
--      {title:"مواد إرقاء",desc:"توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين."},
--      {title:"خيوط جراحية",desc:"قابلة وغير قابلة للامتصاص مع IFU وتوافقات. شركاء مُدققون في 🇨🇳 الصين."},
--      {title:"مثاقب بالدفع",desc:"AFE محايد، جاهزية ≥98% واستبدال 72 ساعة."},
--      {title:"جلدية مهنية (تجميل)",desc:"خط علاجات مميز — تركيز التسليم 🇧🇷 البرازيل و🇦🇪 الإمارات و🇸🇦 السعودية و🇰🇼 الكويت. مُصنّعون رائدون في 🇰🇷 كوريا."}
+-      
 +      {
 +        title:"مواد إرقاء",
 +        desc:"توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين.",
@@ -531,10 +516,7 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
      ],
      solutionsTitle:"솔루션",
      lines:[
--      {title:"지혈재",desc:"완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너."},
--      {title:"봉합사",desc:"흡수성/비흡수성 및 호환 정보. 🇨🇳 중국 감사 완료 파트너."},
--      {title:"드릴 PPU",desc:"중립 AFE, 가동률 ≥98%, 72시간 스왑."},
--      {title:"더마 프로 (뷰티)",desc:"프리미엄 임상 미용 — 배송 포커스 🇧🇷 브라질, 🇦🇪 UAE, 🇸🇦 KSA, 🇰🇼 쿠웨이트. 🇰🇷 한국 선도 제조사."}
+-     
 +      {
 +        title:"지혈재",
 +        desc:"완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너.",
