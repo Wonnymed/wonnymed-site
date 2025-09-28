@@ -7,7 +7,6 @@ index a2128cba701d21ddc91ce7ae925923af2299742b..ccf04b4a169d8f60ba8ccd360f6c1dbb
  "use client";
 -import React, { useMemo, useState } from "react";
 +import React, { useEffect, useMemo, useState } from "react";
- import "../styles/globals.css";
  
  const LOCALES = [
    { code: "pt", label: "Português" },
