@@ -1,3 +1,4 @@
+// === app/page.js (com WhatsApp flutuante) ===
 "use client";
 import React, { useMemo, useState } from "react";
 import "../styles/globals.css";
@@ -12,18 +13,32 @@ const LOCALES = [
 ];
 
 const I18N = {
-  pt: { brand:"Wonnymed", nav:{solutions:"Soluções",how:"Como funciona",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
-    hero:{ titleA:"Abastecimento clínico com ", titleB:"compliance", titleC:" e velocidade.",
-      sub:"Hemostáticos, suturas, drills pay-per-use e dermato profissional. Cotação em 24–48h, documentação ANVISA/UDI verificada e SLA de abastecimento.",
-      ctaPrimary:"Solicitar cotação", ctaSecondary:"Ver compliance", note:"Sem catálogo público. Trabalhamos via RFQ e portal privado para aprovadores.",
-      badgeTitle:"Selo Verified", badgeList:["Registro ANVISA & UDI","ISO 13485 validada","IFU/MSDS anexos","Rastreamento de lotes"] },
-    metrics:[{k:"SLA de cotação",v:"24–48h"},{k:"OTIF",v:">= 95%"},{k:"Rotina",v:"Portal privado"},{k:"Compliance",v:"ANVISA • UDI • ISO"}],
+  pt: {
+    brand:"Wonnymed",
+    nav:{solutions:"Soluções",how:"Como funciona",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
+    hero:{
+      titleA:"Abastecimento clínico com ",
+      titleB:"compliance",
+      titleC:" e velocidade.",
+      sub:"Hemostáticos, suturas, drills pay-per-use e dermato profissional. Materiais cirúrgicos de parceiros auditados na 🇨🇳 China e linha Beauty de fabricantes líderes na 🇰🇷 Coreia. Cotação em 24–48h, documentação ANVISA/UDI verificada e SLA de abastecimento.",
+      ctaPrimary:"Solicitar cotação", ctaSecondary:"Ver compliance",
+      note:"Sem catálogo público. Trabalhamos via RFQ e portal privado para aprovadores.",
+      badgeTitle:"Selo Verified",
+      badgeList:["Registro ANVISA & UDI","ISO 13485 validada","IFU/MSDS anexos","Rastreamento de lotes"]
+    },
+    metrics:[
+      {k:"SLA de cotação",v:"24–48h"},
+      {k:"OTIF",v:">= 95%"},
+      {k:"Rotina",v:"Portal privado"},
+      {k:"Compliance",v:"ANVISA • UDI • ISO"},
+      {k:"Rede de parceiros",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"Soluções",
     lines:[
-      {title:"Hemostáticos",desc:"Controle de sangramento com documentação completa e classes de risco."},
-      {title:"Suturas",desc:"Absorvíveis e não absorvíveis com compatibilidades típicas e IFUs."},
+      {title:"Hemostáticos",desc:"Controle de sangramento com documentação completa. Fornecedores auditados na 🇨🇳 China."},
+      {title:"Suturas",desc:"Absorvíveis e não absorvíveis com compatibilidades e IFUs. Parceiros auditados na 🇨🇳 China."},
       {title:"Drills PPU",desc:"Pay-per-use com AFE neutra, uptime ≥ 98% e swap em 72h."},
-      {title:"Dermato Pro (Beauty)",desc:"Estética clínica profissional (BR/MX/CO; foco GCC) com conformidade local."},
+      {title:"Dermato Pro (Beauty)",desc:"Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. Fabricantes líderes da 🇰🇷 Coreia."}
     ],
     askQuote:"Pedir cotação",
     howTitle:"Como funciona",
@@ -42,49 +57,65 @@ const I18N = {
     rfqSub:"Sem catálogo público. Envie suas necessidades e retornamos com comparativo técnico, docs verificados e proposta em 24–48h.",
     rfqBullets:[
       "Comparativo técnico (material, classe de risco, compatibilidade, validade)",
-      "ANVISA • ISO 13485 • UDI • IFU/MSDS",
+      "ANVISA • ISO 1345 • UDI • IFU/MSDS",
       "SLA 24–48h • OTIF ≥ 95% • Recall & rastreio de lote"
     ],
     rfqHint:"Após enviar, você poderá anexar arquivos via link seguro que enviaremos por e-mail.",
-    form:{ name:"Nome*", company:"Empresa*", accountType:"Tipo de conta", types:["Hospital privado","Hospital público","Distribuidor"],
+    form:{
+      name:"Nome*", company:"Empresa*", accountType:"Tipo de conta", types:["Hospital privado","Hospital público","Distribuidor"],
       email:"E-mail*", phone:"Telefone", line:"Linha*", lines:["Hemostáticos","Suturas","Drills PPU","Dermato Pro (Beauty)"],
       specs:"Especificações técnicas / marcas equivalentes*", specsPH:"Ex.: classe de risco, calibre/tamanho, absorção, compatibilidade, registro atual, marca de referência...",
       qty:"Quantidade", freq:"Frequência (mensal/trimestral)", deadline:"Prazo desejado", delivery:"Local de entrega",
       reg:"Necessidades regulatórias", regPH:"Ex.: classe II/III, docs obrigatórios, validade mínima...",
       submit:"Enviar RFQ", legal:"Ao enviar, você concorda com nossos Termos e confirma que não está compartilhando PHI.",
-      okTitle:"Recebido com sucesso", okMsg:"Retornaremos em 24–48h com comparativo e proposta.", backTop:"Voltar ao topo" },
+      okTitle:"Recebido com sucesso", okMsg:"Retornaremos em 24–48h com comparativo e proposta.", backTop:"Voltar ao topo"
+    },
     casesTitle:"Casos & Resultados",
-    cases:[ {t:"Disponibilidade 98% no semestre", d:"Hospital privado (SP) — hemostáticos e suturas com reposição programada."},
-            {t:"PPU com uptime 99%", d:"Rede regional — drills pay-per-use, swap até 72h e consumo mínimo."} ],
+    cases:[
+      {t:"Disponibilidade 98% no semestre", d:"Hospital privado (SP) — hemostáticos e suturas com reposição programada."},
+      {t:"PPU com uptime 99%", d:"Rede regional — drills pay-per-use, swap até 72h e consumo mínimo."}
+    ],
     sticky:"Cotação em 24–48h com comparativo técnico e documentação ANVISA/UDI.",
-    footer:{ blurb:"Supply clínico com compliance e velocidade. Operação internacional via HK.", solutions:"Soluções", institutional:"Institucional", contact:"Contato", rights:(y)=>`© ${y} Wonnymed. Todos os direitos reservados.` }
+    footer:{ blurb:"Supply clínico com compliance e velocidade. HQ 🇭🇰 Hong Kong.", solutions:"Soluções", institutional:"Institucional", contact:"Contato", rights:(y)=>`© ${y} Wonnymed. Todos os direitos reservados.` }
   },
-  en: { brand:"Wonnymed", nav:{solutions:"Solutions",how:"How it works",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
-    hero:{ titleA:"Clinical supply with ", titleB:"compliance", titleC:" and speed.",
-      sub:"Hemostatics, sutures, pay‑per‑use drills and professional derma. Quotes in 24–48h, ANVISA/UDI docs verified, delivery SLAs.",
-      ctaPrimary:"Request a quote", ctaSecondary:"See compliance", note:"No public catalog. RFQ + private portal for approvers.",
-      badgeTitle:"Verified Seal", badgeList:["ANVISA & UDI","ISO 13485 validated","IFU/MSDS attached","Lot tracking"] },
-    metrics:[{k:"Quote SLA",v:"24–48h"},{k:"OTIF",v:">= 95%"},{k:"Routine",v:"Private portal"},{k:"Compliance",v:"ANVISA • UDI • ISO"}],
+
+  en: {
+    brand:"Wonnymed",
+    nav:{solutions:"Solutions",how:"How it works",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
+    hero:{
+      titleA:"Clinical supply with ", titleB:"compliance", titleC:" and speed.",
+      sub:"Hemostatics, sutures, pay-per-use drills and professional derma. Surgical materials from audited partners in 🇨🇳 China, and the Beauty line from leading 🇰🇷 Korea manufacturers. Quotes in 24–48h, ANVISA/UDI docs verified and delivery SLAs.",
+      ctaPrimary:"Request a quote", ctaSecondary:"See compliance",
+      note:"No public catalog. RFQ + private portal for approvers.",
+      badgeTitle:"Verified Seal", badgeList:["ANVISA & UDI","ISO 1345 validated","IFU/MSDS attached","Lot tracking"]
+    },
+    metrics:[
+      {k:"Quote SLA",v:"24–48h"},
+      {k:"OTIF",v:">= 95%"},
+      {k:"Routine",v:"Private portal"},
+      {k:"Compliance",v:"ANVISA • UDI • ISO"},
+      {k:"Partner network",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"Solutions",
     lines:[
-      {title:"Hemostatics",desc:"Bleeding control with complete documentation and risk classes."},
-      {title:"Sutures",desc:"Absorbable & non‑absorbable with typical compatibilities and IFUs."},
-      {title:"Drills PPU",desc:"Pay‑per‑use with neutral AFE, uptime ≥ 98%, 72h swap."},
-      {title:"Derma Pro (Beauty)",desc:"Professional aesthetics (BR/MX/CO; GCC focus) with local compliance."},
+      {title:"Hemostatics",desc:"Bleeding control with complete documentation. Audited partners in 🇨🇳 China."},
+      {title:"Sutures",desc:"Absorbable & non-absorbable with typical compatibilities and IFUs. Audited partners in 🇨🇳 China."},
+      {title:"Drills PPU",desc:"Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap."},
+      {title:"Derma Pro (Beauty)",desc:"Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. Leading manufacturers in 🇰🇷 Korea."}
     ],
     askQuote:"Request quote",
     howTitle:"How it works",
     howSteps:[
       {t:"Request",d:"Send your RFQ with specs, quantities and deadlines."},
-      {t:"Validation",d:"We check ANVISA/UDI/ISO, compatibilities and shelf‑life."},
+      {t:"Validation",d:"We check ANVISA/UDI/ISO, compatibilities and shelf-life."},
       {t:"Delivery",d:"Quote in 24–48h and supply with OTIF ≥ 95%."},
     ],
     complianceTitle:"Compliance & Documents",
     complianceDesc:"Regulatory transparency by default. Each proposal includes a technical dossier and tracking.",
-    complianceList:["ANVISA registration and UDI","Manufacturer ISO 13485","IFU/MSDS updated","Lot/expiry control and recall alerts"],
+    complianceList:["ANVISA registration and UDI","Manufacturer ISO 13485","Updated IFU/MSDS","Lot/expiry control and recall alerts"],
     requestChecklist:"Request checklist",
     verifiedCriteriaTitle:"Verified Seal — criteria",
-    verifiedCriteria:["Document validation (ANVISA/UDI/ISO)","IFU in local language when required","Minimum shelf‑life on inbound","OTIF & service history"],
+    verifiedCriteria:["Document validation (ANVISA/UDI/ISO)","IFU in local language when required","Minimum shelf-life on inbound","OTIF & service history"],
     rfqTitle:"Request for Quotation (RFQ)",
     rfqSub:"No public catalog. Send your needs and we’ll return a technical comparison, verified docs and a proposal within 24–48h.",
     rfqBullets:["Technical comparison (material, risk class, compatibility, expiry)","Verified: ANVISA, ISO 1345, UDI, IFU/MSDS","SLA 24–48h • OTIF ≥ 95% • Recall & lot tracking"],
@@ -92,26 +123,40 @@ const I18N = {
     form:{ name:"Name*", company:"Company*", accountType:"Account type", types:["Private hospital","Public hospital","Distributor"], email:"Email*", phone:"Phone",
       line:"Line*", lines:["Hemostatics","Sutures","Drills PPU","Derma Pro (Beauty)"], specs:"Technical specs / equivalent brands*", specsPH:"E.g.: risk class, gauge/size, absorption, compatibility, current registration, reference brand...",
       qty:"Quantity", freq:"Frequency (monthly/quarterly)", deadline:"Desired lead time", delivery:"Delivery location",
-      reg:"Regulatory needs", regPH:"E.g.: class II/III, mandatory docs, shelf‑life requirements...", submit:"Submit RFQ", legal:"By submitting you agree to our Terms and confirm you’re not sharing PHI.",
+      reg:"Regulatory needs", regPH:"E.g.: class II/III, mandatory docs, shelf-life requirements...", submit:"Submit RFQ", legal:"By submitting you agree to our Terms and confirm you’re not sharing PHI.",
       okTitle:"Received successfully", okMsg:"We’ll reply in 24–48h with the comparison and proposal.", backTop:"Back to top" },
     casesTitle:"Cases & Results",
-    cases:[ {t:"98% availability over semester", d:"Private hospital (SP) — hemostatics & sutures with scheduled replenishment."},
-            {t:"PPU with 99% uptime", d:"Regional network — drills in pay‑per‑use, 72h swap and minimum consumption."} ],
+    cases:[
+      {t:"98% availability over semester", d:"Private hospital (SP) — hemostatics & sutures with scheduled replenishment."},
+      {t:"PPU with 99% uptime", d:"Regional network — drills in pay-per-use, 72h swap and minimum consumption."}
+    ],
     sticky:"Quotes in 24–48h with technical comparison and verified ANVISA/UDI docs.",
-    footer:{ blurb:"Clinical supply with compliance and speed. International operations via HK.", solutions:"Solutions", institutional:"Company", contact:"Contact", rights:(y)=>`© ${y} Wonnymed. All rights reserved.` }
+    footer:{ blurb:"Clinical supply with compliance and speed. HQ 🇭🇰 Hong Kong.", solutions:"Solutions", institutional:"Company", contact:"Contact", rights:(y)=>`© ${y} Wonnymed. All rights reserved.` }
   },
-  es: { brand:"Wonnymed", nav:{solutions:"Soluciones",how:"Cómo funciona",compliance:"Cumplimiento",rfq:"RFQ",portal:"Portal"},
-    hero:{ titleA:"Abastecimiento clínico con ", titleB:"cumplimiento", titleC:" y velocidad.",
-      sub:"Hemostáticos, suturas, taladros pay‑per‑use y dermato profesional. Cotización en 24–48h, documentos ANVISA/UDI verificados y SLA de entrega.",
-      ctaPrimary:"Solicitar cotización", ctaSecondary:"Ver cumplimiento", note:"Sin catálogo público. RFQ y portal privado para aprobadores.",
-      badgeTitle:"Sello Verificado", badgeList:["ANVISA & UDI","ISO 13485 validado","IFU/MSDS adjuntos","Trazabilidad de lotes"] },
-    metrics:[{k:"SLA de cotización",v:"24–48h"},{k:"OTIF",v:">= 95%"},{k:"Rutina",v:"Portal privado"},{k:"Cumplimiento",v:"ANVISA • UDI • ISO"}],
+
+  es: {
+    brand:"Wonnymed",
+    nav:{solutions:"Soluciones",how:"Cómo funciona",compliance:"Cumplimiento",rfq:"RFQ",portal:"Portal"},
+    hero:{
+      titleA:"Abastecimiento clínico con ", titleB:"cumplimiento", titleC:" y velocidad.",
+      sub:"Hemostáticos, suturas, taladros pay-per-use y dermato profesional. Material quirúrgico de socios auditados en 🇨🇳 China y línea Beauty de fabricantes líderes en 🇰🇷 Corea. Cotización en 24–48h, documentos ANVISA/UDI verificados y SLA de entrega.",
+      ctaPrimary:"Solicitar cotización", ctaSecondary:"Ver cumplimiento",
+      note:"Sin catálogo público. RFQ y portal privado para aprobadores.",
+      badgeTitle:"Sello Verificado", badgeList:["ANVISA & UDI","ISO 13485 validado","IFU/MSDS adjuntos","Trazabilidad de lotes"]
+    },
+    metrics:[
+      {k:"SLA de cotización",v:"24–48h"},
+      {k:"OTIF",v:">= 95%"},
+      {k:"Rutina",v:"Portal privado"},
+      {k:"Cumplimiento",v:"ANVISA • UDI • ISO"},
+      {k:"Red de socios",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"Soluciones",
     lines:[
-      {title:"Hemostáticos",desc:"Control de sangrado con documentación completa y clases de riesgo."},
-      {title:"Suturas",desc:"Absorbibles y no absorbibles con compatibilidades típicas e IFUs."},
-      {title:"Taladros PPU",desc:"Pay‑per‑use con AFE neutra, uptime ≥ 98%, reemplazo 72h."},
-      {title:"Derma Pro (Beauty)",desc:"Estética profesional (BR/MX/CO; foco GCC) con cumplimiento local."},
+      {title:"Hemostáticos",desc:"Control de sangrado con documentación completa. Socios auditados en 🇨🇳 China."},
+      {title:"Suturas",desc:"Absorbibles y no absorbibles con compatibilidades e IFUs. Socios auditados en 🇨🇳 China."},
+      {title:"Taladros PPU",desc:"Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h."},
+      {title:"Derma Pro (Beauty)",desc:"Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. Fabricantes líderes en 🇰🇷 Corea."}
     ],
     askQuote:"Pedir cotización",
     howTitle:"Cómo funciona",
@@ -133,30 +178,48 @@ const I18N = {
     form:{ name:"Nombre*", company:"Empresa*", accountType:"Tipo de cuenta", types:["Hospital privado","Hospital público","Distribuidor"], email:"Email*", phone:"Teléfono",
       line:"Línea*", lines:["Hemostáticos","Suturas","Taladros PPU","Derma Pro (Beauty)"], specs:"Especificaciones técnicas / marcas equivalentes*", specsPH:"Ej.: clase de riesgo, calibre/tamaño, absorción, compatibilidad, registro actual, marca de referencia...",
       qty:"Cantidad", freq:"Frecuencia (mensual/trimestral)", deadline:"Plazo deseado", delivery:"Lugar de entrega",
-      reg:"Requisitos regulatorios", regPH:"Ej.: clase II/III, documentos obligatorios, vida útil mínima...", submit:"Enviar RFQ", legal:"Al enviar acepta nuestros Términos y confirma que no comparte PHI.",
+      reg:"Requisitos regulatorios", regPH:"Ej.: II/III, documentos obligatorios, vida útil mínima...", submit:"Enviar RFQ", legal:"Al enviar acepta nuestros Términos y confirma que no comparte PHI.",
       okTitle:"Recibido correctamente", okMsg:"Responderemos en 24–48h con la comparación y la propuesta.", backTop:"Volver arriba" },
     casesTitle:"Casos y Resultados",
-    cases:[ {t:"Disponibilidad 98% en el semestre", d:"Hospital privado (SP) — hemostáticos y suturas con reposición programada."},
-            {t:"PPU con 99% de uptime", d:"Red regional — taladros pay‑per‑use, reemplazo 72h y consumo mínimo."} ],
+    cases:[
+      {t:"Disponibilidad 98% en el semestre", d:"Hospital privado (SP) — hemostáticos y suturas con reposición programada."},
+      {t:"PPU con 99% de uptime", d:"Red regional — taladros pay-per-use, reemplazo 72h y consumo mínimo."}
+    ],
     sticky:"Cotizaciones en 24–48h con comparación técnica y documentos verificados.",
-    footer:{ blurb:"Suministro clínico con cumplimiento y rapidez. Operación internacional vía HK.", solutions:"Soluciones", institutional:"Compañía", contact:"Contacto", rights:(y)=>`© ${y} Wonnymed. Todos los derechos reservados.` }
+    footer:{ blurb:"Suministro clínico con cumplimiento y rapidez. HQ 🇭🇰 Hong Kong.", solutions:"Soluciones", institutional:"Compañía", contact:"Contacto", rights:(y)=>`© ${y} Wonnymed. Todos los derechos reservados.` }
   },
-  zh: { brand:"Wonnymed", nav:{solutions:"解决方案",how:"流程",compliance:"合规",rfq:"询价",portal:"门户"},
-    hero:{ titleA:"合规与", titleB:"速度", titleC:"的临床供应。",
-      sub:"止血材料、缝合线、按次付费钻机、专业皮肤科。24–48小时报价，ANVISA/UDI 文件已核验，交付有 SLA。",
-      ctaPrimary:"提交询价", ctaSecondary:"查看合规", note:"无公开目录。通过询价与私有门户协作。",
-      badgeTitle:"验证标识", badgeList:["ANVISA & UDI","ISO 13485 验证","附 IFU/MSDS","批次追踪"] },
-    metrics:[{k:"报价SLA",v:"24–48h"},{k:"准时完整率",v:">= 95%"},{k:"流程",v:"私有门户"},{k:"合规",v:"ANVISA • UDI • ISO"}],
+
+  zh: {
+    brand:"Wonnymed",
+    nav:{solutions:"解决方案",how:"流程",compliance:"合规",rfq:"询价",portal:"门户"},
+    hero:{
+      titleA:"合规与", titleB:"速度", titleC:"的临床供应。",
+      sub:"止血材料、缝合线、按次付费钻机与专业皮肤科。外科类来自经审核的 🇨🇳 中国合作伙伴，美业线来自 🇰🇷 韩国领先制造商。24–48 小时报价，ANVISA/UDI 文件核验，交付有 SLA。",
+      ctaPrimary:"提交询价", ctaSecondary:"查看合规",
+      note:"无公开目录。通过询价与私有门户协作。",
+      badgeTitle:"验证标识", badgeList:["ANVISA & UDI","ISO 13485 验证","附 IFU/MSDS","批次追踪"]
+    },
+    metrics:[
+      {k:"报价SLA",v:"24–48h"},
+      {k:"准时完整率",v:">= 95%"},
+      {k:"流程",v:"私有门户"},
+      {k:"合规",v:"ANVISA • UDI • ISO"},
+      {k:"合作伙伴网络",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"解决方案",
     lines:[
-      {title:"止血材料",desc:"完整文件、风险分级与适应证选择。"},
-      {title:"缝合线",desc:"可吸收/不可吸收，型号针型与兼容性。"},
-      {title:"按次付费钻机",desc:"中性 AFE，最低消耗，正常运行≥98%，72小时更换。"},
-      {title:"专业皮肤科（美业）",desc:"面向 BR/MX/CO，重点 GCC；精选与本地合规。"},
+      {title:"止血材料",desc:"完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。"},
+      {title:"缝合线",desc:"可吸收/不可吸收与兼容信息。经审核的 🇨🇳 中国合作伙伴。"},
+      {title:"按次付费钻机",desc:"中性 AFE，正常运行 ≥98%，72 小时更换。"},
+      {title:"专业皮肤科（美业）",desc:"高端医美供给 — 重点交付 🇧🇷 巴西、🇦🇪 阿联酋、🇸🇦 沙特、🇰🇼 科威特。来自 🇰🇷 韩国领先制造商。"}
     ],
     askQuote:"提交询价",
     howTitle:"流程",
-    howSteps:[{t:"询价",d:"提交规格、数量与交期。"}, {t:"核验",d:"核查 ANVISA/UDI/ISO、兼容性与有效期。"}, {t:"交付",d:"24–48小时报价，OTIF ≥ 95%。"}],
+    howSteps:[
+      {t:"询价",d:"提交规格、数量与交期。"},
+      {t:"核验",d:"核查 ANVISA/UDI/ISO、兼容性与有效期。"},
+      {t:"交付",d:"24–48 小时报价，OTIF ≥ 95%。"}
+    ],
     complianceTitle:"合规与文件",
     complianceDesc:"默认透明。每个报价含技术资料与追踪。",
     complianceList:["ANVISA 注册与 UDI","制造商 ISO 13485","最新 IFU/MSDS","批次/效期控制与召回提醒"],
@@ -170,30 +233,43 @@ const I18N = {
     form:{ name:"姓名*", company:"公司*", accountType:"账户类型", types:["民营医院","公立医院","经销商"], email:"邮箱*", phone:"电话",
       line:"产品线*", lines:["止血材料","缝合线","按次付费钻机","专业皮肤科"], specs:"技术规格 / 同类品牌*", specsPH:"如：风险等级、尺寸、吸收性、兼容性、现有注册、参考品牌等",
       qty:"数量", freq:"频率（每月/每季）", deadline:"期望交期", delivery:"交付地点",
-      reg:"合规要求", regPH:"如：II/III 类、必备文件、效期要求等", submit:"提交 RFQ", legal:"提交即同意条款并确认不包含患者隐私信息。",
-      okTitle:"已收到", okMsg:"我们将在 24–48 小时内回复。", backTop:"返回顶部" },
+      reg:"合规要求", regPH:"如：II/III 类、必备文件、效期要求等", submit:"提交 RFQ", legal:"提交即同意条款并确认不包含患者隐私信息。", okTitle:"已收到", okMsg:"我们将在 24–48 小时内回复。", backTop:"返回顶部" },
     casesTitle:"案例与结果",
-    cases:[ {t:"学期内供应可用率 98%", d:"私立医院（圣保罗）— 止血与缝合线，计划补货。"},
-            {t:"PPU 正常运行 99%", d:"区域网络 — 按次付费钻机，72 小时更换。"} ],
+    cases:[
+      {t:"学期内供应可用率 98%", d:"私立医院（圣保罗）— 止血与缝合线，计划补货。"},
+      {t:"PPU 正常运行 99%", d:"区域网络 — 按次付费钻机，72 小时更换。"}
+    ],
     sticky:"24–48 小时报价，附技术对比与核验文件。",
-    footer:{ blurb:"合规高效的临床供应。香港运营。", solutions:"解决方案", institutional:"公司", contact:"联系", rights:(y)=>`© ${y} Wonnymed. 保留所有权利。` }
+    footer:{ blurb:"合规高效的临床供应。总部 🇭🇰 香港。", solutions:"解决方案", institutional:"公司", contact:"联系", rights:(y)=>`© ${y} Wonnymed. 保留所有权利。` }
   },
-  ar: { brand:"وونيميد", nav:{solutions:"الحلول",how:"كيف نعمل",compliance:"الامتثال",rfq:"طلب تسعير",portal:"البوابة"},
-    hero:{ titleA:"توريد سريري مع ", titleB:"امتثال", titleC:" وسرعة.",
-      sub:"مواد إرقاء وخيوط ومثاقب حسب الاستخدام وعلاجات جلدية مهنية. عرض خلال 24–48 ساعة، توثيق ANVISA/UDI متحقق.",
-      ctaPrimary:"اطلب عرض سعر", ctaSecondary:"شاهد الامتثال", note:"لا كتالوج عامًا. RFQ وبوابة خاصة للموافقين.",
-      badgeTitle:"ختم التحقق", badgeList:["ANVISA و UDI","ISO 13485 موثق","IFU/MSDS مرفق","تتبع الدُفعات"] },
-    metrics:[{k:"SLA العرض",v:"24–48h"},{k:"OTIF",v:">= 95%"},{k:"الروتين",v:"بوابة خاصة"},{k:"الامتثال",v:"ANVISA • UDI • ISO"}],
+
+  ar: {
+    brand:"وونيميد",
+    nav:{solutions:"الحلول",how:"كيف نعمل",compliance:"الامتثال",rfq:"طلب تسعير",portal:"البوابة"},
+    hero:{
+      titleA:"توريد سريري مع ", titleB:"امتثال", titleC:" وسرعة.",
+      sub:"مواد إرقاء وخيوط ومثاقب بالدفع وعلاجات جلدية مهنية. المواد الجراحية من شركاء مُدققين في 🇨🇳 الصين وخط التجميل من مُصنّعين رائدين في 🇰🇷 كوريا. عرض خلال 24–48 ساعة ووثائق ANVISA/UDI متحققة وSLA للتسليم.",
+      ctaPrimary:"اطلب عرض سعر", ctaSecondary:"شاهد الامتثال",
+      note:"لا كتالوج عامًا. RFQ وبوابة خاصة للموافقين.",
+      badgeTitle:"ختم التحقق", badgeList:["ANVISA و UDI","ISO 13485 موثق","IFU/MSDS مرفق","تتبع الدُفعات"]
+    },
+    metrics:[
+      {k:"SLA العرض",v:"24–48h"},
+      {k:"OTIF",v:">= 95%"},
+      {k:"الروتين",v:"بوابة خاصة"},
+      {k:"الامتثال",v:"ANVISA • UDI • ISO"},
+      {k:"شبكة الشركاء",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"الحلول",
     lines:[
-      {title:"مواد إرقاء",desc:"توثيق كامل وفئات خطورة وخيارات حسب الاستطباب."},
-      {title:"خيوط جراحية",desc:"قابلة وغير قابلة للامتصاص مع IFU وتوافقات."},
+      {title:"مواد إرقاء",desc:"توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين."},
+      {title:"خيوط جراحية",desc:"قابلة وغير قابلة للامتصاص مع IFU وتوافقات. شركاء مُدققون في 🇨🇳 الصين."},
       {title:"مثاقب بالدفع",desc:"AFE محايد، جاهزية ≥98% واستبدال 72 ساعة."},
-      {title:"جلدية مهنية (تجميل)",desc:"BR/MX/CO مع تركيز على الخليج وامتثال محلي."},
+      {title:"جلدية مهنية (تجميل)",desc:"خط علاجات مميز — تركيز التسليم 🇧🇷 البرازيل و🇦🇪 الإمارات و🇸🇦 السعودية و🇰🇼 الكويت. مُصنّعون رائدون في 🇰🇷 كوريا."}
     ],
     askQuote:"اطلب عرض سعر",
     howTitle:"كيف نعمل",
-    howSteps:[{t:"الطلب",d:"أرسل RFQ بالمواصفات والكميات."}, {t:"التحقق",d:"نراجع التوافق والصلاحية والوثائق."}, {t:"التسليم",d:"عرض خلال 24–48 ساعة وتوريد OTIF ≥ 95%."}],
+    howSteps:[{t:"الطلب",d:"أرسل RFQ بالمواصفات والكميات."},{t:"التحقق",d:"نراجع التوافق والوثائق والصلاحية."},{t:"التسليم",d:"عرض خلال 24–48 ساعة وتوريد OTIF ≥ 95%."}],
     complianceTitle:"الامتثال والوثائق",
     complianceDesc:"شفافية تنظيمية افتراضية. كل عرض يتضمن ملفًا تقنيًا وتتبّعًا.",
     complianceList:["تسجيل ANVISA و UDI","ISO 13485 للمصنّع","IFU/MSDS محدّث","تنبيهات سحب وإدارة الصلاحية"],
@@ -205,28 +281,39 @@ const I18N = {
     rfqBullets:["مقارنة تقنية (مادة، فئة خطورة، توافق، صلاحية)","ANVISA • ISO 13485 • UDI • IFU/MSDS","SLA 24–48h • OTIF ≥ 95%"],
     rfqHint:"بعد الإرسال سنوفر رابط تحميل آمن.",
     form:{ name:"الاسم*", company:"الجهة*", accountType:"نوع الحساب", types:["مستشفى خاص","مستشفى حكومي","موزّع"], email:"البريد*", phone:"الهاتف",
-      line:"الخط*", lines:["مواد إرقاء","خيوط","مثاقب بالدفع","جلدية مهنية"], specs:"مواصفات تقنية / علامات مكافئة*", specsPH:"مثال: الفئة، المقاس، التوافق...",
+      line:"الخط*", lines:["مواد إرقاء","خيوط","مثاقب بالدفع","جلدية مهنية"], specs:"مواصفات تقنية / علامات مكافئة*", specsPH:"مثال: الفئة، المقاس، التوافق، السجل الحالي…",
       qty:"الكمية", freq:"التكرار", deadline:"المهلة", delivery:"موقع التسليم",
-      reg:"متطلبات تنظيمية", regPH:"مثال: II/III، وثائق إلزامية، صلاحية...", submit:"إرسال RFQ", legal:"تؤكد عدم تضمين بيانات مرضى.",
+      reg:"متطلبات تنظيمية", regPH:"مثال: II/III، وثائق إلزامية، صلاحية…", submit:"إرسال RFQ", legal:"تؤكد عدم تضمين بيانات مرضى.",
       okTitle:"تم الاستلام", okMsg:"نرد خلال 24–48 ساعة.", backTop:"العودة للأعلى" },
     casesTitle:"حالات ونتائج",
-    cases:[ {t:"توفر 98% خلال الفصل", d:"مستشفى خاص — مواد إرقاء وخيوط بإعادة تزويد مجدولة."},
-            {t:"جاهزية 99% لـ PPU", d:"شبكة إقليمية — مثاقب بالدفع، استبدال 72 ساعة."} ],
+    cases:[{t:"توفر 98% خلال الفصل", d:"مستشفى خاص — مواد إرقاء وخيوط بإعادة تزويد مجدولة."},{t:"جاهزية 99% لـ PPU", d:"شبكة إقليمية — مثاقب بالدفع، استبدال 72 ساعة."}],
     sticky:"عرض خلال 24–48 ساعة مع مقارنة تقنية ووثائق متحققة.",
-    footer:{ blurb:"توريد سريري متوافق وسريع. تشغيل عبر هونغ كونغ.", solutions:"الحلول", institutional:"عن الشركة", contact:"اتصال", rights:(y)=>`© ${y} وونيميد. جميع الحقوق محفوظة.` }
+    footer:{ blurb:"توريد سريري متوافق وسريع. المقر 🇭🇰 هونغ كونغ.", solutions:"الحلول", institutional:"عن الشركة", contact:"اتصال", rights:(y)=>`© ${y} وونيميد. جميع الحقوق محفوظة.` }
   },
-  ko: { brand:"원니메드", nav:{solutions:"솔루션",how:"진행 방식",compliance:"컴플라이언스",rfq:"견적 요청",portal:"포털"},
-    hero:{ titleA:"컴플라이언스와 ", titleB:"속도", titleC:"를 갖춘 임상 공급.",
-      sub:"지혈재, 봉합사, 사용량 기반 드릴, 프로 더마. 24–48시간 견적, ANVISA/UDI 문서 검증.",
-      ctaPrimary:"견적 요청", ctaSecondary:"컴플라이언스 보기", note:"공개 카탈로그 없음. RFQ + 프라이빗 포털.",
-      badgeTitle:"Verified 마크", badgeList:["ANVISA & UDI","ISO 13485 검증","IFU/MSDS 첨부","로트 추적"] },
-    metrics:[{k:"견적 SLA",v:"24–48h"},{k:"OTIF",v:">= 95%"},{k:"루틴",v:"프라이빗 포털"},{k:"컴플라이언스",v:"ANVISA • UDI • ISO"}],
+
+  ko: {
+    brand:"원니메드",
+    nav:{solutions:"솔루션",how:"진행 방식",compliance:"컴플라이언스",rfq:"견적 요청",portal:"포털"},
+    hero:{
+      titleA:"컴플라이언스와 ", titleB:"속도", titleC:"를 갖춘 임상 공급.",
+      sub:"지혈재, 봉합사, 사용량 기반 드릴, 프로 더마. 외과 재료는 🇨🇳 중국의 감사 완료 파트너에서, 뷰티 라인은 🇰🇷 한국의 선도 제조사에서 소싱합니다. 24–48시간 견적, ANVISA/UDI 문서 검증, 납품 SLA.",
+      ctaPrimary:"견적 요청", ctaSecondary:"컴플라이언스 보기",
+      note:"공개 카탈로그 없음. RFQ + 프라이빗 포털.",
+      badgeTitle:"Verified 마크", badgeList:["ANVISA & UDI","ISO 13485 검증","IFU/MSDS 첨부","로트 추적"]
+    },
+    metrics:[
+      {k:"견적 SLA",v:"24–48h"},
+      {k:"OTIF",v:">= 95%"},
+      {k:"루틴",v:"프라이빗 포털"},
+      {k:"컴플라이언스",v:"ANVISA • UDI • ISO"},
+      {k:"파트너 네트워크",v:"🇨🇳 • 🇰🇷"}
+    ],
     solutionsTitle:"솔루션",
     lines:[
-      {title:"지혈재",desc:"완전한 문서와 위험 등급."},
-      {title:"봉합사",desc:"흡수성/비흡수성 및 호환 정보."},
+      {title:"지혈재",desc:"완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너."},
+      {title:"봉합사",desc:"흡수성/비흡수성 및 호환 정보. 🇨🇳 중국 감사 완료 파트너."},
       {title:"드릴 PPU",desc:"중립 AFE, 가동률 ≥98%, 72시간 스왑."},
-      {title:"더마 프로 (뷰티)",desc:"BR/MX/CO 및 GCC 포커스, 현지 규정 준수."},
+      {title:"더마 프로 (뷰티)",desc:"프리미엄 임상 미용 — 배송 포커스 🇧🇷 브라질, 🇦🇪 UAE, 🇸🇦 KSA, 🇰🇼 쿠웨이트. 🇰🇷 한국 선도 제조사."}
     ],
     askQuote:"견적 요청",
     howTitle:"진행 방식",
@@ -244,13 +331,11 @@ const I18N = {
     form:{ name:"이름*", company:"기관명*", accountType:"계정 유형", types:["민영 병원","공공 병원","유통사"], email:"이메일*", phone:"전화",
       line:"라인*", lines:["지혈재","봉합사","드릴 PPU","더마 프로"], specs:"기술 사양 / 동등 브랜드*", specsPH:"예: 위험 등급, 규격, 호환성, 현 등록 ...",
       qty:"수량", freq:"빈도", deadline:"희망 리드타임", delivery:"납품지",
-      reg:"규제 요구사항", regPH:"예: II/III, 필수 문서, 유효기간", submit:"RFQ 제출", legal:"환자정보 미포함 확인.",
-      okTitle:"접수 완료", okMsg:"24–48시간 내 회신.", backTop:"맨 위로" },
+      reg:"규제 요구사항", regPH:"예: II/III, 필수 문서, 유효기간", submit:"RFQ 제출", legal:"환자정보 미포함 확인.", okTitle:"접수 완료", okMsg:"24–48시간 내 회신.", backTop:"맨 위로" },
     casesTitle:"사례 & 결과",
-    cases:[ {t:"가용성 98%", d:"민영 병원 — 계획 보충."},
-            {t:"PPU 가동률 99%", d:"지역 네트워크 — 72시간 스왑."} ],
+    cases:[{t:"가용성 98%", d:"민영 병원 — 계획 보충."},{t:"PPU 가동률 99%", d:"지역 네트워크 — 72시간 스왑."}],
     sticky:"24–48시간 내 견적 및 검증 문서.",
-    footer:{ blurb:"홍콩 운영의 임상 공급.", solutions:"솔루션", institutional:"회사", contact:"연락처", rights:(y)=>`© ${y} 원니메드. 모든 권리 보유.` }
+    footer:{ blurb:"홍콩 본사 🇭🇰에서 운영하는 임상 공급.", solutions:"솔루션", institutional:"회사", contact:"연락처", rights:(y)=>`© ${y} 원니메드. 모든 권리 보유.` }
   },
 };
 
@@ -272,6 +357,22 @@ function BrandStyles(){
   );
 }
 
+// Botão flutuante do WhatsApp (ícone)
+function WhatsAppButton() {
+  return (
+    <a
+      href="https://wa.me/15615966097"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Falar no WhatsApp"
+      className="fixed right-4 bottom-20 z-40 inline-flex items-center justify-center rounded-full w-14 h-14 shadow-lg
+                 bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-200"
+    >
+      <span className="text-2xl">💬</span>
+    </a>
+  );
+}
+
 export default function Page(){
   const [lang, setLang] = useState("pt");
   const t = I18N[lang];
@@ -280,8 +381,8 @@ export default function Page(){
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    nome: "", empresa: "", tipoConta: t.form.types?.[0] ?? "", email: "", telefone: "",
-    linha: t.form.lines?.[0] ?? "", especificacoes: "", quantidade: "", frequencia: "", prazo: "", entrega: "", regulatorio: "",
+    nome: "", empresa: "", tipoConta: t.form?.types?.[0] ?? "", email: "", telefone: "",
+    linha: t.form?.lines?.[0] ?? "", especificacoes: "", quantidade: "", frequencia: "", prazo: "", entrega: "", regulatorio: "",
   });
 
   function handleChange(e){ const {name,value}=e.target; setForm(f=>({...f,[name]:value})); }
@@ -297,7 +398,7 @@ export default function Page(){
           <div className="flex items-center gap-3">
             <img src="/assets/wonnymed-logo.png" alt="Wonnymed" className="h-8 w-auto"/>
             <span className="font-semibold text-[color:var(--wm-primary-800)] tracking-tight">{t.brand}</span>
-            <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">HK • Dubai</span>
+            <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">HQ 🇭🇰 Hong Kong</span>
           </div>
           <div className="flex items-center gap-2">
             <select value={lang} onChange={e=>setLang(e.target.value)} className="px-3 py-2 rounded-xl border border-neutral-300 bg-white text-sm">
@@ -334,7 +435,7 @@ export default function Page(){
       </section>
 
       <section className="py-10">
-        <div className="mx-auto max-w-6xl px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mx-auto max-w-6xl px-4 grid grid-cols-2 md:grid-cols-5 gap-4">
           {t.metrics.map((m,i)=>(
             <div key={i} className="p-5 rounded-2xl bg-white border border-neutral-200 text-center">
               <div className="text-2xl font-bold">{m.v}</div>
@@ -462,6 +563,9 @@ export default function Page(){
         </div>
       </section>
 
+      {/* Botão flutuante do WhatsApp */}
+      <WhatsAppButton />
+
       <div className="fixed bottom-4 left-0 right-0 z-30">
         <div className="mx-auto max-w-3xl px-4">
           <div className="flex items-center justify-between gap-3 rounded-2xl shadow-lg border border-[color:var(--wm-accent-200)] bg-white px-4 py-3">
@@ -497,8 +601,9 @@ export default function Page(){
           <div>
             <h4 className="font-semibold">{t.footer.contact}</h4>
             <ul className="mt-3 space-y-2 text-neutral-600">
+              <li><a href="https://wa.me/15615966097" target="_blank" className="underline">WhatsApp: +1 561 596 6097</a></li>
               <li>contato@wonnymed.com</li>
-              <li>+852 • +55</li>
+              <li>🇭🇰 Hong Kong • 🇧🇷 Brazil</li>
               <li><a href="#portal" className="underline">{t.nav.portal}</a></li>
             </ul>
           </div>
