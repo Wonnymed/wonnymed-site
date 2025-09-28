@@ -1,7 +1,10 @@
+import "../styles/globals.css";
+
 export const metadata = {
-  title: "Wonnymed — Global Medical Solutions",
-  description: "Clinical supply with compliance and speed. RFQ-based, no public catalog.",
+  title: "Wonnymed",
+  description: "Clinical supply with compliance and speed. HQ Hong Kong.",
 };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="pt">
