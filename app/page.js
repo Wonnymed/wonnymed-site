@@ -871,13 +871,13 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-6">
           <div className="flex items-center gap-3">
             <Image
-        src="/assets/logo/wonnymed-logo.png"
-        alt="Wonnymed"
-        width={148}
-        height={40}
-        priority
-        className="h-8 w-auto"
-      />
+  src="/assets/logo/wonnymed-logo.png"
+  alt="Wonnymed"
+  width={296}   // o dobro de 148
+  height={80}   // o dobro de 40 (mantém proporção)
+  priority
+  className="h-10 md:h-14 lg:h-16 w-auto"   // controla o tamanho visível
+/>
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">
               HQ 🇭🇰 Hong Kong
             </span>
