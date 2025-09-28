@@ -1,6 +1,7 @@
 // === app/page.js (com WhatsApp flutuante) ===
 "use client";
 import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../styles/globals.css";
 
 const LOCALES = [
@@ -16,6 +17,7 @@ const I18N = {
   pt: {
     brand:"Wonnymed",
     nav:{solutions:"Soluções",how:"Como funciona",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
+    nav:{solutions:"Soluções",about:"Quem somos",how:"Como funciona",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
     hero:{
       titleA:"Abastecimento clínico com ",
       titleB:"compliance",
@@ -39,7 +41,32 @@ const I18N = {
       {title:"Suturas",desc:"Absorvíveis e não absorvíveis com compatibilidades e IFUs. Parceiros auditados na 🇨🇳 China."},
       {title:"Drills PPU",desc:"Pay-per-use com AFE neutra, uptime ≥ 98% e swap em 72h."},
       {title:"Dermato Pro (Beauty)",desc:"Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. Fabricantes líderes da 🇰🇷 Coreia."}
+      {title:"Hemostáticos",desc:"Controle de sangramento com documentação completa. Fornecedores auditados na 🇨🇳 China.",icon:"🩺"},
+      {title:"Suturas",desc:"Absorvíveis e não absorvíveis com compatibilidades e IFUs. Parceiros auditados na 🇨🇳 China.",icon:"🧵"},
+      {title:"Drills PPU",desc:"Pay-per-use com AFE neutra, uptime ≥ 98% e swap em 72h.",icon:"🛠️"},
+      {title:"Dermato Pro (Beauty)",desc:"Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. Fabricantes líderes da 🇰🇷 Coreia.",icon:"💠"}
     ],
+    about:{
+      eyebrow:"Institucional",
+      title:"Healthtech de supply clínico com governança global.",
+      subtitle:"Conectamos centros cirúrgicos e dermatológicos a fabricantes auditados na Ásia, entregando previsibilidade logística, compliance ANVISA/UDI e experiência de compra enterprise.",
+      missionTitle:"Objetivo",
+      mission:"Garantir abastecimento crítico com compliance integral, transparência documental e SLA monitorado para engenharia clínica e suprimentos.",
+      valuesTitle:"Nossos diferenciais",
+      values:[
+        {title:"Compliance sem fricção",desc:"Due diligence de ANVISA, UDI, ISO 13485 e IFU/MSDS antes da cotação, com alertas de validade contínuos."},
+        {title:"Rede auditada",desc:"Hubs em Hong Kong e operações no Brasil e Golfo coordenam inspeção, consolidação e entrega final."},
+        {title:"Portal colaborativo",desc:"Workflow para times clínicos, compras e finanças aprovarem cada lote com rastreabilidade completa."}
+      ],
+      statsTitle:"Governança & capilaridade",
+      stats:[
+        {value:"6+",label:"fábricas auditadas em 2023/24"},
+        {value:"24–48h",label:"SLA para comparativo técnico"},
+        {value:"≥95%",label:"Meta OTIF com monitoramento proativo"}
+      ],
+      quote:'"Nosso compromisso é previsibilidade clínica com rastreabilidade ponta a ponta."',
+      quoteBy:"Leadership Wonnymed"
+    },
     askQuote:"Pedir cotação",
     howTitle:"Como funciona",
     howSteps:[
@@ -53,6 +80,7 @@ const I18N = {
     requestChecklist:"Solicitar checklist",
     verifiedCriteriaTitle:"Selo Verified — critérios",
     verifiedCriteria:["Validação documental (ANVISA/UDI/ISO)","IFU em português quando requerido","Prazo de validade mínimo","Histórico de OTIF/serviço"],
+    verifiedNote:"Nenhum dado sensível de paciente é coletado no portal.",
     rfqTitle:"Solicitar cotação (RFQ)",
     rfqSub:"Sem catálogo público. Envie suas necessidades e retornamos com comparativo técnico, docs verificados e proposta em 24–48h.",
     rfqBullets:[
@@ -82,6 +110,7 @@ const I18N = {
   en: {
     brand:"Wonnymed",
     nav:{solutions:"Solutions",how:"How it works",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
+    nav:{solutions:"Solutions",about:"About",how:"How it works",compliance:"Compliance",rfq:"RFQ",portal:"Portal"},
     hero:{
       titleA:"Clinical supply with ", titleB:"compliance", titleC:" and speed.",
       sub:"Hemostatics, sutures, pay-per-use drills and professional derma. Surgical materials from audited partners in 🇨🇳 China, and the Beauty line from leading 🇰🇷 Korea manufacturers. Quotes in 24–48h, ANVISA/UDI docs verified and delivery SLAs.",
@@ -102,7 +131,32 @@ const I18N = {
       {title:"Sutures",desc:"Absorbable & non-absorbable with typical compatibilities and IFUs. Audited partners in 🇨🇳 China."},
       {title:"Drills PPU",desc:"Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap."},
       {title:"Derma Pro (Beauty)",desc:"Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. Leading manufacturers in 🇰🇷 Korea."}
+      {title:"Hemostatics",desc:"Bleeding control with complete documentation. Audited partners in 🇨🇳 China.",icon:"🩺"},
+      {title:"Sutures",desc:"Absorbable & non-absorbable with typical compatibilities and IFUs. Audited partners in 🇨🇳 China.",icon:"🧵"},
+      {title:"Drills PPU",desc:"Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap.",icon:"🛠️"},
+      {title:"Derma Pro (Beauty)",desc:"Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. Leading manufacturers in 🇰🇷 Korea.",icon:"💠"}
     ],
+    about:{
+      eyebrow:"Company",
+      title:"Clinical supply healthtech with global governance.",
+      subtitle:"We connect surgical and dermatology teams to audited manufacturers across Asia, providing logistics predictability, ANVISA/UDI compliance and an enterprise buying experience.",
+      missionTitle:"Objective",
+      mission:"Ensure critical supply with full compliance, transparent documentation and monitored SLAs for clinical engineering and procurement.",
+      valuesTitle:"Our differentiators",
+      values:[
+        {title:"Frictionless compliance",desc:"Document due diligence (ANVISA, UDI, ISO 13485, IFU/MSDS) before quoting plus ongoing shelf-life alerts."},
+        {title:"Audited network",desc:"Hong Kong hub with on-the-ground squads in Brazil and the Gulf to coordinate inspection, consolidation and final delivery."},
+        {title:"Collaborative portal",desc:"Workflow for clinical, sourcing and finance teams to approve each lot with full traceability."}
+      ],
+      statsTitle:"Governance & reach",
+      stats:[
+        {value:"6+",label:"factory audits completed in 2023/24"},
+        {value:"24–48h",label:"standard SLA for technical benchmarking"},
+        {value:"≥95%",label:"OTIF goal with proactive monitoring"}
+      ],
+      quote:'"We exist to give clinical teams predictability with end-to-end traceability."',
+      quoteBy:"Wonnymed Leadership"
+    },
     askQuote:"Request quote",
     howTitle:"How it works",
     howSteps:[
@@ -116,6 +170,7 @@ const I18N = {
     requestChecklist:"Request checklist",
     verifiedCriteriaTitle:"Verified Seal — criteria",
     verifiedCriteria:["Document validation (ANVISA/UDI/ISO)","IFU in local language when required","Minimum shelf-life on inbound","OTIF & service history"],
+    verifiedNote:"No PHI (patient data) is collected inside the portal.",
     rfqTitle:"Request for Quotation (RFQ)",
     rfqSub:"No public catalog. Send your needs and we’ll return a technical comparison, verified docs and a proposal within 24–48h.",
     rfqBullets:["Technical comparison (material, risk class, compatibility, expiry)","Verified: ANVISA, ISO 1345, UDI, IFU/MSDS","SLA 24–48h • OTIF ≥ 95% • Recall & lot tracking"],
@@ -137,6 +192,7 @@ const I18N = {
   es: {
     brand:"Wonnymed",
     nav:{solutions:"Soluciones",how:"Cómo funciona",compliance:"Cumplimiento",rfq:"RFQ",portal:"Portal"},
+    nav:{solutions:"Soluciones",about:"Quiénes somos",how:"Cómo funciona",compliance:"Cumplimiento",rfq:"RFQ",portal:"Portal"},
     hero:{
       titleA:"Abastecimiento clínico con ", titleB:"cumplimiento", titleC:" y velocidad.",
       sub:"Hemostáticos, suturas, taladros pay-per-use y dermato profesional. Material quirúrgico de socios auditados en 🇨🇳 China y línea Beauty de fabricantes líderes en 🇰🇷 Corea. Cotización en 24–48h, documentos ANVISA/UDI verificados y SLA de entrega.",
@@ -157,7 +213,32 @@ const I18N = {
       {title:"Suturas",desc:"Absorbibles y no absorbibles con compatibilidades e IFUs. Socios auditados en 🇨🇳 China."},
       {title:"Taladros PPU",desc:"Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h."},
       {title:"Derma Pro (Beauty)",desc:"Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. Fabricantes líderes en 🇰🇷 Corea."}
+      {title:"Hemostáticos",desc:"Control de sangrado con documentación completa. Socios auditados en 🇨🇳 China.",icon:"🩺"},
+      {title:"Suturas",desc:"Absorbibles y no absorbibles con compatibilidades e IFUs. Socios auditados en 🇨🇳 China.",icon:"🧵"},
+      {title:"Taladros PPU",desc:"Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h.",icon:"🛠️"},
+      {title:"Derma Pro (Beauty)",desc:"Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. Fabricantes líderes en 🇰🇷 Corea.",icon:"💠"}
     ],
+    about:{
+      eyebrow:"Institucional",
+      title:"Healthtech de abastecimiento clínico con gobernanza global.",
+      subtitle:"Conectamos quirófanos y dermatología profesional con fabricantes auditados en Asia, entregando predictibilidad logística, cumplimiento ANVISA/UDI y una experiencia de compras enterprise.",
+      missionTitle:"Objetivo",
+      mission:"Asegurar suministro crítico con cumplimiento integral, documentación transparente y SLA monitoreado para ingeniería clínica y abastecimiento.",
+      valuesTitle:"Nuestros diferenciales",
+      values:[
+        {title:"Cumplimiento sin fricción",desc:"Due diligence de ANVISA, UDI, ISO 13485 e IFU/MSDS antes de cotizar, con alertas de vigencia continuas."},
+        {title:"Red auditada",desc:"Hub en Hong Kong y equipos en Brasil y Golfo coordinan inspección, consolidación y entrega final."},
+        {title:"Portal colaborativo",desc:"Workflow para clínicas, compras y finanzas aprobando cada lote con trazabilidad completa."}
+      ],
+      statsTitle:"Gobernanza & alcance",
+      stats:[
+        {value:"6+",label:"fábricas auditadas en 2023/24"},
+        {value:"24–48h",label:"SLA estándar para comparativo técnico"},
+        {value:"≥95%",label:"Meta OTIF con monitoreo proactivo"}
+      ],
+      quote:'"Entregamos previsibilidad clínica con trazabilidad de punta a punta."',
+      quoteBy:"Leadership Wonnymed"
+    },
     askQuote:"Pedir cotización",
     howTitle:"Cómo funciona",
     howSteps:[
@@ -171,6 +252,7 @@ const I18N = {
     requestChecklist:"Solicitar checklist",
     verifiedCriteriaTitle:"Sello Verificado — criterios",
     verifiedCriteria:["Validación documental (ANVISA/UDI/ISO)","IFU en idioma local cuando se requiera","Vida útil mínima de ingreso","Historial de OTIF/servicio"],
+    verifiedNote:"No se recopila información sensible de pacientes en el portal.",
     rfqTitle:"Solicitud de Cotización (RFQ)",
     rfqSub:"Sin catálogo público. Envíe sus necesidades y devolveremos comparación técnica, documentos verificados y propuesta en 24–48h.",
     rfqBullets:["Comparación técnica (material, clase de riesgo, compatibilidad, caducidad)","ANVISA • ISO 13485 • UDI • IFU/MSDS","SLA 24–48h • OTIF ≥ 95% • Recall y trazabilidad"],
@@ -192,6 +274,7 @@ const I18N = {
   zh: {
     brand:"Wonnymed",
     nav:{solutions:"解决方案",how:"流程",compliance:"合规",rfq:"询价",portal:"门户"},
+    nav:{solutions:"解决方案",about:"关于我们",how:"流程",compliance:"合规",rfq:"询价",portal:"门户"},
     hero:{
       titleA:"合规与", titleB:"速度", titleC:"的临床供应。",
       sub:"止血材料、缝合线、按次付费钻机与专业皮肤科。外科类来自经审核的 🇨🇳 中国合作伙伴，美业线来自 🇰🇷 韩国领先制造商。24–48 小时报价，ANVISA/UDI 文件核验，交付有 SLA。",
@@ -212,7 +295,32 @@ const I18N = {
       {title:"缝合线",desc:"可吸收/不可吸收与兼容信息。经审核的 🇨🇳 中国合作伙伴。"},
       {title:"按次付费钻机",desc:"中性 AFE，正常运行 ≥98%，72 小时更换。"},
       {title:"专业皮肤科（美业）",desc:"高端医美供给 — 重点交付 🇧🇷 巴西、🇦🇪 阿联酋、🇸🇦 沙特、🇰🇼 科威特。来自 🇰🇷 韩国领先制造商。"}
+      {title:"止血材料",desc:"完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。",icon:"🩺"},
+      {title:"缝合线",desc:"可吸收/不可吸收与兼容信息。经审核的 🇨🇳 中国合作伙伴。",icon:"🧵"},
+      {title:"按次付费钻机",desc:"中性 AFE，正常运行 ≥98%，72 小时更换。",icon:"🛠️"},
+      {title:"专业皮肤科（美业）",desc:"高端医美供给 — 重点交付 🇧🇷 巴西、🇦🇪 阿联酋、🇸🇦 沙特、🇰🇼 科威特。来自 🇰🇷 韩国领先制造商。",icon:"💠"}
     ],
+    about:{
+      eyebrow:"公司",
+      title:"具备全球治理的临床供应健康科技公司。",
+      subtitle:"我们连接手术与皮肤科团队与经审核的亚洲制造商，提供物流可预测性、ANVISA/UDI 合规以及企业级采购体验。",
+      missionTitle:"目标",
+      mission:"为临床工程与采购团队提供关键物资，确保全程合规、透明文件与受监控的 SLA。",
+      valuesTitle:"我们的优势",
+      values:[
+        {title:"无摩擦合规",desc:"报价前完成 ANVISA、UDI、ISO 13485、IFU/MSDS 审核，并持续监测有效期。"},
+        {title:"审核网络",desc:"香港枢纽以及在巴西与海湾地区的团队协同验厂、集运与末端交付。"},
+        {title:"协同门户",desc:"让临床、采购、财务团队共同审批每个批次，实现全程追踪。"}
+      ],
+      statsTitle:"治理与覆盖",
+      stats:[
+        {value:"6+",label:"2023/24 年完成的工厂审核"},
+        {value:"24–48h",label:"技术对比标准 SLA"},
+        {value:"≥95%",label:"OTIF 目标与主动监控"}
+      ],
+      quote:'"我们的使命是以端到端追踪为临床团队带来可预期的供应。"',
+      quoteBy:"Wonnymed 团队"
+    },
     askQuote:"提交询价",
     howTitle:"流程",
     howSteps:[
@@ -226,6 +334,7 @@ const I18N = {
     requestChecklist:"索取清单",
     verifiedCriteriaTitle:"验证标识 — 标准",
     verifiedCriteria:["文件核验（ANVISA/UDI/ISO）","按需提供本地语言 IFU","入库最短效期","OTIF 与服务记录"],
+    verifiedNote:"门户不会收集任何患者隐私数据。",
     rfqTitle:"询价 (RFQ)",
     rfqSub:"无公开目录。提交需求，我们将在 24–48 小时内给出技术对比与报价。",
     rfqBullets:["技术对比（材料、风险等级、兼容性、效期）","ANVISA • ISO 13485 • UDI • IFU/MSDS","报价 SLA 24–48h • OTIF ≥ 95% • 召回与批次追踪"],
@@ -246,6 +355,7 @@ const I18N = {
   ar: {
     brand:"وونيميد",
     nav:{solutions:"الحلول",how:"كيف نعمل",compliance:"الامتثال",rfq:"طلب تسعير",portal:"البوابة"},
+    nav:{solutions:"الحلول",about:"من نحن",how:"كيف نعمل",compliance:"الامتثال",rfq:"طلب تسعير",portal:"البوابة"},
     hero:{
       titleA:"توريد سريري مع ", titleB:"امتثال", titleC:" وسرعة.",
       sub:"مواد إرقاء وخيوط ومثاقب بالدفع وعلاجات جلدية مهنية. المواد الجراحية من شركاء مُدققين في 🇨🇳 الصين وخط التجميل من مُصنّعين رائدين في 🇰🇷 كوريا. عرض خلال 24–48 ساعة ووثائق ANVISA/UDI متحققة وSLA للتسليم.",
@@ -266,7 +376,32 @@ const I18N = {
       {title:"خيوط جراحية",desc:"قابلة وغير قابلة للامتصاص مع IFU وتوافقات. شركاء مُدققون في 🇨🇳 الصين."},
       {title:"مثاقب بالدفع",desc:"AFE محايد، جاهزية ≥98% واستبدال 72 ساعة."},
       {title:"جلدية مهنية (تجميل)",desc:"خط علاجات مميز — تركيز التسليم 🇧🇷 البرازيل و🇦🇪 الإمارات و🇸🇦 السعودية و🇰🇼 الكويت. مُصنّعون رائدون في 🇰🇷 كوريا."}
+      {title:"مواد إرقاء",desc:"توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين.",icon:"🩺"},
+      {title:"خيوط جراحية",desc:"قابلة وغير قابلة للامتصاص مع IFU وتوافقات. شركاء مُدققون في 🇨🇳 الصين.",icon:"🧵"},
+      {title:"مثاقب بالدفع",desc:"AFE محايد، جاهزية ≥98% واستبدال 72 ساعة.",icon:"🛠️"},
+      {title:"جلدية مهنية (تجميل)",desc:"خط علاجات مميز — تركيز التسليم 🇧🇷 البرازيل و🇦🇪 الإمارات و🇸🇦 السعودية و🇰🇼 الكويت. مُصنّعون رائدون في 🇰🇷 كوريا.",icon:"💠"}
     ],
+    about:{
+      eyebrow:"المؤسسة",
+      title:"شركة تكنولوجيا صحية لتوريد المواد السريرية بحوكمة عالمية.",
+      subtitle:"نربط غرف العمليات وفرق الجلدية المهنية بمصنّعين مدققين في آسيا مع توفير توقع لوجستي وامتثال ANVISA/UDI وتجربة شراء مؤسسية.",
+      missionTitle:"الهدف",
+      mission:"ضمان توريد حرج مع امتثال كامل وشفافية وثائقية وSLA مراقب لفرق الهندسة السريرية والمشتريات.",
+      valuesTitle:"ما يميزنا",
+      values:[
+        {title:"امتثال بلا احتكاك",desc:"تدقيق وثائقي (ANVISA، UDI، ISO 13485، IFU/MSDS) قبل التسعير مع تنبيهات صلاحية مستمرة."},
+        {title:"شبكة مدققة",desc:"مركز هونغ كونغ وفرق ميدانية في البرازيل والخليج لتنسيق التفتيش والتجميع والتسليم النهائي."},
+        {title:"بوابة تعاونية",desc:"سير عمل يسمح للعيادات والمشتريات والمالية باعتماد كل دفعة مع تتبع كامل."}
+      ],
+      statsTitle:"الحوكمة والانتشار",
+      stats:[
+        {value:"6+",label:"تدقيق مصانع منجز في 2023/24"},
+        {value:"24–48h",label:"SLA قياسي للمقارنة التقنية"},
+        {value:"≥95%",label:"هدف OTIF مع مراقبة استباقية"}
+      ],
+      quote:'"مهمتنا توفير يقين تشغيلي مع تتبع من طرف لطرف."',
+      quoteBy:"فريق وونيميد"
+    },
     askQuote:"اطلب عرض سعر",
     howTitle:"كيف نعمل",
     howSteps:[{t:"الطلب",d:"أرسل RFQ بالمواصفات والكميات."},{t:"التحقق",d:"نراجع التوافق والوثائق والصلاحية."},{t:"التسليم",d:"عرض خلال 24–48 ساعة وتوريد OTIF ≥ 95%."}],
@@ -276,6 +411,7 @@ const I18N = {
     requestChecklist:"اطلب قائمة التحقق",
     verifiedCriteriaTitle:"ختم التحقق — المعايير",
     verifiedCriteria:["التحقق من الوثائق (ANVISA/UDI/ISO)","IFU باللغة المحلية عند الطلب","حد أدنى للصلاحية","سجل OTIF والخدمة"],
+    verifiedNote:"لا يتم جمع أي بيانات مرضى في البوابة.",
     rfqTitle:"طلب تسعير (RFQ)",
     rfqSub:"لا كتالوج عامًا. أرسل احتياجاتك وسنعود بمقارنة تقنية ووثائق متحققة وعرض خلال 24–48 ساعة.",
     rfqBullets:["مقارنة تقنية (مادة، فئة خطورة، توافق، صلاحية)","ANVISA • ISO 13485 • UDI • IFU/MSDS","SLA 24–48h • OTIF ≥ 95%"],
@@ -294,6 +430,7 @@ const I18N = {
   ko: {
     brand:"원니메드",
     nav:{solutions:"솔루션",how:"진행 방식",compliance:"컴플라이언스",rfq:"견적 요청",portal:"포털"},
+    nav:{solutions:"솔루션",about:"회사 소개",how:"진행 방식",compliance:"컴플라이언스",rfq:"견적 요청",portal:"포털"},
     hero:{
       titleA:"컴플라이언스와 ", titleB:"속도", titleC:"를 갖춘 임상 공급.",
       sub:"지혈재, 봉합사, 사용량 기반 드릴, 프로 더마. 외과 재료는 🇨🇳 중국의 감사 완료 파트너에서, 뷰티 라인은 🇰🇷 한국의 선도 제조사에서 소싱합니다. 24–48시간 견적, ANVISA/UDI 문서 검증, 납품 SLA.",
@@ -314,7 +451,32 @@ const I18N = {
       {title:"봉합사",desc:"흡수성/비흡수성 및 호환 정보. 🇨🇳 중국 감사 완료 파트너."},
       {title:"드릴 PPU",desc:"중립 AFE, 가동률 ≥98%, 72시간 스왑."},
       {title:"더마 프로 (뷰티)",desc:"프리미엄 임상 미용 — 배송 포커스 🇧🇷 브라질, 🇦🇪 UAE, 🇸🇦 KSA, 🇰🇼 쿠웨이트. 🇰🇷 한국 선도 제조사."}
+      {title:"지혈재",desc:"완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너.",icon:"🩺"},
+      {title:"봉합사",desc:"흡수성/비흡수성 및 호환 정보. 🇨🇳 중국 감사 완료 파트너.",icon:"🧵"},
+      {title:"드릴 PPU",desc:"중립 AFE, 가동률 ≥98%, 72시간 스왑.",icon:"🛠️"},
+      {title:"더마 프로 (뷰티)",desc:"프리미엄 임상 미용 — 배송 포커스 🇧🇷 브라질, 🇦🇪 UAE, 🇸🇦 KSA, 🇰🇼 쿠웨이트. 🇰🇷 한국 선도 제조사.",icon:"💠"}
     ],
+    about:{
+      eyebrow:"회사",
+      title:"글로벌 거버넌스를 갖춘 임상 공급 헬스테크.",
+      subtitle:"아시아의 감사 완료 제조사와 수술·피부과 팀을 연결해 물류 예측 가능성, ANVISA/UDI 컴플라이언스, 엔터프라이즈급 구매 경험을 제공합니다.",
+      missionTitle:"목표",
+      mission:"임상공학과 조달팀을 위해 전 과정 컴플라이언스와 투명한 문서, 모니터링되는 SLA로 필수 자재를 보장합니다.",
+      valuesTitle:"차별화 요소",
+      values:[
+        {title:"마찰 없는 컴플라이언스",desc:"견적 전 ANVISA, UDI, ISO 13485, IFU/MSDS 사전 검토와 유효기간 모니터링."},
+        {title:"감사된 네트워크",desc:"홍콩 허브와 브라질·걸프 지역 현지 팀이 검사, 집하, 라스트마일을 조율."},
+        {title:"협업 포털",desc:"임상, 구매, 재무팀이 각 로트를 승인하며 전 과정 추적."}
+      ],
+      statsTitle:"거버넌스 & 커버리지",
+      stats:[
+        {value:"6+",label:"2023/24년에 완료한 공장 감사"},
+        {value:"24–48h",label:"기술 비교 표준 SLA"},
+        {value:"≥95%",label:"능동 모니터링이 포함된 OTIF 목표"}
+      ],
+      quote:'"엔드투엔드 추적으로 임상 팀의 예측 가능성을 높이는 것이 우리의 사명입니다."',
+      quoteBy:"Wonnymed 리더십"
+    },
     askQuote:"견적 요청",
     howTitle:"진행 방식",
     howSteps:[{t:"요청",d:"사양/수량/기한 포함 RFQ 제출."},{t:"검증",d:"문서/호환/유효기간 확인."},{t:"공급",d:"24–48시간 견적, OTIF ≥95%."}],
@@ -324,6 +486,7 @@ const I18N = {
     requestChecklist:"체크리스트 요청",
     verifiedCriteriaTitle:"Verified 마크 — 기준",
     verifiedCriteria:["문서 검증(ANVISA/UDI/ISO)","현지어 IFU","입고 최소 유효기간","OTIF/서비스 이력"],
+    verifiedNote:"포털에서는 어떠한 환자 데이터도 수집하지 않습니다.",
     rfqTitle:"견적 요청 (RFQ)",
     rfqSub:"공개 카탈로그 없음. 요청을 보내주시면 24–48시간 내 비교와 제안서를 드립니다.",
     rfqBullets:["기술 비교","ANVISA • ISO 13485 • UDI • IFU/MSDS","SLA 24–48h • OTIF ≥95%"],
@@ -349,17 +512,7 @@ function BrandStyles(){
         --wm-primary-800: #1b3d4f;
         --wm-accent-50: #eef7f7;
         --wm-accent-200: #c7e6e6;
-        --wm-accent-300: #a0d2d2;
-      }
-      html, body { font-family: Inter, 'Noto Sans SC','Noto Sans Arabic','Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-      [dir='ar'] body, [dir='ar'] { font-family: 'Noto Sans Arabic', Inter, system-ui; }
-    `}</style>
-  );
-}
-
-// Botão flutuante do WhatsApp (ícone)
-function WhatsAppButton() {
-  return (
+@@ -363,162 +495,230 @@ function WhatsAppButton() {
     <a
       href="https://wa.me/15615966097"
       target="_blank"
@@ -385,6 +538,28 @@ export default function Page(){
     linha: t.form?.lines?.[0] ?? "", especificacoes: "", quantidade: "", frequencia: "", prazo: "", entrega: "", regulatorio: "",
   });
 
+  useEffect(()=>{
+    setLoading(false);
+    setSent(false);
+    setForm(prev=>({
+      ...prev,
+      tipoConta: t.form?.types?.[0] ?? "",
+      linha: t.form?.lines?.[0] ?? "",
+    }));
+  },[lang]);
+
+  const fallback = I18N.en;
+  const nav = { ...fallback.nav, ...t.nav };
+  const about = { ...fallback.about, ...(t.about ?? {}) };
+  const complianceNote = t.verifiedNote ?? fallback.verifiedNote;
+  const navLinks = [
+    { href: "#about", label: nav.about },
+    { href: "#linhas", label: nav.solutions },
+    { href: "#como", label: nav.how },
+    { href: "#compliance", label: nav.compliance },
+  ];
+  const portalHref = "mailto:contato@wonnymed.com?subject=Portal%20Wonnymed";
+
   function handleChange(e){ const {name,value}=e.target; setForm(f=>({...f,[name]:value})); }
   function validate(){ const req=["nome","empresa","email","linha","especificacoes"]; return req.every(k=>String(form[k]||"").trim().length>1); }
   function handleSubmit(e){ e.preventDefault(); if(!validate()) { alert("Please fill required fields / Preencha os campos obrigatórios."); return; }
@@ -395,12 +570,24 @@ export default function Page(){
       <BrandStyles/>
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-6">
           <div className="flex items-center gap-3">
             <img src="/assets/wonnymed-logo.png" alt="Wonnymed" className="h-8 w-auto"/>
             <span className="font-semibold text-[color:var(--wm-primary-800)] tracking-tight">{t.brand}</span>
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">HQ 🇭🇰 Hong Kong</span>
           </div>
           <div className="flex items-center gap-2">
+          <nav className="hidden md:flex flex-1 items-center justify-center gap-6 text-sm font-medium text-neutral-600">
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href} className="transition-colors hover:text-neutral-900">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2 ml-auto">
+            <a href={portalHref} className="hidden md:inline-flex px-3 py-2 rounded-xl border border-neutral-300 text-sm font-medium hover:border-[color:var(--wm-primary)] hover:text-[color:var(--wm-primary-700)]">
+              {nav.portal}
+            </a>
             <select value={lang} onChange={e=>setLang(e.target.value)} className="px-3 py-2 rounded-xl border border-neutral-300 bg-white text-sm">
               {LOCALES.map(l=> <option key={l.code} value={l.code}>{l.label}</option>)}
             </select>
@@ -445,6 +632,40 @@ export default function Page(){
         </div>
       </section>
 
+      <section id="about" className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-6xl px-4 grid gap-12 md:grid-cols-[1.2fr_0.8fr] items-start">
+          <div>
+            <SectionHeading eyebrow={about.eyebrow} title={about.title} subtitle={about.subtitle} />
+            <div className="mt-8 rounded-3xl border border-neutral-200 bg-gradient-to-br from-white to-[color:var(--wm-accent-50)] p-8 shadow-sm">
+              <h3 className="text-lg font-semibold text-[color:var(--wm-primary-800)]">{about.missionTitle}</h3>
+              <p className="mt-3 text-neutral-700 leading-relaxed">{about.mission}</p>
+            </div>
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold">{about.valuesTitle}</h3>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                {(about.values ?? []).map(value => (
+                  <ValueCard key={value.title} title={value.title} description={value.desc} />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-4">
+              {(about.stats ?? []).map(stat => (
+                <div key={stat.label} className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+                  <div className="text-3xl font-bold text-[color:var(--wm-primary-800)]">{stat.value}</div>
+                  <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+            <figure className="rounded-3xl border border-neutral-900/10 bg-neutral-900 p-6 text-white shadow-lg">
+              <blockquote className="text-lg leading-relaxed">{about.quote}</blockquote>
+              <figcaption className="mt-4 text-sm uppercase tracking-wide text-neutral-400">{about.quoteBy}</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <section id="linhas" className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex items-end justify-between">
@@ -454,8 +675,12 @@ export default function Page(){
           <div className="mt-8 grid md:grid-cols-2 gap-6">
             {t.lines.map((it,i)=>(
               <div key={i} className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50">
+              <div key={i} className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50 shadow-sm">
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-xl bg-[color:var(--wm-primary)]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--wm-primary)] text-xl text-white">
+                    <span>{it.icon ?? "•"}</span>
+                  </div>
                   <h3 className="text-xl font-semibold">{it.title}</h3>
                 </div>
                 <p className="mt-3 text-neutral-700">{it.desc}</p>
@@ -493,10 +718,12 @@ export default function Page(){
           </div>
           <div className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50">
             <h3 className="text-lg font-semibold">Verified — criteria</h3>
+            <h3 className="text-lg font-semibold">{t.verifiedCriteriaTitle}</h3>
             <ol className="mt-3 list-decimal list-inside space-y-1 text-neutral-700">
               {t.verifiedCriteria.map(x=> <li key={x}>{x}</li>)}
             </ol>
             <p className="mt-4 text-sm text-neutral-600">No PHI (patient data) collected in the portal.</p>
+            <p className="mt-4 text-sm text-neutral-600">{complianceNote}</p>
           </div>
         </div>
       </section>
@@ -522,52 +749,7 @@ export default function Page(){
             <p className="mt-3 text-neutral-600">{t.rfqSub}</p>
             <ul className="mt-6 space-y-3 text-sm text-neutral-700">
               {t.rfqBullets.map(x=> <li key={x}>• {x}</li>)}
-            </ul>
-            <div className="mt-8 p-4 rounded-2xl bg-neutral-100 border border-neutral-200">
-              <p className="text-sm text-neutral-700">{t.rfqHint}</p>
-            </div>
-          </div>
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-6">
-            {sent ? (
-              <div className="text-center py-10">
-                <div className="text-2xl">✅</div>
-                <h3 className="mt-2 text-xl font-semibold">{t.form.okTitle}</h3>
-                <p className="mt-2 text-neutral-600">{t.form.okMsg}</p>
-                <a href="#top" className="inline-block mt-6 px-5 py-3 rounded-xl bg-[color:var(--wm-primary)] text-white font-medium">{t.form.backTop}</a>
-              </div>
-            ) : (
-              <>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Field label={t.form.name} name="nome" value={form.nome} onChange={handleChange} />
-                  <Field label={t.form.company} name="empresa" value={form.empresa} onChange={handleChange} />
-                  <Select label={t.form.accountType} name="tipoConta" value={form.tipoConta} onChange={handleChange} opts={t.form.types} />
-                  <Field label={t.form.email} name="email" type="email" value={form.email} onChange={handleChange} />
-                  <Field label={t.form.phone} name="telefone" value={form.telefone} onChange={handleChange} />
-                  <Select label={t.form.line} name="linha" value={form.linha} onChange={handleChange} opts={t.form.lines} />
-                </div>
-                <Area label={t.form.specs} name="especificacoes" value={form.especificacoes} onChange={handleChange} placeholder={t.form.specsPH} />
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Field label={t.form.qty} name="quantidade" value={form.quantidade} onChange={handleChange} />
-                  <Field label={t.form.freq} name="frequencia" value={form.frequencia} onChange={handleChange} />
-                  <Field label={t.form.deadline} name="prazo" value={form.prazo} onChange={handleChange} />
-                  <Field label={t.form.delivery} name="entrega" value={form.entrega} onChange={handleChange} />
-                </div>
-                <Area label={t.form.reg} name="regulatorio" value={form.regulatorio} onChange={handleChange} placeholder={t.form.regPH} />
-                <button disabled={loading} type="submit" className="mt-4 w-full px-5 py-3 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold hover:bg-[color:var(--wm-primary-700)]">
-                  {loading ? "..." : t.form.submit}
-                </button>
-                <p className="mt-3 text-xs text-neutral-500">{t.form.legal}</p>
-              </>
-            )}
-          </form>
-        </div>
-      </section>
-
-      {/* Botão flutuante do WhatsApp */}
-      <WhatsAppButton />
-
-      <div className="fixed bottom-4 left-0 right-0 z-30">
-        <div className="mx-auto max-w-3xl px-4">
+@@ -571,75 +771,102 @@ export default function Page(){
           <div className="flex items-center justify-between gap-3 rounded-2xl shadow-lg border border-[color:var(--wm-accent-200)] bg-white px-4 py-3">
             <p className="text-sm text-neutral-700 hidden md:block">{t.sticky}</p>
             <a href="#rfq" className="px-5 py-2 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold hover:bg-[color:var(--wm-primary-700)]">{t.hero.ctaPrimary}</a>
@@ -593,6 +775,7 @@ export default function Page(){
           <div>
             <h4 className="font-semibold">{t.footer.institutional || "Company"}</h4>
             <ul className="mt-3 space-y-2 text-neutral-600">
+              <li><a href="#about" className="hover:text-neutral-900">{nav.about}</a></li>
               <li><a href="#compliance" className="hover:text-neutral-900">{t.nav.compliance}</a></li>
               <li><a href="#como" className="hover:text-neutral-900">{t.nav.how}</a></li>
               <li><a href="#rfq" className="hover:text-neutral-900">{t.nav.rfq}</a></li>
@@ -641,5 +824,31 @@ function Area({label, name, value, onChange, placeholder}){
       <textarea className="mt-1 min-h-[110px] w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-neutral-200"
         name={name} value={value} onChange={onChange} placeholder={placeholder}/>
     </label>
+  );
+}
+
+function SectionHeading({eyebrow, title, subtitle}){
+  return (
+    <div>
+      {eyebrow ? (
+        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--wm-primary-700)]">{eyebrow}</span>
+      ) : null}
+      <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">{title}</h2>
+      {subtitle ? (
+        <p className="mt-4 text-lg leading-relaxed text-neutral-600">{subtitle}</p>
+      ) : null}
+    </div>
+  );
+}
+
+function ValueCard({title, description}){
+  if(!title && !description){
+    return null;
+  }
+  return (
+    <div className="rounded-2xl border border-neutral-200 bg-white/80 p-5 shadow-sm">
+      {title ? <h4 className="text-base font-semibold text-neutral-900">{title}</h4> : null}
+      {description ? <p className="mt-2 text-sm leading-relaxed text-neutral-600">{description}</p> : null}
+    </div>
   );
 }
