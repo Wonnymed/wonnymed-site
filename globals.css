@@ -1,4 +1,0 @@
-html, body { min-height: 100%; }
-git rm caminho/do/arquivo
-git commit -m "Remove arquivo indesejado"
-git push
