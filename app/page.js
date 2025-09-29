@@ -203,7 +203,12 @@ const I18N = {
     ],
     sticky: "Cotação em 24–48h com comparativo técnico e documentação ANVISA/UDI.",
     footer: {
-      blurb: "Supply clínico com compliance e velocidade. HQ 🇭🇰 Hong Kong.",
+      blurb: (
+        <>
+          Supply clínico com compliance e velocidade. {" "}
+          <span className="whitespace-nowrap">HQ 🇭🇰 Hong Kong.</span>
+        </>
+      ),
       solutions: "Soluções",
       institutional: "Institucional",
       contact: "Contato",
@@ -362,7 +367,12 @@ const I18N = {
     ],
     sticky: "Quotes in 24–48h with technical comparison and verified ANVISA/UDI docs.",
     footer: {
-      blurb: "Clinical supply with compliance and speed. HQ 🇭🇰 Hong Kong.",
+      blurb: (
+        <>
+          Clinical supply with compliance and speed. {" "}
+          <span className="whitespace-nowrap">HQ 🇭🇰 Hong Kong.</span>
+        </>
+      ),
       solutions: "Solutions",
       institutional: "Company",
       contact: "Contact",
@@ -523,7 +533,12 @@ const I18N = {
     ],
     sticky: "Cotizaciones en 24–48h con comparación técnica y documentos verificados.",
     footer: {
-      blurb: "Suministro clínico con cumplimiento y rapidez. HQ 🇭🇰 Hong Kong.",
+      blurb: (
+        <>
+          Suministro clínico con cumplimiento y rapidez. {" "}
+          <span className="whitespace-nowrap">HQ 🇭🇰 Hong Kong.</span>
+        </>
+      ),
       solutions: "Soluciones",
       institutional: "Compañía",
       contact: "Contacto",
@@ -640,7 +655,17 @@ const I18N = {
       { t: "PPU 正常运行 99%", d: "区域网络 — 按次付费钻机，72 小时更换。" },
     ],
     sticky: "24–48 小时报价，附技术对比与核验文件。",
-    footer: { blurb: "合规高效的临床供应。总部 🇭🇰 香港。", solutions: "解决方案", institutional: "公司", contact: "联系", rights: (y) => `© ${y} Wonnymed. 保留所有权利。` },
+    footer: {
+      blurb: (
+        <>
+          合规高效的临床供应。<span className="whitespace-nowrap">总部 🇭🇰 香港。</span>
+        </>
+      ),
+      solutions: "解决方案",
+      institutional: "公司",
+      contact: "联系",
+      rights: (y) => `© ${y} Wonnymed. 保留所有权利。`,
+    },
   },
 
   ar: {
@@ -753,7 +778,12 @@ const I18N = {
     ],
     sticky: "عرض خلال 24–48 ساعة مع مقارنة تقنية ووثائق متحققة.",
     footer: {
-      blurb: "توريد سريري متوافق وسريع. المقر 🇭🇰 هونغ كونغ.",
+      blurb: (
+        <>
+          توريد سريري متوافق وسريع. {" "}
+          <span className="whitespace-nowrap">المقر 🇭🇰 هونغ كونغ.</span>
+        </>
+      ),
       solutions: "الحلول",
       institutional: "عن الشركة",
       contact: "اتصال",
@@ -869,7 +899,17 @@ const I18N = {
       { t: "PPU 가동률 99%", d: "지역 네트워크 — 72시간 스왑." },
     ],
     sticky: "24–48시간 내 견적 및 검증 문서.",
-    footer: { blurb: "홍콩 본사 🇭🇰에서 운영하는 임상 공급.", solutions: "솔루션", institutional: "회사", contact: "연락처", rights: (y) => `© ${y} 원니메드. 모든 권리 보유.` },
+    footer: {
+      blurb: (
+        <>
+          홍콩 본사 <span className="whitespace-nowrap">🇭🇰에서 운영하는 임상 공급.</span>
+        </>
+      ),
+      solutions: "솔루션",
+      institutional: "회사",
+      contact: "연락처",
+      rights: (y) => `© ${y} 원니메드. 모든 권리 보유.`,
+    },
   },
 };
 
@@ -1509,7 +1549,7 @@ function LocalizedHome({ lang, onLangChange }) {
               </span>
             </div>
             <span
-              className="hidden rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-2.5 py-0.5 text-xs text-[color:var(--wm-primary-700)] sm:inline-flex"
+              className="hidden whitespace-nowrap rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-2.5 py-0.5 text-xs text-[color:var(--wm-primary-700)] sm:inline-flex"
               style={{ marginInlineStart: "0.5rem" }}
             >
               HQ 🇭🇰 Hong Kong
