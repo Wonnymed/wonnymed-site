@@ -1,6 +1,6 @@
 // === app/page.js (fixed, production-ready) ===
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
 
@@ -103,7 +103,7 @@ const I18N = {
       {
         title: "Dermato Pro (Beauty)",
         desc:
-          "Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. 🇰🇷 Coreia (Beauty): fabricantes líderes com melhor qualidade do mercado.",
+          "Linha premium para clínicas e hospitais — foco de entrega nos países abaixo. 🇰🇷 Coreia (Beauty): fabricantes líderes com melhor qualidade do mercado.",
         icon: "💠",
         badge: {
           text: "Coreia (Beauty)",
@@ -111,6 +111,13 @@ const I18N = {
           ariaLabel: "Bandeira da Coreia do Sul",
           tone: "beauty",
         },
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "Brasil" },
+          { code: "ae", flag: "🇦🇪", label: "EAU" },
+          { code: "sa", flag: "🇸🇦", label: "KSA" },
+          { code: "kw", flag: "🇰🇼", label: "Kuwait" },
+        ],
       },
     ],
     about: {
@@ -262,7 +269,7 @@ const I18N = {
       { title: "Drills PPU", desc: "Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap.", icon: "🛠️" },
       {
         title: "Derma Pro (Beauty)",
-        desc: "Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. 🇰🇷 Korea (Beauty): leading manufacturers with benchmark premium quality.",
+        desc: "Premium clinical aesthetics — delivery focus across the markets below. 🇰🇷 Korea (Beauty): leading manufacturers with benchmark premium quality.",
         icon: "💠",
         badge: {
           text: "Korea (Beauty)",
@@ -270,6 +277,13 @@ const I18N = {
           ariaLabel: "South Korea flag",
           tone: "beauty",
         },
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "Brazil" },
+          { code: "ae", flag: "🇦🇪", label: "UAE" },
+          { code: "sa", flag: "🇸🇦", label: "KSA" },
+          { code: "kw", flag: "🇰🇼", label: "Kuwait" },
+        ],
       },
     ],
     about: {
@@ -417,7 +431,7 @@ const I18N = {
       { title: "Taladros PPU", desc: "Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h.", icon: "🛠️" },
       {
         title: "Derma Pro (Beauty)",
-        desc: "Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. 🇰🇷 Corea (Beauty): fabricantes líderes con la calidad premium del mercado.",
+        desc: "Estética clínica premium — foco de entrega en los países abajo. 🇰🇷 Corea (Beauty): fabricantes líderes con la calidad premium del mercado.",
         icon: "💠",
         badge: {
           text: "Corea (Beauty)",
@@ -425,6 +439,13 @@ const I18N = {
           ariaLabel: "Bandera de Corea del Sur",
           tone: "beauty",
         },
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "Brasil" },
+          { code: "ae", flag: "🇦🇪", label: "EAU" },
+          { code: "sa", flag: "🇸🇦", label: "KSA" },
+          { code: "kw", flag: "🇰🇼", label: "Kuwait" },
+        ],
       },
     ],
     about: {
@@ -534,7 +555,18 @@ const I18N = {
       { title: "止血材料", desc: "完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。", icon: "🩺" },
       { title: "缝合线", desc: "可吸收/不可吸收与兼容信息。经审核的 🇨🇳 中国合作伙伴。", icon: "🧵" },
       { title: "按次付费钻机", desc: "中性 AFE，正常运行 ≥98%，72 小时更换。", icon: "🛠️" },
-      { title: "专业皮肤科（美业）", desc: "高端医美供给 — 重点交付 🇧🇷 巴西、🇦🇪 阿联酋、🇸🇦 沙特、🇰🇼 科威特。来自 🇰🇷 韩国领先制造商。", icon: "💠" },
+      {
+        title: "专业皮肤科（美业）",
+        desc: "高端医美供给 — 重点交付下列市场。来自 🇰🇷 韩国领先制造商。",
+        icon: "💠",
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "巴西" },
+          { code: "ae", flag: "🇦🇪", label: "阿联酋" },
+          { code: "sa", flag: "🇸🇦", label: "沙特" },
+          { code: "kw", flag: "🇰🇼", label: "科威特" },
+        ],
+      },
     ],
     about: {
       eyebrow: "公司",
@@ -636,7 +668,18 @@ const I18N = {
       { title: "مواد إرقاء", desc: "توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين.", icon: "🩺" },
       { title: "خيوط جراحية", desc: "قابلة وغير قابلة للامتصاص مع IFU وتوافقات. شركاء مُدققون في 🇨🇳 الصين.", icon: "🧵" },
       { title: "مثاقب بالدفع", desc: "AFE محايد، جاهزية ≥98% واستبدال 72 ساعة.", icon: "🛠️" },
-      { title: "جلدية مهنية (تجميل)", desc: "خط علاجات مميز — تركيز التسليم 🇧🇷 البرازيل و🇦🇪 الإمارات و🇸🇦 السعودية و🇰🇼 الكويت. مُصنّعون رائدون في 🇰🇷 كوريا.", icon: "💠" },
+      {
+        title: "جلدية مهنية (تجميل)",
+        desc: "خط علاجات مميز — التركيز على التسليم في الدول أدناه. مُصنّعون رائدون في 🇰🇷 كوريا.",
+        icon: "💠",
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "البرازيل" },
+          { code: "ae", flag: "🇦🇪", label: "الإمارات" },
+          { code: "sa", flag: "🇸🇦", label: "السعودية" },
+          { code: "kw", flag: "🇰🇼", label: "الكويت" },
+        ],
+      },
     ],
     about: {
       eyebrow: "المؤسسة",
@@ -744,7 +787,18 @@ const I18N = {
       { title: "지혈재", desc: "완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너.", icon: "🩺" },
       { title: "봉합사", desc: "흡수성/비흡수성 및 호환 정보. 🇨🇳 중국 감사 완료 파트너.", icon: "🧵" },
       { title: "드릴 PPU", desc: "중립 AFE, 가동률 ≥98%, 72시간 스왑.", icon: "🛠️" },
-      { title: "더마 프로 (뷰티)", desc: "프리미엄 임상 미용 — 배송 포커스 🇧🇷 브라질, 🇦🇪 UAE, 🇸🇦 KSA, 🇰🇼 쿠웨이트. 🇰🇷 한국 선도 제조사.", icon: "💠" },
+      {
+        title: "더마 프로 (뷰티)",
+        desc: "프리미엄 임상 미용 — 아래 시장에 집중 공급. 🇰🇷 한국 선도 제조사.",
+        icon: "💠",
+        rfqLineSlug: "dermato",
+        focusMarkets: [
+          { code: "br", flag: "🇧🇷", label: "브라질" },
+          { code: "ae", flag: "🇦🇪", label: "아랍에미리트" },
+          { code: "sa", flag: "🇸🇦", label: "사우디" },
+          { code: "kw", flag: "🇰🇼", label: "쿠웨이트" },
+        ],
+      },
     ],
     about: {
       eyebrow: "회사",
@@ -1171,12 +1225,88 @@ export default function Page() {
       : fallback.hero.originBadges) || [];
   const solutionLines = (t.lines?.length ? t.lines : fallback.lines).map((line, idx) => {
     const fallbackLine = fallback.lines?.[idx] || {};
+    const merged = { ...fallbackLine, ...line };
+    const focusMarkets =
+      Array.isArray(line?.focusMarkets) && line.focusMarkets.length
+        ? line.focusMarkets
+        : Array.isArray(fallbackLine.focusMarkets)
+        ? fallbackLine.focusMarkets
+        : [];
+    const rfqLineSlug =
+      line?.rfqLineSlug ||
+      fallbackLine.rfqLineSlug ||
+      deriveLineSlug(merged.title || "");
+
     return {
-      ...fallbackLine,
-      ...line,
+      ...merged,
       badge: line?.badge ?? fallbackLine.badge,
+      focusMarkets,
+      rfqLineSlug,
     };
   });
+
+  const findLineOptionBySlug = useCallback(
+    (slug) => {
+      if (!slug) return "";
+      const primaryOptions =
+        Array.isArray(t.form?.lines) && t.form.lines.length ? t.form.lines : [];
+      const fallbackOptions =
+        Array.isArray(fallback.form?.lines) && fallback.form.lines.length
+          ? fallback.form.lines
+          : [];
+      const pools = primaryOptions.length
+        ? [primaryOptions, fallbackOptions]
+        : [fallbackOptions];
+
+      for (const pool of pools) {
+        const match = pool.find((option) => deriveLineSlug(option) === slug);
+        if (match) {
+          return match;
+        }
+      }
+
+      return "";
+    },
+    [t.form?.lines, fallback.form?.lines]
+  );
+
+  const scrollToRfq = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const target = document.getElementById("rfq");
+    if (target && typeof target.scrollIntoView === "function") {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.hash = "rfq";
+      return;
+    }
+
+    if (window.history && typeof window.history.replaceState === "function") {
+      window.history.replaceState(null, "", "#rfq");
+    } else {
+      window.location.hash = "rfq";
+    }
+  }, []);
+
+  const handleLinePrefill = useCallback(
+    (slug) => (event) => {
+      if (event?.preventDefault) {
+        event.preventDefault();
+      }
+
+      const option = findLineOptionBySlug(slug);
+      if (option) {
+        setForm((current) => ({ ...current, linha: option }));
+      }
+
+      setSent(false);
+      setErrorMsg("");
+      scrollToRfq();
+    },
+    [findLineOptionBySlug, scrollToRfq]
+  );
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
 
@@ -1595,7 +1725,7 @@ export default function Page() {
     </div>
 
     <div className="mt-10 grid gap-6 md:grid-cols-2">
-      {t.lines.map((it, i) => (
+      {solutionLines.map((it, i) => (
         <div
           key={i}
           className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
@@ -1621,6 +1751,28 @@ export default function Page() {
           ) : null}
 
           <p className="mt-3 text-sm leading-relaxed text-neutral-600">{it.desc}</p>
+
+          {it.focusMarkets?.length ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {it.focusMarkets.map((market) => (
+                <button
+                  key={`${market.code || market.label}`}
+                  type="button"
+                  onClick={handleLinePrefill(it.rfqLineSlug)}
+                  className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/90 px-3 py-1 text-xs font-semibold text-[color:var(--wm-primary-700)] shadow-sm transition hover:border-[color:var(--wm-primary-500)] hover:text-[color:var(--wm-primary-800)] focus:outline-none focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
+                  title={market.label}
+                  aria-label={market.label}
+                >
+                  {market.flag ? (
+                    <span role="img" aria-hidden="true" className="text-base leading-none">
+                      {market.flag}
+                    </span>
+                  ) : null}
+                  <span>{market.label}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           <a
             href="#rfq"
