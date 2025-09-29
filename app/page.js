@@ -1166,10 +1166,10 @@ function LocalizedHome({ lang, onLangChange }) {
   const complianceNote = t.verifiedNote ?? fallback.verifiedNote;
   const inlineArrow = isRTL ? "←" : "→";
   const diagonalArrow = isRTL ? "↖" : "↗";
-  const complianceHref = useMemo(
-    () => (lang === "pt" ? "/compliance" : `/compliance?lang=${lang}`),
-    [lang]
-  );
+  const complianceHref = useMemo(() => {
+    const params = new URLSearchParams({ [LOCALE_QUERY_PARAM]: lang });
+    return `/compliance?${params.toString()}`;
+  }, [lang]);
 
   const navLinks = useMemo(
     () => [
