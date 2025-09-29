@@ -1,4 +1,4 @@
-// === app/layout.js (fixed, imports global CSS once) ===
+// === app/layout.js (refined, full) ===
 import "../styles/globals.css";
 
 const SITE_URL = "https://wonnymed.com";
@@ -37,6 +37,56 @@ const ICONS = {
   apple: "/icon.png",
 };
 
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}#organization`,
+      name: "Wonnymed",
+      url: SITE_URL,
+      logo: `${SITE_URL}/assets/logo/wonnymed-logo-512.png`,
+      sameAs: ["https://www.instagram.com/wonnymed"],
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "HK",
+      },
+      // Áreas atendidas (países + regiões)
+      areaServed: [
+        "BR", // Brazil
+        "HK", // Hong Kong
+        "CN", // China
+        "KR", // Korea
+        // GCC countries
+        "AE", "SA", "KW", "QA", "OM", "BH",
+        // Regional labels (aceitos como sinalização semântica)
+        "LATAM", "GCC"
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+1 5615966097",
+        contactType: "customer support",
+        areaServed: [
+          "BR","HK","CN","KR",
+          "AE","SA","KW","QA","OM","BH",
+          "LATAM","GCC"
+        ],
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}#website`,
+      url: SITE_URL,
+      name: "Wonnymed",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${SITE_URL}/search?q=RFQ+{search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
+};
+
 function getLocaleFromParams(params) {
   const maybeLocale = params?.locale;
   if (typeof maybeLocale === "string" && SUPPORTED_LOCALES.includes(maybeLocale)) {
@@ -54,9 +104,7 @@ function buildAlternates() {
     acc[locale] = buildCanonical(locale);
     return acc;
   }, {});
-
   languages["x-default"] = SITE_URL;
-
   return languages;
 }
 
@@ -81,6 +129,8 @@ export async function generateMetadata({ params }) {
       type: "website",
       locale: locale === "zh" ? "zh-Hans" : locale === "pt" ? "pt-BR" : locale,
     },
+    // (Opcional) tema da barra em mobile/Windows
+    themeColor: "#29566f",
   };
 }
 
@@ -90,7 +140,15 @@ export default function RootLayout({ children, params }) {
 
   return (
     <html lang={locale} dir={dir}>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(STRUCTURED_DATA, null, 2),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
