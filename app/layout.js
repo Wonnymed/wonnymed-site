@@ -1,4 +1,4 @@
-// === app/layout.js (fixed, imports global CSS once) ===
+// === app/layout.js (refined, full) ===
 import "../styles/globals.css";
 
 const SITE_URL = "https://wonnymed.com";
@@ -51,11 +51,26 @@ const STRUCTURED_DATA = {
         "@type": "PostalAddress",
         addressCountry: "HK",
       },
+      // Áreas atendidas (países + regiões)
+      areaServed: [
+        "BR", // Brazil
+        "HK", // Hong Kong
+        "CN", // China
+        "KR", // Korea
+        // GCC countries
+        "AE", "SA", "KW", "QA", "OM", "BH",
+        // Regional labels (aceitos como sinalização semântica)
+        "LATAM", "GCC"
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+1 5615966097",
         contactType: "customer support",
-        areaServed: ["BR", "AE", "SA", "KW"],
+        areaServed: [
+          "BR","HK","CN","KR",
+          "AE","SA","KW","QA","OM","BH",
+          "LATAM","GCC"
+        ],
       },
     },
     {
@@ -89,9 +104,7 @@ function buildAlternates() {
     acc[locale] = buildCanonical(locale);
     return acc;
   }, {});
-
   languages["x-default"] = SITE_URL;
-
   return languages;
 }
 
@@ -116,6 +129,8 @@ export async function generateMetadata({ params }) {
       type: "website",
       locale: locale === "zh" ? "zh-Hans" : locale === "pt" ? "pt-BR" : locale,
     },
+    // (Opcional) tema da barra em mobile/Windows
+    themeColor: "#29566f",
   };
 }
 
