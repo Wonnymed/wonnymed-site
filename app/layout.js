@@ -32,9 +32,15 @@ const METADATA_BY_LOCALE = {
 };
 
 const ICONS = {
-  icon: "/icon.png",
-  shortcut: "/icon.png",
-  apple: "/icon.png",
+  icon: [
+    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+  ],
+  shortcut: [
+    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+  ],
+  apple: [
+    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+  ],
 };
 
 const STRUCTURED_DATA = {
