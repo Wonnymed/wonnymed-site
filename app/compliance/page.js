@@ -1,4 +1,8 @@
+import { cookies } from "next/headers";
+
 import ComplianceContent from "./ComplianceContent";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "../lib/metadata";
+import { LOCALE_COOKIE } from "../lib/locale";
 
 export const metadata = {
   title: "Compliance regulatório | Wonnymed",
@@ -6,13 +10,16 @@ export const metadata = {
     "Como validamos ANVISA, UDI, ISO 13485 e IFU/MSDS antes de cada cotação para garantir rastreabilidade clínica.",
 };
 
-const SUPPORTED_LANGUAGES = ["pt", "en", "es", "zh", "ar", "ko"];
-const DEFAULT_LANG = "pt";
-
 export default function CompliancePage({ searchParams }) {
   const requested = typeof searchParams?.lang === "string" ? searchParams.lang.toLowerCase() : "";
-  const isSupported = SUPPORTED_LANGUAGES.includes(requested);
-  const initialLang = isSupported ? requested : DEFAULT_LANG;
+  const hasQueryLocale = SUPPORTED_LOCALES.includes(requested);
 
-  return <ComplianceContent initialLang={initialLang} fromQuery={isSupported} />;
+  const localeCookie = cookies().get(LOCALE_COOKIE)?.value ?? "";
+  const cookieLocale = localeCookie.toLowerCase();
+  const hasCookieLocale = SUPPORTED_LOCALES.includes(cookieLocale);
+
+  const fallbackLocale = hasCookieLocale ? cookieLocale : DEFAULT_LOCALE;
+  const initialLang = hasQueryLocale ? requested : fallbackLocale;
+
+  return <ComplianceContent initialLang={initialLang} />;
 }
