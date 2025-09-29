@@ -1,6 +1,6 @@
 // === app/page.js (fixed, production-ready) ===
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 /**
@@ -716,7 +716,6 @@ const A11Y_LABELS = {
 function BrandStyles() {
   return (
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap');
       :root{
         --wm-primary: #1d4f67;
         --wm-primary-600: #1b4a60;
@@ -729,7 +728,20 @@ function BrandStyles() {
         --wm-surface: #f3f6f8;
         --wm-ink: #0f172a;
       }
-      * { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", "Noto Sans SC", "Noto Sans Arabic", sans-serif; }
+      * {
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          "Noto Sans KR",
+          "Noto Sans SC",
+          "Noto Sans Arabic",
+          sans-serif;
+      }
       body {
         background:
           radial-gradient(120% 120% at 100% 0%, rgba(143, 196, 214, 0.16), transparent 55%),
@@ -774,15 +786,25 @@ function WhatsAppButton({ ariaLabel = "Abrir conversa no WhatsApp", isRTL = fals
 function BrandWordmark({
   label,
   className = "",
-  emblemClassName = "h-9 w-9 text-sm",
+  emblemClassName = "h-9 w-9",
   labelClassName = "font-semibold text-[color:var(--wm-primary-800)] tracking-tight",
+  priority = false,
+  sizes = "(min-width: 768px) 44px, 40px",
 }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <span
-        className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[color:var(--wm-primary)] via-[color:var(--wm-primary-600)] to-[color:var(--wm-primary-800)] text-white font-semibold shadow ${emblemClassName}`}
+        className={`inline-flex items-center justify-center overflow-hidden rounded-xl bg-white shadow ${emblemClassName}`}
       >
-        WM
+        <Image
+          src="/assets/logo/w-logo.png"
+          alt={`${label} emblem`}
+          width={128}
+          height={128}
+          priority={priority}
+          className="h-full w-full object-contain"
+          sizes={sizes}
+        />
       </span>
       <span className={labelClassName}>{label}</span>
     </div>
@@ -1095,8 +1117,9 @@ export default function Page() {
                 <BrandWordmark
                   label={t.brand}
                   className="text-base"
-                  emblemClassName="h-11 w-11 text-base"
+                  emblemClassName="h-11 w-11"
                   labelClassName="text-lg font-semibold tracking-tight text-[color:var(--wm-primary-800)]"
+                  priority
                 />
                 {secondaryMetric ? (
                   <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-3 py-1 text-xs font-semibold text-[color:var(--wm-primary-700)]">
@@ -1410,7 +1433,7 @@ export default function Page() {
             <BrandWordmark
               label={t.brand}
               labelClassName="font-semibold tracking-tight text-white"
-              emblemClassName="h-10 w-10 text-sm"
+              emblemClassName="h-10 w-10"
             />
             <p className="mt-3 max-w-xs text-white/70">{t.footer.blurb}</p>
           </div>
