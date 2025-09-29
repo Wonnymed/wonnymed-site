@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { COOKIE_MAX_AGE_SECONDS, RTL_LOCALES } from "./locale";
@@ -35,6 +36,7 @@ export function useLocaleSync({
   rtlLocales = RTL_LOCALES,
   queryParam = "lang",
 }) {
+  const router = useRouter();
   const supportedSet = useMemo(() => {
     return new Set((supportedLocales || []).map((code) => code.toLowerCase()));
   }, [supportedLocales]);
@@ -176,25 +178,24 @@ export function useLocaleSync({
 
     try {
       const url = new URL(window.location.href);
-      if (locale === defaultLocale) {
-        url.searchParams.delete(queryParam);
-      } else {
-        url.searchParams.set(queryParam, locale);
-      }
+      url.searchParams.set(queryParam, locale);
 
-      const nextUrl = url.toString();
-      if (nextUrl === window.location.href) {
+      const nextRelative = `${url.pathname}${url.search}${url.hash}`;
+      const currentRelative = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextRelative === currentRelative) {
         userNavigationRef.current = false;
         return;
       }
 
-      const method = userNavigationRef.current ? "pushState" : "replaceState";
-      window.history[method]({}, "", nextUrl);
-      userNavigationRef.current = false;
+      const method = userNavigationRef.current ? router.push : router.replace;
+      method(nextRelative, { scroll: false });
     } catch {
       // Ignore URL update issues
+    } finally {
+      userNavigationRef.current = false;
     }
-  }, [defaultLocale, locale, queryParam]);
+  }, [defaultLocale, locale, queryParam, router]);
 
   return {
     locale,

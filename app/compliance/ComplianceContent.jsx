@@ -534,6 +534,10 @@ export default function ComplianceContent({ initialLang }) {
 
   const t = useMemo(() => COPY[lang] || COPY[FALLBACK_LANG], [lang]);
   const isRTL = lang === "ar";
+  const homeHref = useMemo(() => {
+    const params = new URLSearchParams({ [LOCALE_QUERY_PARAM]: lang });
+    return `/?${params.toString()}`;
+  }, [lang]);
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"} lang={lang} className="bg-white text-neutral-900">
@@ -658,7 +662,7 @@ export default function ComplianceContent({ initialLang }) {
               <h3 className="text-lg font-semibold text-neutral-900">{t.nextStepsTitle}</h3>
               <p className="mt-2">{t.nextStepsDescription}</p>
               <a
-                href="/"
+                href={homeHref}
                 className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
               >
                 {t.backCta}
