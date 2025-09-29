@@ -1,12 +1,7 @@
-diff --git a//dev/null b/.gitignore
-index 0000000000000000000000000000000000000000..81652838b1838f35f606d83c409f6a4c3954a3be 100644
---- a//dev/null
-+++ b/.gitignore
-@@ -0,0 +1,7 @@
-+node_modules/
-+.next/
-+.DS_Store
-+npm-debug.log*
-+yarn-debug.log*
-+yarn-error.log*
-+.pnp.*
+node_modules/
+.next/
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
