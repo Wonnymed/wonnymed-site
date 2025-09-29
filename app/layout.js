@@ -33,13 +33,13 @@ const METADATA_BY_LOCALE = {
 
 const ICONS = {
   icon: [
-    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+    { url: "/assets/logo/w-logo.png", type: "image/png" },
   ],
   shortcut: [
-    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+    { url: "/assets/logo/w-logo.png", type: "image/png" },
   ],
   apple: [
-    { url: "/assets/logo/wonnymed-logo.png", type: "image/png" },
+    { url: "/assets/logo/w-logo.png", type: "image/png" },
   ],
 };
 
