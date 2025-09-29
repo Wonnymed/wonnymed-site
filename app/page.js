@@ -679,6 +679,39 @@ const I18N = {
   },
 };
 
+const A11Y_LABELS = {
+  pt: {
+    nav: "Navegação principal",
+    language: "Selecionar idioma",
+    whatsapp: "Abrir conversa no WhatsApp",
+  },
+  en: {
+    nav: "Main navigation",
+    language: "Select language",
+    whatsapp: "Open WhatsApp chat",
+  },
+  es: {
+    nav: "Navegación principal",
+    language: "Seleccionar idioma",
+    whatsapp: "Abrir chat de WhatsApp",
+  },
+  zh: {
+    nav: "主导航",
+    language: "选择语言",
+    whatsapp: "打开 WhatsApp 对话",
+  },
+  ar: {
+    nav: "التنقل الرئيسي",
+    language: "اختيار اللغة",
+    whatsapp: "فتح محادثة واتساب",
+  },
+  ko: {
+    nav: "주요 내비게이션",
+    language: "언어 선택",
+    whatsapp: "WhatsApp 대화 열기",
+  },
+};
+
 // ----- Brand styles (scoped) -------------------------------------------------
 function BrandStyles() {
   return (
@@ -713,14 +746,15 @@ function BrandStyles() {
 }
 
 // ----- UI bits ---------------------------------------------------------------
-function WhatsAppButton() {
+function WhatsAppButton({ ariaLabel = "Abrir conversa no WhatsApp", isRTL = false }) {
   return (
     <a
       href="https://wa.me/15615966097"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Falar no WhatsApp"
-      className="fixed bottom-24 right-6 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl transition hover:from-emerald-500/90 hover:to-emerald-600/90 focus:outline-none focus:ring-4 focus:ring-emerald-200/80"
+      aria-label={ariaLabel}
+      className="fixed bottom-24 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl transition hover:from-emerald-500/90 hover:to-emerald-600/90 focus:outline-none focus:ring-4 focus:ring-emerald-200/80"
+      style={{ insetInlineEnd: "1.5rem", direction: isRTL ? "rtl" : "ltr" }}
     >
       <svg
         className="h-7 w-7"
@@ -829,6 +863,9 @@ export default function Page() {
   const [lang, setLang] = useState("pt");
   const t = I18N[lang] || I18N.en;
   const dir = useMemo(() => (lang === "ar" ? "rtl" : "ltr"), [lang]);
+  const isRTL = dir === "rtl";
+  const a11yFallback = A11Y_LABELS.en;
+  const a11y = { ...a11yFallback, ...(A11Y_LABELS[lang] || {}) };
 
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -863,6 +900,8 @@ export default function Page() {
   const nav = { ...fallback.nav, ...(t.nav || {}) };
   const about = { ...fallback.about, ...(t.about || {}) };
   const complianceNote = t.verifiedNote ?? fallback.verifiedNote;
+  const inlineArrow = isRTL ? "←" : "→";
+  const diagonalArrow = isRTL ? "↖" : "↗";
 
   const navLinks = [
     { href: "#about", label: nav.about },
@@ -910,14 +949,17 @@ export default function Page() {
               className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 font-semibold uppercase tracking-[0.25em] transition hover:bg-white/25"
             >
               {t.hero.ctaPrimary}
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true">{inlineArrow}</span>
             </a>
           </div>
         </div>
       ) : null}
 
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur-xl shadow-sm supports-[backdrop-filter]:bg-white/60">
+      <header
+        className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur-xl shadow-sm supports-[backdrop-filter]:bg-white/60"
+        role="banner"
+      >
         <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
           <div className="flex items-center gap-3">
             <Image
@@ -934,12 +976,19 @@ export default function Page() {
                 {primaryMetric ? `${primaryMetric.k}: ${primaryMetric.v}` : nav.compliance}
               </span>
             </div>
-            <span className="ml-2 hidden rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-2.5 py-0.5 text-xs text-[color:var(--wm-primary-700)] sm:inline-flex">
+            <span
+              className="hidden rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-2.5 py-0.5 text-xs text-[color:var(--wm-primary-700)] sm:inline-flex"
+              style={{ marginInlineStart: "0.5rem" }}
+            >
               HQ 🇭🇰 Hong Kong
             </span>
           </div>
 
-          <nav className="hidden flex-1 items-center justify-center gap-2 text-sm font-medium text-neutral-600 md:flex">
+          <nav
+            role="navigation"
+            aria-label={a11y.nav}
+            className="hidden flex-1 items-center justify-center gap-2 text-sm font-medium text-neutral-600 md:flex"
+          >
             <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-4 py-1.5 shadow-sm">
               {navLinks.map((link) => (
                 <a
@@ -953,7 +1002,7 @@ export default function Page() {
             </div>
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="flex items-center gap-2" style={{ marginInlineStart: "auto" }}>
             <a
               href={portalHref}
               className="hidden rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 transition hover:border-[color:var(--wm-primary)] hover:text-[color:var(--wm-primary-700)] md:inline-flex"
@@ -963,6 +1012,7 @@ export default function Page() {
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value)}
+              aria-label={a11y.language}
               className="rounded-full border border-neutral-200 bg-white/80 px-3 py-2 text-sm shadow-sm focus:border-[color:var(--wm-primary-700)] focus:outline-none focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
             >
               {LOCALES.map((l) => (
@@ -981,8 +1031,9 @@ export default function Page() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden pb-16 pt-20 md:pt-28">
+      <main id="main-content" tabIndex={-1}>
+        {/* Hero */}
+        <section className="relative overflow-hidden pb-16 pt-20 md:pt-28">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/70 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
@@ -1004,7 +1055,7 @@ export default function Page() {
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
                 >
                   {t.hero.ctaPrimary}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">{diagonalArrow}</span>
                 </a>
                 <a
                   href="#compliance"
@@ -1069,16 +1120,16 @@ export default function Page() {
                   className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
                 >
                   {t.hero.ctaPrimary}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">{diagonalArrow}</span>
                 </a>
               </div>
             </div>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Metrics */}
-      <section className="py-14">
+        {/* Metrics */}
+        <section className="py-14">
         <div className="mx-auto max-w-6xl px-4">
           <div className="rounded-[32px] border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -1094,10 +1145,10 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* About */}
-      <section id="about" className="relative py-16 md:py-24">
+        {/* About */}
+        <section id="about" className="relative py-16 md:py-24">
         <div className="absolute inset-x-0 top-0 -z-10 h-1/2 bg-gradient-to-b from-white/70 to-transparent" aria-hidden="true" />
         <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 md:grid-cols-[1.2fr_0.8fr]">
           <div>
@@ -1118,7 +1169,7 @@ export default function Page() {
           <div className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
               {(about.stats ?? []).map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-white/60 bg-white/80 p-5 text-left shadow-sm backdrop-blur">
+                <div key={stat.label} className="rounded-2xl border border-white/60 bg-white/80 p-5 text-start shadow-sm backdrop-blur">
                   <div className="text-3xl font-semibold text-[color:var(--wm-primary-800)]">{stat.value}</div>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-600">{stat.label}</p>
                 </div>
@@ -1130,10 +1181,10 @@ export default function Page() {
             </figure>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Solutions */}
-      <section id="linhas" className="relative py-16 md:py-24">
+        {/* Solutions */}
+        <section id="linhas" className="relative py-16 md:py-24">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -1163,16 +1214,16 @@ export default function Page() {
                   className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--wm-primary-700)] underline decoration-[color:var(--wm-primary-300)] decoration-2 underline-offset-4 transition group-hover:text-[color:var(--wm-primary-800)]"
                 >
                   {t.askQuote}
-                  <span aria-hidden="true">→</span>
+                  <span aria-hidden="true">{inlineArrow}</span>
                 </a>
               </div>
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* How it works */}
-      <section id="como" className="relative py-16 md:py-24">
+        {/* How it works */}
+        <section id="como" className="relative py-16 md:py-24">
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.howTitle}</h2>
@@ -1182,24 +1233,30 @@ export default function Page() {
                 key={i}
                 className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
               >
-                <div className="absolute inset-y-6 left-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-lg font-semibold text-white shadow">
+                <div
+                  className={`absolute inset-y-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-lg font-semibold text-white shadow ${isRTL ? "right-6" : "left-6"}`}
+                >
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="pl-20">
+                <div style={{ paddingInlineStart: "5rem" }}>
                   <h3 className="text-xl font-semibold text-neutral-900">{s.t}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-neutral-600">{s.d}</p>
                 </div>
                 {i < t.howSteps.length - 1 ? (
-                  <div className="absolute right-6 top-1/2 hidden h-px w-16 translate-y-[-50%] bg-gradient-to-r from-[color:var(--wm-accent-200)] to-transparent md:block" />
+                  <div
+                    className={`absolute top-1/2 hidden h-px w-16 translate-y-[-50%] md:block ${
+                      isRTL ? "left-6 bg-gradient-to-l" : "right-6 bg-gradient-to-r"
+                    } from-[color:var(--wm-accent-200)] to-transparent`}
+                  />
                 ) : null}
               </div>
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Compliance */}
-      <section id="compliance" className="relative py-16 md:py-24">
+        {/* Compliance */}
+        <section id="compliance" className="relative py-16 md:py-24">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/80 via-[color:var(--wm-accent-50)] to-transparent" aria-hidden="true" />
         <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 md:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6">
@@ -1218,7 +1275,7 @@ export default function Page() {
               className="inline-flex items-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)]"
             >
               {t.requestChecklist}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">{diagonalArrow}</span>
             </a>
           </div>
           <div className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur">
@@ -1238,10 +1295,10 @@ export default function Page() {
             </p>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Cases */}
-      <section className="relative py-16 md:py-24">
+        {/* Cases */}
+        <section className="relative py-16 md:py-24">
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.casesTitle}</h2>
@@ -1251,17 +1308,22 @@ export default function Page() {
                 key={i}
                 className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
               >
-                <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-transparent" aria-hidden="true" />
+                <div
+                  className={`absolute top-0 h-1 w-full ${
+                    isRTL ? "right-0 bg-gradient-to-l" : "left-0 bg-gradient-to-r"
+                  } from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-transparent`}
+                  aria-hidden="true"
+                />
                 <h3 className="text-lg font-semibold text-neutral-900">{c.t}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-neutral-600">{c.d}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* RFQ */}
-      <section id="rfq" className="relative py-16 md:py-24">
+        {/* RFQ */}
+        <section id="rfq" className="relative py-16 md:py-24">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 md:grid-cols-[0.9fr_1.1fr]">
           <div>
@@ -1319,10 +1381,11 @@ export default function Page() {
             )}
           </form>
         </div>
-      </section>
+        </section>
+      </main>
 
       {/* Floating CTA */}
-      <WhatsAppButton />
+      <WhatsAppButton ariaLabel={a11y.whatsapp} isRTL={isRTL} />
 
       {/* Sticky footer CTA */}
       <div className="fixed bottom-4 left-0 right-0 z-30">
@@ -1334,7 +1397,7 @@ export default function Page() {
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:shadow-lg"
             >
               {t.hero.ctaPrimary}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">{diagonalArrow}</span>
             </a>
           </div>
         </div>
