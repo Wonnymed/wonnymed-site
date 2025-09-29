@@ -1192,6 +1192,10 @@ function LocalizedHome({ lang, onLangChange }) {
   const complianceNote = t.verifiedNote ?? fallback.verifiedNote;
   const inlineArrow = isRTL ? "←" : "→";
   const diagonalArrow = isRTL ? "↖" : "↗";
+  const complianceHref = useMemo(
+    () => (lang === "pt" ? "/compliance" : `/compliance?lang=${lang}`),
+    [lang]
+  );
 
   const navLinks = useMemo(
     () => [
@@ -1634,7 +1638,7 @@ function LocalizedHome({ lang, onLangChange }) {
                   <span aria-hidden="true">{diagonalArrow}</span>
                 </a>
                 <a
-                  href="#compliance"
+                  href={complianceHref}
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-6 py-3 font-semibold text-[color:var(--wm-primary-700)] transition hover:border-[color:var(--wm-primary-700)] hover:text-[color:var(--wm-primary-800)]"
                 >
                   {t.hero.ctaSecondary}
