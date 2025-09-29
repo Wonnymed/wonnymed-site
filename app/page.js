@@ -1653,7 +1653,7 @@ function LocalizedHome({ lang, onLangChange }) {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-6 flex flex-wrap items-center gap-3" aria-hidden="true">
                 {heroMetrics.map((metric) => (
                   <div
                     key={`${metric.k}-${metric.v}`}
@@ -1676,12 +1676,15 @@ function LocalizedHome({ lang, onLangChange }) {
                   priority
                 />
                 {secondaryMetric ? (
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-3 py-1 text-xs font-semibold text-[color:var(--wm-primary-700)]">
+                  <div
+                    className="mt-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-3 py-1 text-xs font-semibold text-[color:var(--wm-primary-700)]"
+                    aria-hidden="true"
+                  >
                     {secondaryMetric.k}: {secondaryMetric.v}
                   </div>
                 ) : null}
                 <p className="mt-5 text-sm leading-relaxed text-neutral-600">{t.hero.note}</p>
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="mt-6 grid gap-3 sm:grid-cols-2" aria-hidden="true">
                   {(t.metrics || fallback.metrics).slice(0, 4).map((metric) => (
                     <div
                       key={`${metric.k}-${metric.v}`}
