@@ -15,6 +15,14 @@ const RECAPTCHA_ACTION = "rfq_submit";
 const WHATSAPP_URL =
   "https://wa.me/15615966097?text=RFQ%20Wonnymed&utm_source=site&utm_medium=whatsapp&utm_campaign=rfq";
 
+const ORIGIN_BADGE_STYLES = {
+  med: "border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)]",
+  beauty: "border-rose-200 bg-rose-50 text-rose-700",
+};
+
+const ORIGIN_BADGE_FALLBACK =
+  "border-neutral-200 bg-white/80 text-[color:var(--wm-primary-700)]";
+
 // ----- Locales ---------------------------------------------------------------
 const LOCALES = [
   { code: "pt", label: "Português" },
@@ -35,12 +43,26 @@ const I18N = {
       titleB: "compliance",
       titleC: " e velocidade.",
       sub:
-        "Hemostáticos, suturas, drills pay-per-use e dermato profissional. Materiais cirúrgicos de parceiros auditados na 🇨🇳 China e linha Beauty de fabricantes líderes na 🇰🇷 Coreia. Cotação em 24–48h, documentação ANVISA/UDI verificada e SLA de abastecimento.",
+        "Hemostáticos, suturas, drills pay-per-use e dermato profissional. 🇨🇳 China (Med): fornecedores auditados com preço competitivo e qualidade controlada. 🇰🇷 Coreia (Beauty): fabricantes líderes com padrão premium do mercado. Cotação em 24–48h, documentação ANVISA/UDI verificada e SLA de abastecimento.",
       ctaPrimary: "Solicitar cotação",
       ctaSecondary: "Ver compliance",
       note: "Sem catálogo público. Trabalhamos via RFQ e portal privado para aprovadores.",
       badgeTitle: "Selo Verified",
       badgeList: ["Registro ANVISA & UDI", "ISO 13485 validada", "IFU/MSDS anexos", "Rastreamento de lotes"],
+      originBadges: [
+        {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandeira da China",
+          tone: "med",
+        },
+        {
+          text: "Coreia (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "Bandeira da Coreia do Sul",
+          tone: "beauty",
+        },
+      ],
     },
     metrics: [
       { k: "SLA de cotação", v: "24–48h" },
@@ -53,13 +75,25 @@ const I18N = {
     lines: [
       {
         title: "Hemostáticos",
-        desc: "Controle de sangramento com documentação completa. Fornecedores auditados na 🇨🇳 China.",
+        desc: "Controle de sangramento com documentação completa. 🇨🇳 China (Med): preço competitivo com qualidade auditada.",
         icon: "🩺",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandeira da China",
+          tone: "med",
+        },
       },
       {
         title: "Suturas",
-        desc: "Absorvíveis e não absorvíveis com compatibilidades e IFUs. Parceiros auditados na 🇨🇳 China.",
+        desc: "Absorvíveis e não absorvíveis com compatibilidades e IFUs. 🇨🇳 China (Med): preço competitivo com qualidade auditada.",
         icon: "🧵",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandeira da China",
+          tone: "med",
+        },
       },
       {
         title: "Drills PPU",
@@ -69,8 +103,14 @@ const I18N = {
       {
         title: "Dermato Pro (Beauty)",
         desc:
-          "Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. Fabricantes líderes da 🇰🇷 Coreia.",
+          "Linha premium para clínicas e hospitais — foco de entrega 🇧🇷 Brazil, 🇦🇪 Emirados Árabes Unidos, 🇸🇦 KSA e 🇰🇼 Kuwait. 🇰🇷 Coreia (Beauty): fabricantes líderes com melhor qualidade do mercado.",
         icon: "💠",
+        badge: {
+          text: "Coreia (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "Bandeira da Coreia do Sul",
+          tone: "beauty",
+        },
       },
     ],
     about: {
@@ -167,12 +207,26 @@ const I18N = {
       titleB: "compliance",
       titleC: " and speed.",
       sub:
-        "Hemostatics, sutures, pay-per-use drills and professional derma. Surgical materials from audited partners in 🇨🇳 China, and the Beauty line from leading 🇰🇷 Korea manufacturers. Quotes in 24–48h, ANVISA/UDI docs verified and delivery SLAs.",
+        "Hemostatics, sutures, pay-per-use drills and professional derma. 🇨🇳 China (Med): audited suppliers with competitive pricing and controlled quality. 🇰🇷 Korea (Beauty): leading manufacturers delivering the market's premium quality. Quotes in 24–48h, ANVISA/UDI docs verified and delivery SLAs.",
       ctaPrimary: "Request a quote",
       ctaSecondary: "See compliance",
       note: "No public catalog. RFQ + private portal for approvers.",
       badgeTitle: "Verified Seal",
       badgeList: ["ANVISA & UDI", "ISO 1345 validated", "IFU/MSDS attached", "Lot tracking"],
+      originBadges: [
+        {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "China flag",
+          tone: "med",
+        },
+        {
+          text: "Korea (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "South Korea flag",
+          tone: "beauty",
+        },
+      ],
     },
     metrics: [
       { k: "Quote SLA", v: "24–48h" },
@@ -183,10 +237,40 @@ const I18N = {
     ],
     solutionsTitle: "Solutions",
     lines: [
-      { title: "Hemostatics", desc: "Bleeding control with complete documentation. Audited partners in 🇨🇳 China.", icon: "🩺" },
-      { title: "Sutures", desc: "Absorbable & non-absorbable with typical compatibilities and IFUs. Audited partners in 🇨🇳 China.", icon: "🧵" },
+      {
+        title: "Hemostatics",
+        desc: "Bleeding control with complete documentation. 🇨🇳 China (Med): competitive pricing with audited quality.",
+        icon: "🩺",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "China flag",
+          tone: "med",
+        },
+      },
+      {
+        title: "Sutures",
+        desc: "Absorbable & non-absorbable with compatibilities and IFUs. 🇨🇳 China (Med): competitive pricing with audited quality.",
+        icon: "🧵",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "China flag",
+          tone: "med",
+        },
+      },
       { title: "Drills PPU", desc: "Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap.", icon: "🛠️" },
-      { title: "Derma Pro (Beauty)", desc: "Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. Leading manufacturers in 🇰🇷 Korea.", icon: "💠" },
+      {
+        title: "Derma Pro (Beauty)",
+        desc: "Premium clinical aesthetics — delivery focus 🇧🇷 Brazil, 🇦🇪 UAE, 🇸🇦 KSA and 🇰🇼 Kuwait. 🇰🇷 Korea (Beauty): leading manufacturers with benchmark premium quality.",
+        icon: "💠",
+        badge: {
+          text: "Korea (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "South Korea flag",
+          tone: "beauty",
+        },
+      },
     ],
     about: {
       eyebrow: "Company",
@@ -278,12 +362,26 @@ const I18N = {
       titleB: "cumplimiento",
       titleC: " y velocidad.",
       sub:
-        "Hemostáticos, suturas, taladros pay-per-use y dermato profesional. Material quirúrgico de socios auditados en 🇨🇳 China y línea Beauty de fabricantes líderes en 🇰🇷 Corea. Cotización en 24–48h, documentos ANVISA/UDI verificados y SLA de entrega.",
+        "Hemostáticos, suturas, taladros pay-per-use y dermato profesional. 🇨🇳 China (Med): proveedores auditados con precio competitivo y calidad controlada. 🇰🇷 Corea (Beauty): fabricantes líderes con la mejor calidad del mercado. Cotización en 24–48h, documentos ANVISA/UDI verificados y SLA de entrega.",
       ctaPrimary: "Solicitar cotización",
       ctaSecondary: "Ver cumplimiento",
       note: "Sin catálogo público. RFQ y portal privado para aprobadores.",
       badgeTitle: "Sello Verificado",
       badgeList: ["ANVISA & UDI", "ISO 13485 validado", "IFU/MSDS adjuntos", "Trazabilidad de lotes"],
+      originBadges: [
+        {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandera de China",
+          tone: "med",
+        },
+        {
+          text: "Corea (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "Bandera de Corea del Sur",
+          tone: "beauty",
+        },
+      ],
     },
     metrics: [
       { k: "SLA de cotización", v: "24–48h" },
@@ -294,10 +392,40 @@ const I18N = {
     ],
     solutionsTitle: "Soluciones",
     lines: [
-      { title: "Hemostáticos", desc: "Control de sangrado con documentación completa. Socios auditados en 🇨🇳 China.", icon: "🩺" },
-      { title: "Suturas", desc: "Absorbibles y no absorbibles con compatibilidades e IFUs. Socios auditados en 🇨🇳 China.", icon: "🧵" },
+      {
+        title: "Hemostáticos",
+        desc: "Control de sangrado con documentación completa. 🇨🇳 China (Med): precio competitivo con calidad auditada.",
+        icon: "🩺",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandera de China",
+          tone: "med",
+        },
+      },
+      {
+        title: "Suturas",
+        desc: "Absorbibles y no absorbibles con compatibilidades e IFUs. 🇨🇳 China (Med): precio competitivo con calidad auditada.",
+        icon: "🧵",
+        badge: {
+          text: "China (Med)",
+          flag: "🇨🇳",
+          ariaLabel: "Bandera de China",
+          tone: "med",
+        },
+      },
       { title: "Taladros PPU", desc: "Pay-per-use con AFE neutra, uptime ≥ 98%, reemplazo 72h.", icon: "🛠️" },
-      { title: "Derma Pro (Beauty)", desc: "Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. Fabricantes líderes en 🇰🇷 Corea.", icon: "💠" },
+      {
+        title: "Derma Pro (Beauty)",
+        desc: "Estética clínica premium — foco de entrega 🇧🇷 Brasil, 🇦🇪 EAU, 🇸🇦 KSA y 🇰🇼 Kuwait. 🇰🇷 Corea (Beauty): fabricantes líderes con la calidad premium del mercado.",
+        icon: "💠",
+        badge: {
+          text: "Corea (Beauty)",
+          flag: "🇰🇷",
+          ariaLabel: "Bandera de Corea del Sur",
+          tone: "beauty",
+        },
+      },
     ],
     about: {
       eyebrow: "Institucional",
@@ -967,6 +1095,18 @@ export default function Page() {
   const heroHighlights = ((t.hero?.badgeList?.length ? t.hero.badgeList : fallback.hero.badgeList) || []).slice(0, 3);
   const heroMetrics = ((t.metrics?.length ? t.metrics : fallback.metrics) || []).slice(0, 2);
   const [primaryMetric, secondaryMetric] = heroMetrics;
+  const heroOriginBadges =
+    (Array.isArray(t.hero?.originBadges) && t.hero.originBadges.length
+      ? t.hero.originBadges
+      : fallback.hero.originBadges) || [];
+  const solutionLines = (t.lines?.length ? t.lines : fallback.lines).map((line, idx) => {
+    const fallbackLine = fallback.lines?.[idx] || {};
+    return {
+      ...fallbackLine,
+      ...line,
+      badge: line?.badge ?? fallbackLine.badge,
+    };
+  });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
 
@@ -1195,6 +1335,23 @@ export default function Page() {
               <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-[color:var(--wm-primary-700)] shadow-sm">
                 {nav.compliance}
               </div>
+              {heroOriginBadges.length ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {heroOriginBadges.map((badge) => (
+                    <span
+                      key={`${badge.text}-${badge.flag}`}
+                      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-semibold ${
+                        ORIGIN_BADGE_STYLES[badge.tone] || ORIGIN_BADGE_FALLBACK
+                      }`}
+                    >
+                      <span role="img" aria-label={badge.ariaLabel} className="text-base leading-none">
+                        {badge.flag}
+                      </span>
+                      <span>{badge.text}</span>
+                    </span>
+                  ))}
+                </div>
+              ) : null}
               <h1 className="mt-6 text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl lg:text-6xl">
                 {t.hero.titleA}
                 <span className="bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] bg-clip-text text-transparent">
@@ -1352,7 +1509,7 @@ export default function Page() {
             </a>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {t.lines.map((it, i) => (
+            {solutionLines.map((it, i) => (
               <div
                 key={i}
                 className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
@@ -1363,6 +1520,18 @@ export default function Page() {
                   </div>
                   <h3 className="text-xl font-semibold text-neutral-900">{it.title}</h3>
                 </div>
+                {it.badge ? (
+                  <span
+                    className={`mt-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold ${
+                      ORIGIN_BADGE_STYLES[it.badge.tone] || ORIGIN_BADGE_FALLBACK
+                    }`}
+                  >
+                    <span role="img" aria-label={it.badge.ariaLabel} className="text-base leading-none">
+                      {it.badge.flag}
+                    </span>
+                    <span>{it.badge.text}</span>
+                  </span>
+                ) : null}
                 <p className="mt-3 text-sm leading-relaxed text-neutral-600">{it.desc}</p>
                 <a
                   href="#rfq"
