@@ -12,6 +12,8 @@ import Script from "next/script";
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 const RECAPTCHA_ACTION = "rfq_submit";
+const WHATSAPP_URL =
+  "https://wa.me/15615966097?text=RFQ%20Wonnymed&utm_source=site&utm_medium=whatsapp&utm_campaign=rfq";
 
 // ----- Locales ---------------------------------------------------------------
 const LOCALES = [
@@ -771,11 +773,11 @@ function BrandStyles() {
 function WhatsAppButton({ ariaLabel = "Abrir conversa no WhatsApp", isRTL = false }) {
   return (
     <a
-      href="https://wa.me/15615966097"
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className="fixed bottom-24 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl transition hover:from-emerald-500/90 hover:to-emerald-600/90 focus:outline-none focus:ring-4 focus:ring-emerald-200/80"
+      className="fixed bottom-24 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl transition hover:from-emerald-500/90 hover:to-emerald-600/90 focus:outline-none focus:ring-4 focus:ring-emerald-200/80 md:bottom-10 md:h-12 md:w-12 md:shadow-lg md:opacity-80 md:hover:opacity-100"
       style={{ insetInlineEnd: "1.5rem", direction: isRTL ? "rtl" : "ltr" }}
     >
       <svg
