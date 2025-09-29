@@ -1,8 +1,16 @@
 export const SITE_URL = "https://wonnymed.com";
 
-export const DEFAULT_LOCALE = "pt";
+export const DEFAULT_LOCALE = "en";
 
-export const SUPPORTED_LOCALES = ["pt", "en", "es", "zh", "ar", "ko"];
+export const SUPPORTED_LOCALES = [
+  "pt",
+  "en",
+  "es",
+  "ko",
+  "zh-hans",
+  "zh-hant",
+  "ar"
+];
 
 export const METADATA_BY_LOCALE = {
   pt: {
@@ -18,28 +26,39 @@ export const METADATA_BY_LOCALE = {
     ogTitle: "Clinical supply with compliance",
   },
   es: {
-    title: "Wonnymed | Abastecimiento clínico compliant",
-    description: "Suministro clínico con compliance ANVISA/UDI y cotizaciones en 24–48h.",
+    title: "Wonnymed | Supply clínico con compliance",
+    description:
+      "Abastecimiento clínico con diligencia ANVISA/UDI y cotizaciones en 24–48h.",
     ogLocale: "es_ES",
-    ogTitle: "Abastecimiento clínico compliant",
-  },
-  zh: {
-    title: "Wonnymed｜合规快速的临床供应",
-    description: "合规的临床供应，ANVISA/UDI 文档齐全，24–48 小时报价。",
-    ogLocale: "zh_CN",
-    ogTitle: "合规快速的临床供应",
-  },
-  ar: {
-    title: "ونيميد | توريد سريري متوافق سريعًا",
-    description: "توريد سريري متوافق مع ANVISA/UDI وعروض خلال ٤٨–٢٤ ساعة.",
-    ogLocale: "ar",
-    ogTitle: "توريد سريري متوافق سريعًا",
+    ogTitle: "Supply clínico con compliance",
   },
   ko: {
-    title: "Wonnymed | 컴플라이언스 임상 공급",
-    description: "ANVISA/UDI 컴플라이언스와 24–48시간 견적의 임상 공급.",
+    title: "Wonnymed | 컴플라이언스를 갖춘 임상 공급",
+    description:
+      "ANVISA/UDI 검증과 24–48시간 견적을 제공하는 임상 공급.",
     ogLocale: "ko_KR",
-    ogTitle: "컴플라이언스 임상 공급",
+    ogTitle: "컴플라이언스 기반 임상 공급",
+  },
+  "zh-hans": {
+    title: "Wonnymed | 合规与高效的临床供应",
+    description:
+      "提供 ANVISA/UDI 尽调与 24–48 小时报价的临床供应服务。",
+    ogLocale: "zh_CN",
+    ogTitle: "合规与高效的临床供应",
+  },
+  "zh-hant": {
+    title: "Wonnymed | 合規且迅速的臨床供應",
+    description:
+      "臨床供應服務，附 ANVISA/UDI 審查與 24–48 小時報價。",
+    ogLocale: "zh_HK",
+    ogTitle: "合規且迅速的臨床供應",
+  },
+  ar: {
+    title: "Wonnymed | توريد سريري مع امتثال وسرعة",
+    description:
+      "توريد سريري مع تدقيق ANVISA/UDI وعروض أسعار خلال 24–48 ساعة.",
+    ogLocale: "ar_SA",
+    ogTitle: "توريد سريري مع امتثال وسرعة",
   },
 };
 

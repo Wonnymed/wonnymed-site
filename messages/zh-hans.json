@@ -1,0 +1,212 @@
+{
+  "nav": {
+    "language": "选择语言"
+  },
+  "a11y": {
+    "nav": "主导航",
+    "whatsapp": "打开 WhatsApp 对话"
+  },
+  "page": {
+    "self": {
+      "brand": "Wonnymed",
+      "nav": {
+        "solutions": "解决方案",
+        "about": "关于我们",
+        "how": "流程",
+        "compliance": "合规",
+        "rfq": "RFQ",
+        "portal": "门户"
+      },
+      "hero": {
+        "titleA": "兼具 ",
+        "titleB": "合规",
+        "titleC": " 与速度的临床供应。",
+        "sub": "止血材料、缝合线、按次付费手术钻以及专业医美。 🇨🇳 中国（Med）：审计通过的供应商，价格具竞争力，质量受控。 🇰🇷 韩国（Beauty）：行业领先制造商，提供顶级品质。24–48 小时内报价，ANVISA/UDI 文档核验，交付 SLA 全程监控。",
+        "ctaPrimary": "请求报价",
+        "ctaSecondary": "查看合规",
+        "note": "无公开目录。通过 RFQ 与审批人专属门户运作。",
+        "badgeTitle": "Verified 认证",
+        "badgeList": [
+          "ANVISA & UDI 注册",
+          "ISO 1345 认证",
+          "附带 IFU/MSDS",
+          "批次追踪"
+        ],
+        "originBadges": [
+          {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "中国国旗",
+            "tone": "med"
+          },
+          {
+            "text": "Korea (Beauty)",
+            "flag": "🇰🇷",
+            "ariaLabel": "韩国国旗",
+            "tone": "beauty"
+          }
+        ]
+      },
+      "metrics": [
+        { "k": "报价 SLA", "v": "24–48h" },
+        { "k": "OTIF", "v": ">= 95%" },
+        { "k": "日常", "v": "私有门户" },
+        { "k": "合规", "v": "ANVISA • UDI • ISO" },
+        { "k": "合作网络", "v": "🇨🇳 • 🇰🇷" }
+      ],
+      "solutionsTitle": "解决方案",
+      "lines": [
+        {
+          "title": "止血材料",
+          "desc": "提供完整文件的出血控制。 🇨🇳 中国（Med）：竞争力价格与审计质量兼备。",
+          "icon": "🩺",
+          "badge": {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "中国国旗",
+            "tone": "med"
+          }
+        },
+        {
+          "title": "缝合线",
+          "desc": "可吸收与不可吸收选项，含兼容性与 IFU。 🇨🇳 中国（Med）：竞争力价格与审计质量兼备。",
+          "icon": "🧵",
+          "badge": {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "中国国旗",
+            "tone": "med"
+          }
+        },
+        {
+          "title": "按次付费手术钻",
+          "desc": "按次付费，AFE 中性，运行时间 ≥ 98%，72 小时更换。",
+          "icon": "🛠️"
+        },
+        {
+          "title": "Derma Pro (Beauty)",
+          "desc": "高端临床医美——重点交付以下市场。 🇰🇷 韩国（Beauty）：行业领先制造商，提供卓越品质。",
+          "icon": "💠",
+          "badge": {
+            "text": "Korea (Beauty)",
+            "flag": "🇰🇷",
+            "ariaLabel": "韩国国旗",
+            "tone": "beauty"
+          },
+          "rfqLineSlug": "dermato",
+          "focusMarkets": [
+            { "code": "br", "flag": "🇧🇷", "label": "巴西" },
+            { "code": "ae", "flag": "🇦🇪", "label": "阿联酋" },
+            { "code": "sa", "flag": "🇸🇦", "label": "沙特" },
+            { "code": "kw", "flag": "🇰🇼", "label": "科威特" }
+          ]
+        }
+      ],
+      "about": {
+        "eyebrow": "公司",
+        "title": "具备全球治理的临床供应健康科技公司。",
+        "subtitle": "连接亚洲经审计制造商与外科及皮肤团队，带来物流可预测性、ANVISA/UDI 合规以及企业级采购体验。",
+        "missionTitle": "目标",
+        "mission": "为临床工程与采购团队保障关键供应，提供端到端合规、透明文档与受监控的 SLA。",
+        "valuesTitle": "我们的差异化",
+        "values": [
+          {
+            "title": "无摩擦合规",
+            "desc": "报价前完成 ANVISA、UDI、ISO 1345、IFU/MSDS 的尽职调查，并提供持续的有效期提醒。"
+          },
+          {
+            "title": "审计网络",
+            "desc": "香港枢纽及巴西、海湾地区团队协同检查、集运与最终交付。"
+          },
+          {
+            "title": "协作门户",
+            "desc": "为临床、采购、财务团队提供完整可追踪的批次审批流程。"
+          }
+        ],
+        "statsTitle": "治理与覆盖",
+        "stats": [
+          { "value": "6+", "label": "2023/24 年完成的工厂审计" },
+          { "value": "24–48h", "label": "技术比对标准 SLA" },
+          { "value": "≥95%", "label": "主动监控支持的 OTIF 目标" }
+        ],
+        "quote": "\"我们为临床团队提供端到端追溯与可预测性。\"",
+        "quoteBy": "Wonnymed 管理层"
+      },
+      "askQuote": "请求报价",
+      "howTitle": "流程",
+      "howSteps": [
+        { "t": "需求", "d": "发送包含规格、数量、时间线的 RFQ。" },
+        { "t": "验证", "d": "核验 ANVISA/UDI/ISO、兼容性与有效期。" },
+        { "t": "交付", "d": "24–48 小时提供报价，OTIF ≥ 95%。" }
+      ],
+      "complianceTitle": "合规与文档",
+      "complianceDesc": "默认提供监管透明度。每份提案均含技术档案与追踪。",
+      "complianceList": [
+        "ANVISA 与 UDI 注册",
+        "制造商 ISO 1345",
+        "最新 IFU/MSDS",
+        "批次/有效期控制与提醒"
+      ],
+      "requestChecklist": "索取清单",
+      "verifiedCriteriaTitle": "Verified 认证标准",
+      "verifiedCriteria": [
+        "文档验证（ANVISA/UDI/ISO）",
+        "需时提供本地语言 IFU",
+        "到货时满足的最短保质期",
+        "OTIF/服务记录"
+      ],
+      "verifiedNote": "门户不会收集患者敏感数据。",
+      "rfqTitle": "报价请求 (RFQ)",
+      "rfqSub": "无公开目录。请发送需求，我们将在 24–48 小时内回覆技术比对、验证文件与方案。",
+      "rfqBullets": [
+        "技术比对（材质、风险等级、兼容性、有效期）",
+        "ANVISA • ISO 1345 • UDI • IFU/MSDS",
+        "SLA 24–48h • OTIF ≥ 95% • 召回与批次追踪"
+      ],
+      "rfqHint": "提交后可通过我们发送的安全链接附加文件。",
+      "form": {
+        "name": "姓名*",
+        "company": "公司*",
+        "accountType": "账户类型",
+        "types": ["私立医院", "公立医院", "经销商"],
+        "email": "邮箱*",
+        "phone": "电话*",
+        "line": "产品线*",
+        "lines": ["止血材料", "缝合线", "按次付费手术钻", "Derma Pro (Beauty)"],
+        "specs": "技术规格 / 等同品牌*",
+        "specsPH": "例如：风险等级、口径/尺寸、吸收性、兼容性、现有注册、参考品牌等",
+        "qty": "数量",
+        "freq": "频率（每月/每季度）",
+        "deadline": "期望交期",
+        "delivery": "交付地点",
+        "reg": "监管要求",
+        "regPH": "例如：II/III 类、必备文件、最短保质期等",
+        "submit": "提交 RFQ",
+        "legal": "提交即表示同意我们的条款，并确认未分享任何患者敏感信息。",
+        "errorRequired": "请完成必填项并检查高亮信息。",
+        "okTitle": "提交成功",
+        "okMsg": "我们将在 24–48 小时内提供比对与方案。",
+        "backTop": "返回顶部"
+      },
+      "casesTitle": "案例与成果",
+      "cases": [
+        {
+          "t": "学期内 98% 供应可用率",
+          "d": "私立医院（圣保罗）— 止血材料与缝合线计划补货。"
+        },
+        {
+          "t": "PPU 运行时间 99%",
+          "d": "区域网络 — 按次付费手术钻，72 小时更换与最低用量。"
+        }
+      ],
+      "sticky": "24–48 小时报价，附技术比对与验证文件。",
+      "footer": {
+        "blurb": "兼具合规与速度的临床供应。总部 🇭🇰 香港。",
+        "solutions": "解决方案",
+        "institutional": "公司",
+        "contact": "联系",
+        "rights": "© {year} Wonnymed. 保留所有权利。"
+      }
+    }
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "nav": {
+    "language": "Select language"
+  },
+  "a11y": {
+    "nav": "Main navigation",
+    "whatsapp": "Open WhatsApp chat"
+  },
+  "page": {
+    "self": {
+      "brand": "Wonnymed",
+      "nav": {
+        "solutions": "Solutions",
+        "about": "About",
+        "how": "How it works",
+        "compliance": "Compliance",
+        "rfq": "RFQ",
+        "portal": "Portal"
+      },
+      "hero": {
+        "titleA": "Clinical supply with ",
+        "titleB": "compliance",
+        "titleC": " and speed.",
+        "sub": "Hemostatics, sutures, pay-per-use drills and professional derma. 🇨🇳 China (Med): audited suppliers with competitive pricing and controlled quality. 🇰🇷 Korea (Beauty): leading manufacturers delivering the market's premium quality. Quotes in 24–48h, ANVISA/UDI docs verified and delivery SLAs.",
+        "ctaPrimary": "Request a quote",
+        "ctaSecondary": "See compliance",
+        "note": "No public catalog. RFQ + private portal for approvers.",
+        "badgeTitle": "Verified Seal",
+        "badgeList": [
+          "ANVISA & UDI",
+          "ISO 1345 validated",
+          "IFU/MSDS attached",
+          "Lot tracking"
+        ],
+        "originBadges": [
+          {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "China flag",
+            "tone": "med"
+          },
+          {
+            "text": "Korea (Beauty)",
+            "flag": "🇰🇷",
+            "ariaLabel": "South Korea flag",
+            "tone": "beauty"
+          }
+        ]
+      },
+      "metrics": [
+        { "k": "Quote SLA", "v": "24–48h" },
+        { "k": "OTIF", "v": ">= 95%" },
+        { "k": "Routine", "v": "Private portal" },
+        { "k": "Compliance", "v": "ANVISA • UDI • ISO" },
+        { "k": "Partner network", "v": "🇨🇳 • 🇰🇷" }
+      ],
+      "solutionsTitle": "Solutions",
+      "lines": [
+        {
+          "title": "Hemostatics",
+          "desc": "Bleeding control with complete documentation. 🇨🇳 China (Med): competitive pricing with audited quality.",
+          "icon": "🩺",
+          "badge": {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "China flag",
+            "tone": "med"
+          }
+        },
+        {
+          "title": "Sutures",
+          "desc": "Absorbable & non-absorbable with compatibilities and IFUs. 🇨🇳 China (Med): competitive pricing with audited quality.",
+          "icon": "🧵",
+          "badge": {
+            "text": "China (Med)",
+            "flag": "🇨🇳",
+            "ariaLabel": "China flag",
+            "tone": "med"
+          }
+        },
+        {
+          "title": "Drills PPU",
+          "desc": "Pay-per-use with neutral AFE, uptime ≥ 98%, 72h swap.",
+          "icon": "🛠️"
+        },
+        {
+          "title": "Derma Pro (Beauty)",
+          "desc": "Premium clinical aesthetics — delivery focus across the markets below. 🇰🇷 Korea (Beauty): leading manufacturers with benchmark premium quality.",
+          "icon": "💠",
+          "badge": {
+            "text": "Korea (Beauty)",
+            "flag": "🇰🇷",
+            "ariaLabel": "South Korea flag",
+            "tone": "beauty"
+          },
+          "rfqLineSlug": "dermato",
+          "focusMarkets": [
+            { "code": "br", "flag": "🇧🇷", "label": "Brazil" },
+            { "code": "ae", "flag": "🇦🇪", "label": "UAE" },
+            { "code": "sa", "flag": "🇸🇦", "label": "KSA" },
+            { "code": "kw", "flag": "🇰🇼", "label": "Kuwait" }
+          ]
+        }
+      ],
+      "about": {
+        "eyebrow": "Company",
+        "title": "Clinical supply healthtech with global governance.",
+        "subtitle": "We connect surgical and dermatology teams to audited manufacturers across Asia, providing logistics predictability, ANVISA/UDI compliance and an enterprise buying experience.",
+        "missionTitle": "Objective",
+        "mission": "Ensure critical supply with full compliance, transparent documentation and monitored SLAs for clinical engineering and procurement.",
+        "valuesTitle": "Our differentiators",
+        "values": [
+          {
+            "title": "Frictionless compliance",
+            "desc": "Document due diligence (ANVISA, UDI, ISO 13485, IFU/MSDS) before quoting plus ongoing shelf-life alerts."
+          },
+          {
+            "title": "Audited network",
+            "desc": "Hong Kong hub with on-the-ground squads in Brazil and the Gulf to coordinate inspection, consolidation and final delivery."
+          },
+          {
+            "title": "Collaborative portal",
+            "desc": "Workflow for clinical, sourcing and finance teams to approve each lot with full traceability."
+          }
+        ],
+        "statsTitle": "Governance & reach",
+        "stats": [
+          { "value": "6+", "label": "factory audits completed in 2023/24" },
+          { "value": "24–48h", "label": "standard SLA for technical benchmarking" },
+          { "value": "≥95%", "label": "OTIF goal with proactive monitoring" }
+        ],
+        "quote": "\"We exist to give clinical teams predictability with end-to-end traceability.\"",
+        "quoteBy": "Wonnymed Leadership"
+      },
+      "askQuote": "Request quote",
+      "howTitle": "How it works",
+      "howSteps": [
+        { "t": "Request", "d": "Send the RFQ with specifications, quantities and timelines." },
+        { "t": "Validation", "d": "Due diligence on ANVISA/UDI/ISO, compatibilities and shelf life." },
+        { "t": "Delivery", "d": "Quote in 24–48h and OTIF ≥ 95%." }
+      ],
+      "complianceTitle": "Compliance & Documentation",
+      "complianceDesc": "Regulatory transparency by default. Each proposal includes a technical dossier and tracking.",
+      "complianceList": [
+        "ANVISA and UDI registration",
+        "Manufacturer ISO 13485",
+        "Updated IFU/MSDS",
+        "Lot/expiry control and alerts"
+      ],
+      "requestChecklist": "Request checklist",
+      "verifiedCriteriaTitle": "Verified Seal — criteria",
+      "verifiedCriteria": [
+        "Document validation (ANVISA/UDI/ISO)",
+        "IFU in local language when required",
+        "Minimum shelf life on arrival",
+        "OTIF/service track record"
+      ],
+      "verifiedNote": "No patient sensitive data is captured in the portal.",
+      "rfqTitle": "Request for Quote (RFQ)",
+      "rfqSub": "No public catalog. Send your needs and we return with technical comparison, verified docs and proposal within 24–48h.",
+      "rfqBullets": [
+        "Technical comparison (material, risk class, compatibility, expiry)",
+        "ANVISA • ISO 1345 • UDI • IFU/MSDS",
+        "SLA 24–48h • OTIF ≥ 95% • Recall & lot tracking"
+      ],
+      "rfqHint": "After submitting, you can attach files via a secure link we send by email.",
+      "form": {
+        "name": "Name*",
+        "company": "Company*",
+        "accountType": "Account type",
+        "types": ["Private hospital", "Public hospital", "Distributor"],
+        "email": "Email*",
+        "phone": "Phone*",
+        "line": "Line*",
+        "lines": ["Hemostatics", "Sutures", "Drills PPU", "Derma Pro (Beauty)"],
+        "specs": "Technical specifications / equivalent brands*",
+        "specsPH": "Ex.: risk class, gauge/size, absorption, compatibility, current registration, reference brand...",
+        "qty": "Quantity",
+        "freq": "Frequency (monthly/quarterly)",
+        "deadline": "Desired lead time",
+        "delivery": "Delivery location",
+        "reg": "Regulatory needs",
+        "regPH": "Ex.: class II/III, mandatory docs, minimum shelf life...",
+        "submit": "Send RFQ",
+        "legal": "By sending you agree to our Terms and confirm no PHI is being shared.",
+        "errorRequired": "Complete the required fields and review the highlighted data.",
+        "okTitle": "Received successfully",
+        "okMsg": "We'll reply within 24–48h with comparison and proposal.",
+        "backTop": "Back to top"
+      },
+      "casesTitle": "Cases & Results",
+      "cases": [
+        {
+          "t": "98% availability over semester",
+          "d": "Private hospital (SP) — hemostatics & sutures with scheduled replenishment."
+        },
+        {
+          "t": "PPU uptime 99%",
+          "d": "Regional network — pay-per-use drills, 72h swap and minimum consumption."
+        }
+      ],
+      "sticky": "24–48h quotes with technical comparison and verified documentation.",
+      "footer": {
+        "blurb": "Clinical supply with compliance and speed. HQ 🇭🇰 Hong Kong.",
+        "solutions": "Solutions",
+        "institutional": "Company",
+        "contact": "Contact",
+        "rights": "© {year} Wonnymed. All rights reserved."
+      }
+    }
+  }
+}
