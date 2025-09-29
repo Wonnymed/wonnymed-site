@@ -4,6 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
 
+import { DEFAULT_LOCALE } from "./lib/metadata";
+import { LOCALE_COOKIE, LOCALE_QUERY_PARAM } from "./lib/locale";
+import { useLocaleSync } from "./lib/useLocaleSync";
+
 /**
  * IMPORTANT:
  * - Do NOT import global CSS here. In the App Router, globals must be imported in app/layout.js.
@@ -34,7 +38,6 @@ const LOCALES = [
 ];
 
 const LOCALE_CODES = LOCALES.map((locale) => locale.code);
-const LANGUAGE_STORAGE_KEY = "wonnymed:selected-language";
 
 // ----- Translations / Copy ---------------------------------------------------
 const I18N = {
@@ -955,53 +958,30 @@ function BrandStyles() {
 }
 
 export default function Page() {
-  const [lang, setLangState] = useState("pt");
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    try {
-      const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-      if (stored && LOCALE_CODES.includes(stored)) {
-        setLangState(stored);
-      }
-    } catch {
-      // ignore storage read errors (private mode, disabled storage, etc.)
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof document === "undefined") {
-      return;
-    }
-
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  }, [lang]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    try {
-      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
-    } catch {
-      // ignore storage write errors
-    }
-  }, [lang]);
+  const { locale: lang, selectLocale } = useLocaleSync({
+    supportedLocales: LOCALE_CODES,
+    defaultLocale: DEFAULT_LOCALE,
+    cookieName: LOCALE_COOKIE,
+    queryParam: LOCALE_QUERY_PARAM,
+  });
 
   const handleLangChange = useCallback(
     (nextLang) => {
-      if (!LOCALE_CODES.includes(nextLang)) {
+      if (!LOCALE_CODES.includes(nextLang) || nextLang === lang) {
         return;
       }
 
-      setLangState((current) => (current === nextLang ? current : nextLang));
+      selectLocale(nextLang);
+
+      if (typeof window !== "undefined") {
+        try {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } catch {
+          window.scrollTo(0, 0);
+        }
+      }
     },
-    []
+    [lang, selectLocale]
   );
 
   return <LocalizedHome key={lang} lang={lang} onLangChange={handleLangChange} />;

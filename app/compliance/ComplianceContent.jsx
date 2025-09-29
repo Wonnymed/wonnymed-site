@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 
-const LANGUAGE_STORAGE_KEY = "wonnymed:selected-language";
+import { DEFAULT_LOCALE } from "../lib/metadata";
+import { LOCALE_COOKIE, LOCALE_QUERY_PARAM } from "../lib/locale";
+import { useLocaleSync } from "../lib/useLocaleSync";
 
 export const LOCALES = [
   { code: "pt", label: "Português" },
@@ -502,54 +504,33 @@ function classNames(...values) {
   return values.filter(Boolean).join(" ");
 }
 
-export default function ComplianceContent({ initialLang, fromQuery = false }) {
-  const normalizedInitial = COPY[initialLang] ? initialLang : FALLBACK_LANG;
-  const [lang, setLang] = useState(normalizedInitial);
+export default function ComplianceContent({ initialLang }) {
+  const { locale: lang, selectLocale } = useLocaleSync({
+    supportedLocales: LOCALES.map((locale) => locale.code),
+    defaultLocale: DEFAULT_LOCALE,
+    cookieName: LOCALE_COOKIE,
+    initialLocale: initialLang,
+    queryParam: LOCALE_QUERY_PARAM,
+  });
 
-  useEffect(() => {
-    setLang(normalizedInitial);
-  }, [normalizedInitial]);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || fromQuery) {
-      return;
-    }
-
-    try {
-      const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-      if (stored && COPY[stored]) {
-        setLang(stored);
+  const handleLocaleChange = useCallback(
+    (code) => {
+      if (code === lang) {
+        return;
       }
-    } catch (err) {
-      // Ignore storage errors (private mode, etc.)
-    }
-  }, [fromQuery]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+      selectLocale(code);
 
-    try {
-      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
-    } catch (err) {
-      // Ignore write errors
-    }
-  }, [lang]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const url = new URL(window.location.href);
-    if (lang === "pt") {
-      url.searchParams.delete("lang");
-    } else {
-      url.searchParams.set("lang", lang);
-    }
-    window.history.replaceState({}, "", url.toString());
-  }, [lang]);
+      if (typeof window !== "undefined") {
+        try {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } catch {
+          window.scrollTo(0, 0);
+        }
+      }
+    },
+    [lang, selectLocale]
+  );
 
   const t = useMemo(() => COPY[lang] || COPY[FALLBACK_LANG], [lang]);
   const isRTL = lang === "ar";
@@ -572,7 +553,7 @@ export default function ComplianceContent({ initialLang, fromQuery = false }) {
                 <button
                   key={locale.code}
                   type="button"
-                  onClick={() => setLang(locale.code)}
+                  onClick={() => handleLocaleChange(locale.code)}
                   className={classNames(
                     "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition",
                     lang === locale.code
