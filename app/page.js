@@ -2,12 +2,16 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Script from "next/script";
 
 /**
  * IMPORTANT:
  * - Do NOT import global CSS here. In the App Router, globals must be imported in app/layout.js.
  * - This file is self-contained and safe to drop into `app/page.js`.
  */
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+const RECAPTCHA_ACTION = "rfq_submit";
 
 // ----- Locales ---------------------------------------------------------------
 const LOCALES = [
@@ -119,7 +123,7 @@ const I18N = {
       accountType: "Tipo de conta",
       types: ["Hospital privado", "Hospital público", "Distribuidor"],
       email: "E-mail*",
-      phone: "Telefone",
+      phone: "Telefone*",
       line: "Linha*",
       lines: ["Hemostáticos", "Suturas", "Drills PPU", "Dermato Pro (Beauty)"],
       specs: "Especificações técnicas / marcas equivalentes*",
@@ -133,6 +137,7 @@ const I18N = {
       regPH: "Ex.: classe II/III, docs obrigatórios, validade mínima...",
       submit: "Enviar RFQ",
       legal: "Ao enviar, você concorda com nossos Termos e confirma que não está compartilhando PHI.",
+      errorRequired: "Preencha os campos obrigatórios e revise os dados destacados.",
       okTitle: "Recebido com sucesso",
       okMsg: "Retornaremos em 24–48h com comparativo e proposta.",
       backTop: "Voltar ao topo",
@@ -228,7 +233,7 @@ const I18N = {
       accountType: "Account type",
       types: ["Private hospital", "Public hospital", "Distributor"],
       email: "Email*",
-      phone: "Phone",
+      phone: "Phone*",
       line: "Line*",
       lines: ["Hemostatics", "Sutures", "Drills PPU", "Derma Pro (Beauty)"],
       specs: "Technical specs / equivalent brands*",
@@ -241,6 +246,7 @@ const I18N = {
       regPH: "E.g.: class II/III, mandatory docs, shelf-life requirements...",
       submit: "Submit RFQ",
       legal: "By submitting you agree to our Terms and confirm you’re not sharing PHI.",
+      errorRequired: "Please fill in the required fields and review the highlighted information.",
       okTitle: "Received successfully",
       okMsg: "We’ll reply in 24–48h with the comparison and proposal.",
       backTop: "Back to top",
@@ -338,7 +344,7 @@ const I18N = {
       accountType: "Tipo de cuenta",
       types: ["Hospital privado", "Hospital público", "Distribuidor"],
       email: "Email*",
-      phone: "Teléfono",
+      phone: "Teléfono*",
       line: "Línea*",
       lines: ["Hemostáticos", "Suturas", "Taladros PPU", "Derma Pro (Beauty)"],
       specs: "Especificaciones técnicas / marcas equivalentes*",
@@ -351,6 +357,7 @@ const I18N = {
       regPH: "Ej.: II/III, documentos obligatorios, vida útil mínima...",
       submit: "Enviar RFQ",
       legal: "Al enviar acepta nuestros Términos y confirma que no comparte PHI.",
+      errorRequired: "Complete los campos obligatorios y revise la información resaltada.",
       okTitle: "Recibido correctamente",
       okMsg: "Responderemos en 24–48h con la comparación y la propuesta.",
       backTop: "Volver arriba",
@@ -445,7 +452,7 @@ const I18N = {
       accountType: "账户类型",
       types: ["民营医院", "公立医院", "经销商"],
       email: "邮箱*",
-      phone: "电话",
+      phone: "电话*",
       line: "产品线*",
       lines: ["止血材料", "缝合线", "按次付费钻机", "专业皮肤科"],
       specs: "技术规格 / 同类品牌*",
@@ -458,6 +465,7 @@ const I18N = {
       regPH: "如：II/III 类、必备文件、效期要求等",
       submit: "提交 RFQ",
       legal: "提交即同意条款并确认不包含患者隐私信息。",
+      errorRequired: "请填写必填字段并核对高亮信息。",
       okTitle: "已收到",
       okMsg: "我们将在 24–48 小时内回复。",
       backTop: "返回顶部",
@@ -546,7 +554,7 @@ const I18N = {
       accountType: "نوع الحساب",
       types: ["مستشفى خاص", "مستشفى حكومي", "موزّع"],
       email: "البريد*",
-      phone: "الهاتف",
+      phone: "الهاتف*",
       line: "الخط*",
       lines: ["مواد إرقاء", "خيوط", "مثاقب بالدفع", "جلدية مهنية"],
       specs: "مواصفات تقنية / علامات مكافئة*",
@@ -559,6 +567,7 @@ const I18N = {
       regPH: "مثال: II/III، وثائق إلزامية، صلاحية…",
       submit: "إرسال RFQ",
       legal: "تؤكد عدم تضمين بيانات مرضى.",
+      errorRequired: "يرجى تعبئة الحقول المطلوبة ومراجعة البيانات المظللة.",
       okTitle: "تم الاستلام",
       okMsg: "نرد خلال 24–48 ساعة.",
       backTop: "العودة للأعلى",
@@ -652,7 +661,7 @@ const I18N = {
       accountType: "계정 유형",
       types: ["민영 병원", "공공 병원", "유통사"],
       email: "이메일*",
-      phone: "전화",
+      phone: "전화*",
       line: "라인*",
       lines: ["지혈재", "봉합사", "드릴 PPU", "더마 프로"],
       specs: "기술 사양 / 동등 브랜드*",
@@ -665,6 +674,7 @@ const I18N = {
       regPH: "예: II/III, 필수 문서, 유효기간",
       submit: "RFQ 제출",
       legal: "환자정보 미포함 확인.",
+      errorRequired: "필수 항목을 입력하고 강조된 정보를 확인해주세요.",
       okTitle: "접수 완료",
       okMsg: "24–48시간 내 회신.",
       backTop: "맨 위로",
@@ -836,7 +846,7 @@ function Field({ label, name, type = "text", value, onChange, placeholder }) {
     <label className="block">
       <span className="text-sm font-medium text-neutral-700">{label}</span>
       <input
-        className="mt-1 w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
+        className="mt-1 w-full rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/95 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         type={type}
         value={value}
@@ -851,7 +861,7 @@ function Select({ label, name, value, onChange, opts = [] }) {
     <label className="block">
       <span className="text-sm font-medium text-neutral-700">{label}</span>
       <select
-        className="mt-1 w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
+        className="mt-1 w-full rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/95 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         value={value}
         onChange={onChange}
@@ -870,7 +880,7 @@ function Area({ label, name, value, onChange, placeholder }) {
     <label className="block mt-4">
       <span className="text-sm font-medium text-neutral-700">{label}</span>
       <textarea
-        className="mt-1 min-h-[110px] w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
+        className="mt-1 min-h-[110px] w-full rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/95 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         value={value}
         onChange={onChange}
@@ -878,6 +888,24 @@ function Area({ label, name, value, onChange, placeholder }) {
       />
     </label>
   );
+}
+
+function deriveLineSlug(value = "") {
+  const normalized = value.toString().toLowerCase();
+  if (normalized.includes("sutur")) return "suture";
+  if (normalized.includes("ppu") || normalized.includes("drill")) return "ppu";
+  if (normalized.includes("derm")) return "dermato";
+  return "hemostatic";
+}
+
+function normalizePhone(value = "") {
+  const raw = value.toString();
+  const digits = raw.replace(/[^0-9+]/g, "");
+  if (!digits) return "";
+  if (digits.startsWith("+")) {
+    return `+${digits.slice(1).replace(/[^0-9]/g, "").slice(0, 20)}`;
+  }
+  return digits.replace(/[^0-9]/g, "").slice(0, 20);
 }
 
 // ----- Page ------------------------------------------------------------------
@@ -891,32 +919,33 @@ export default function Page() {
 
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    nome: "",
-    empresa: "",
-    tipoConta: t.form?.types?.[0] ?? "",
-    email: "",
-    telefone: "",
-    linha: t.form?.lines?.[0] ?? "",
-    especificacoes: "",
-    quantidade: "",
-    frequencia: "",
-    prazo: "",
-    entrega: "",
-    regulatorio: "",
-  });
+  const [errorMsg, setErrorMsg] = useState("");
+  const initialForm = useMemo(
+    () => ({
+      nome: "",
+      empresa: "",
+      tipoConta: t.form?.types?.[0] ?? "",
+      email: "",
+      telefone: "",
+      linha: t.form?.lines?.[0] ?? "",
+      especificacoes: "",
+      quantidade: "",
+      frequencia: "",
+      prazo: "",
+      entrega: "",
+      regulatorio: "",
+    }),
+    [t.form?.lines, t.form?.types]
+  );
+  const [form, setForm] = useState(() => initialForm);
 
   useEffect(() => {
     // When language changes, reset defaults for selects and clear sent/loading
     setLoading(false);
     setSent(false);
-    setForm((prev) => ({
-      ...prev,
-      tipoConta: t.form?.types?.[0] ?? "",
-      linha: t.form?.lines?.[0] ?? "",
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
+    setErrorMsg("");
+    setForm(initialForm);
+  }, [initialForm, lang]);
 
   const fallback = I18N.en;
   const nav = { ...fallback.nav, ...(t.nav || {}) };
@@ -937,30 +966,131 @@ export default function Page() {
   const heroMetrics = ((t.metrics?.length ? t.metrics : fallback.metrics) || []).slice(0, 2);
   const [primaryMetric, secondaryMetric] = heroMetrics;
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
+
   function handleChange(e) {
     const { name, value } = e.target;
+    setErrorMsg("");
     setForm((f) => ({ ...f, [name]: value }));
   }
+
   function validate() {
-    const req = ["nome", "empresa", "email", "linha", "especificacoes"];
-    return req.every((k) => String(form[k] || "").trim().length > 1);
+    const issues = [];
+    const required = {
+      nome: form.nome,
+      empresa: form.empresa,
+      email: form.email,
+      telefone: form.telefone,
+      linha: form.linha,
+      especificacoes: form.especificacoes,
+    };
+
+    Object.entries(required).forEach(([key, value]) => {
+      if (!String(value || "").trim()) {
+        issues.push(key);
+      }
+    });
+
+    if (required.email && !emailRegex.test(String(required.email).trim())) {
+      issues.push("email_invalido");
+    }
+
+    const phoneDigits = String(required.telefone || "").replace(/\D/g, "");
+    if (phoneDigits.length < 8) {
+      issues.push("telefone_curto");
+    }
+
+    if (String(required.especificacoes || "").trim().length < 10) {
+      issues.push("especificacoes_curta");
+    }
+
+    if (!required.linha) {
+      issues.push("linha_invalida");
+    }
+
+    return issues;
   }
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!validate()) {
-      alert("Please fill required fields / Preencha os campos obrigatórios.");
+    const issues = validate();
+    if (issues.length) {
+      setErrorMsg(t.form?.errorRequired ?? "Please review the required fields.");
       return;
     }
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setErrorMsg("");
+
+    const recaptchaToken = await new Promise((resolve) => {
+      if (!RECAPTCHA_SITE_KEY || typeof window === "undefined" || !window.grecaptcha) {
+        resolve(null);
+        return;
+      }
+
+      try {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: RECAPTCHA_ACTION })
+            .then(resolve)
+            .catch(() => resolve(null));
+        });
+      } catch (err) {
+        resolve(null);
+      }
+    });
+
+    const payload = {
+      ...form,
+      telefone: normalizePhone(form.telefone),
+      lang,
+      linhaSlug: deriveLineSlug(form.linha),
+      recaptchaToken,
+      recaptchaAction: RECAPTCHA_ACTION,
+    };
+
+    const selectedLine = form.linha;
+
+    try {
+      const response = await fetch("/api/rfq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Unable to submit RFQ.");
+      }
+
       setSent(true);
-    }, 800);
+      setForm(initialForm);
+
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "rfq_submit", {
+          language: lang,
+          line: deriveLineSlug(selectedLine),
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMsg(err.message || "Unable to submit RFQ.");
+      setSent(false);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <div dir={dir} className="min-h-screen text-neutral-900">
       <BrandStyles />
+      {RECAPTCHA_SITE_KEY ? (
+        <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload" />
+      ) : null}
 
       {topBarMessage ? (
         <div className="hidden md:block bg-[color:var(--wm-primary-800)] text-white">
@@ -1365,7 +1495,10 @@ export default function Page() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-lg backdrop-blur">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-3xl border border-[color:var(--wm-accent-200)] bg-gradient-to-br from-white/95 via-[color:var(--wm-accent-50)] to-white p-6 shadow-xl shadow-[rgba(16,47,61,0.12)] backdrop-blur"
+          >
             {sent ? (
               <div className="text-center">
                 <h3 className="text-lg font-semibold">{t.form.okTitle}</h3>
@@ -1376,6 +1509,11 @@ export default function Page() {
               </div>
             ) : (
               <>
+                {errorMsg ? (
+                  <p className="mb-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {errorMsg}
+                  </p>
+                ) : null}
                 <Field label={t.form.name} name="nome" value={form.nome} onChange={handleChange} />
                 <Field label={t.form.company} name="empresa" value={form.empresa} onChange={handleChange} />
                 <Select label={t.form.accountType} name="tipoConta" value={form.tipoConta} onChange={handleChange} opts={t.form.types} />
