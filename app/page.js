@@ -70,13 +70,7 @@ const I18N = {
         },
       ],
     },
-    metrics: [
-      { k: "SLA de cotação", v: "24–48h" },
-      { k: "OTIF", v: ">= 95%" },
-      { k: "Rotina", v: "Portal privado" },
-      { k: "Compliance", v: "ANVISA • UDI • ISO" },
-      { k: "Rede de parceiros", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "Soluções",
     lines: [
       {
@@ -241,13 +235,7 @@ const I18N = {
         },
       ],
     },
-    metrics: [
-      { k: "Quote SLA", v: "24–48h" },
-      { k: "OTIF", v: ">= 95%" },
-      { k: "Routine", v: "Private portal" },
-      { k: "Compliance", v: "ANVISA • UDI • ISO" },
-      { k: "Partner network", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "Solutions",
     lines: [
       {
@@ -403,13 +391,7 @@ const I18N = {
         },
       ],
     },
-    metrics: [
-      { k: "SLA de cotización", v: "24–48h" },
-      { k: "OTIF", v: ">= 95%" },
-      { k: "Rutina", v: "Portal privado" },
-      { k: "Cumplimiento", v: "ANVISA • UDI • ISO" },
-      { k: "Red de socios", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "Soluciones",
     lines: [
       {
@@ -549,13 +531,7 @@ const I18N = {
       badgeTitle: "验证标识",
       badgeList: ["ANVISA & UDI", "ISO 13485 验证", "附 IFU/MSDS", "批次追踪"],
     },
-    metrics: [
-      { k: "报价SLA", v: "24–48h" },
-      { k: "准时完整率", v: ">= 95%" },
-      { k: "流程", v: "私有门户" },
-      { k: "合规", v: "ANVISA • UDI • ISO" },
-      { k: "合作伙伴网络", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "解决方案",
     lines: [
       { title: "止血材料", desc: "完整文件与风险分级。经审核的 🇨🇳 中国合作伙伴。", icon: "🩺" },
@@ -662,13 +638,7 @@ const I18N = {
       badgeTitle: "ختم التحقق",
       badgeList: ["ANVISA و UDI", "ISO 13485 موثق", "IFU/MSDS مرفق", "تتبع الدُفعات"],
     },
-    metrics: [
-      { k: "SLA العرض", v: "24–48h" },
-      { k: "OTIF", v: ">= 95%" },
-      { k: "الروتين", v: "بوابة خاصة" },
-      { k: "الامتثال", v: "ANVISA • UDI • ISO" },
-      { k: "شبكة الشركاء", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "الحلول",
     lines: [
       { title: "مواد إرقاء", desc: "توثيق كامل وفئات خطورة. شركاء مُدققون في 🇨🇳 الصين.", icon: "🩺" },
@@ -781,13 +751,7 @@ const I18N = {
       badgeTitle: "Verified 마크",
       badgeList: ["ANVISA & UDI", "ISO 13485 검증", "IFU/MSDS 첨부", "로트 추적"],
     },
-    metrics: [
-      { k: "견적 SLA", v: "24–48h" },
-      { k: "OTIF", v: ">= 95%" },
-      { k: "루틴", v: "프라이빗 포털" },
-      { k: "컴플라이언스", v: "ANVISA • UDI • ISO" },
-      { k: "파트너 네트워크", v: "🇨🇳 • 🇰🇷" },
-    ],
+    metrics: [],
     solutionsTitle: "솔루션",
     lines: [
       { title: "지혈재", desc: "완전한 문서와 위험 등급. 🇨🇳 중국 감사 완료 파트너.", icon: "🩺" },
@@ -1256,8 +1220,13 @@ function LocalizedHome({ lang, onLangChange }) {
   const portalHref = "mailto:contato@wonnymed.com?subject=Portal%20Wonnymed";
   const topBarMessage = t.sticky || fallback.sticky;
   const heroHighlights = ((t.hero?.badgeList?.length ? t.hero.badgeList : fallback.hero.badgeList) || []).slice(0, 3);
-  const heroMetrics = ((t.metrics?.length ? t.metrics : fallback.metrics) || []).slice(0, 2);
+  const rawMetrics = Array.isArray(t.metrics) ? t.metrics : [];
+  const fallbackMetrics = Array.isArray(fallback.metrics) ? fallback.metrics : [];
+  const metricsList = rawMetrics.length ? rawMetrics : fallbackMetrics;
+  const heroMetrics = metricsList.slice(0, 2);
   const [primaryMetric, secondaryMetric] = heroMetrics;
+  const hasMetrics = metricsList.length > 0;
+  const hasLocaleMetrics = rawMetrics.length > 0;
   const heroOriginBadges =
     (Array.isArray(t.hero?.originBadges) && t.hero.originBadges.length
       ? t.hero.originBadges
@@ -1637,17 +1606,19 @@ function LocalizedHome({ lang, onLangChange }) {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap items-center gap-3" aria-hidden="true">
-                {heroMetrics.map((metric) => (
-                  <div
-                    key={`${metric.k}-${metric.v}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-4 py-2 text-sm font-semibold text-[color:var(--wm-primary-700)] shadow-sm"
-                  >
-                    <span className="text-neutral-500">{metric.k}:</span>
-                    <span>{metric.v}</span>
-                  </div>
-                ))}
-              </div>
+              {hasMetrics ? (
+                <div className="mt-6 flex flex-wrap items-center gap-3" aria-hidden="true">
+                  {heroMetrics.map((metric) => (
+                    <div
+                      key={`${metric.k}-${metric.v}`}
+                      className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-4 py-2 text-sm font-semibold text-[color:var(--wm-primary-700)] shadow-sm"
+                    >
+                      <span className="text-neutral-500">{metric.k}:</span>
+                      <span>{metric.v}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <div className="relative">
               <div className="absolute -inset-8 -z-10 rounded-[48px] bg-gradient-to-br from-white via-[color:var(--wm-accent-50)] to-transparent blur-2xl" aria-hidden="true" />
@@ -1668,17 +1639,19 @@ function LocalizedHome({ lang, onLangChange }) {
                   </div>
                 ) : null}
                 <p className="mt-5 text-sm leading-relaxed text-neutral-600">{t.hero.note}</p>
-                <div className="mt-6 grid gap-3 sm:grid-cols-2" aria-hidden="true">
-                  {(t.metrics || fallback.metrics).slice(0, 4).map((metric) => (
-                    <div
-                      key={`${metric.k}-${metric.v}`}
-                      className="rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/70 p-4 shadow-sm"
-                    >
-                      <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{metric.k}</div>
-                      <div className="mt-1 text-2xl font-semibold text-[color:var(--wm-primary-800)]">{metric.v}</div>
-                    </div>
-                  ))}
-                </div>
+                {hasMetrics ? (
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2" aria-hidden="true">
+                    {metricsList.slice(0, 4).map((metric) => (
+                      <div
+                        key={`${metric.k}-${metric.v}`}
+                        className="rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/70 p-4 shadow-sm"
+                      >
+                        <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{metric.k}</div>
+                        <div className="mt-1 text-2xl font-semibold text-[color:var(--wm-primary-800)]">{metric.v}</div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <a
                   href="#rfq"
                   className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
@@ -1693,23 +1666,25 @@ function LocalizedHome({ lang, onLangChange }) {
         </section>
 
         {/* Metrics */}
-        <section className="py-14">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="rounded-[32px] border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {t.metrics.map((m, i) => (
-                <div
-                  key={`${m.k}-${m.v}-${i}`}
-                  className="flex flex-col justify-between rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/80 p-5 shadow-sm"
-                >
-                  <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{m.k}</span>
-                  <span className="mt-3 text-2xl font-semibold text-[color:var(--wm-primary-800)] md:text-3xl">{m.v}</span>
+        {hasLocaleMetrics ? (
+          <section className="py-14">
+            <div className="mx-auto max-w-6xl px-4">
+              <div className="rounded-[32px] border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                  {rawMetrics.map((m, i) => (
+                    <div
+                      key={`${m.k}-${m.v}-${i}`}
+                      className="flex flex-col justify-between rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/80 p-5 shadow-sm"
+                    >
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{m.k}</span>
+                      <span className="mt-3 text-2xl font-semibold text-[color:var(--wm-primary-800)] md:text-3xl">{m.v}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        </div>
-        </section>
+          </section>
+        ) : null}
 
         {/* About */}
         <section id="about" className="relative py-16 md:py-24">
