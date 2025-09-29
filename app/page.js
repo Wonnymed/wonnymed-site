@@ -33,6 +33,9 @@ const LOCALES = [
   { code: "ko", label: "한국어" },
 ];
 
+const LOCALE_CODES = LOCALES.map((locale) => locale.code);
+const LANGUAGE_STORAGE_KEY = "wonnymed:selected-language";
+
 // ----- Translations / Copy ---------------------------------------------------
 const I18N = {
   pt: {
@@ -951,6 +954,59 @@ function BrandStyles() {
   );
 }
 
+export default function Page() {
+  const [lang, setLangState] = useState("pt");
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    try {
+      const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (stored && LOCALE_CODES.includes(stored)) {
+        setLangState(stored);
+      }
+    } catch {
+      // ignore storage read errors (private mode, disabled storage, etc.)
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    } catch {
+      // ignore storage write errors
+    }
+  }, [lang]);
+
+  const handleLangChange = useCallback(
+    (nextLang) => {
+      if (!LOCALE_CODES.includes(nextLang)) {
+        return;
+      }
+
+      setLangState((current) => (current === nextLang ? current : nextLang));
+    },
+    []
+  );
+
+  return <LocalizedHome key={lang} lang={lang} onLangChange={handleLangChange} />;
+}
+
 // ----- UI bits ---------------------------------------------------------------
 function WhatsAppButton({ ariaLabel = "Abrir conversa no WhatsApp", isRTL = false }) {
   return (
@@ -1093,8 +1149,7 @@ function normalizePhone(value = "") {
 }
 
 // ----- Page ------------------------------------------------------------------
-export default function Page() {
-  const [lang, setLang] = useState("pt");
+function LocalizedHome({ lang, onLangChange }) {
   const t = I18N[lang] || I18N.en;
   const dir = useMemo(() => (lang === "ar" ? "rtl" : "ltr"), [lang]);
   const isRTL = dir === "rtl";
@@ -1428,7 +1483,7 @@ export default function Page() {
   }
 
   return (
-    <div dir={dir} className="min-h-screen text-neutral-900">
+    <div dir={dir} lang={lang} className="min-h-screen text-neutral-900">
       <BrandStyles />
       {RECAPTCHA_SITE_KEY ? (
         <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload" />
@@ -1515,7 +1570,7 @@ export default function Page() {
             </a>
             <select
               value={lang}
-              onChange={(e) => setLang(e.target.value)}
+              onChange={(e) => onLangChange?.(e.target.value)}
               aria-label={a11y.language}
               className="rounded-full border border-neutral-200 bg-white/80 px-3 py-2 text-sm shadow-sm focus:border-[color:var(--wm-primary-700)] focus:outline-none focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
             >
