@@ -954,12 +954,82 @@ export default function Page() {
   const inlineArrow = isRTL ? "←" : "→";
   const diagonalArrow = isRTL ? "↖" : "↗";
 
-  const navLinks = [
-    { href: "#about", label: nav.about },
-    { href: "#linhas", label: nav.solutions },
-    { href: "#como", label: nav.how },
-    { href: "#compliance", label: nav.compliance },
-  ];
+  const navLinks = useMemo(
+    () => [
+      { id: "about", label: nav.about },
+      { id: "solutions", label: nav.solutions },
+      { id: "how", label: nav.how },
+      { id: "compliance", label: nav.compliance },
+    ],
+    [nav.about, nav.solutions, nav.how, nav.compliance]
+  );
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const sectionIds = navLinks.map((link) => link.id);
+    const updateFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && sectionIds.includes(hash)) {
+        setActiveSection(hash);
+        return;
+      }
+
+      if (!hash && sectionIds.length > 0) {
+        setActiveSection((current) => current || sectionIds[0]);
+      }
+    };
+
+    updateFromHash();
+
+    window.addEventListener("hashchange", updateFromHash);
+
+    if (typeof IntersectionObserver === "undefined") {
+      return () => {
+        window.removeEventListener("hashchange", updateFromHash);
+      };
+    }
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible.length > 0) {
+          const nextActive = visible[0].target.id;
+          setActiveSection((current) => (current === nextActive ? current : nextActive));
+          return;
+        }
+
+        entries.forEach((entry) => {
+          if (entry.boundingClientRect.top >= 0) {
+            const nextActive = entry.target.id;
+            setActiveSection((current) => (current === nextActive ? current : nextActive));
+          }
+        });
+      },
+      {
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: [0.1, 0.25, 0.5, 0.75],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      window.removeEventListener("hashchange", updateFromHash);
+      sections.forEach((section) => observer.unobserve(section));
+      observer.disconnect();
+    };
+  }, [navLinks]);
   const portalHref = "mailto:contato@wonnymed.com?subject=Portal%20Wonnymed";
   const topBarMessage = t.sticky || fallback.sticky;
   const heroHighlights = ((t.hero?.badgeList?.length ? t.hero.badgeList : fallback.hero.badgeList) || []).slice(0, 3);
@@ -1142,15 +1212,25 @@ export default function Page() {
             className="hidden flex-1 items-center justify-center gap-2 text-sm font-medium text-neutral-600 md:flex"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-4 py-1.5 shadow-sm">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full px-3 py-1 transition-colors hover:bg-[color:var(--wm-accent-50)] hover:text-[color:var(--wm-primary-700)]"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const href = `#${link.id}`;
+                const isActive = activeSection === link.id;
+
+                return (
+                  <a
+                    key={href}
+                    href={href}
+                    className={`rounded-full px-3 py-1 transition-colors hover:bg-[color:var(--wm-accent-50)] hover:text-[color:var(--wm-primary-700)] ${
+                      isActive
+                        ? "bg-[color:var(--wm-accent-100)] text-[color:var(--wm-primary-800)] shadow-sm"
+                        : ""
+                    }`}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
           </nav>
 
@@ -1337,117 +1417,117 @@ export default function Page() {
         </section>
 
         {/* Solutions */}
-        <section id="linhas" className="relative py-16 md:py-24">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-white/60 to-transparent" aria-hidden="true" />
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.solutionsTitle}</h2>
-            <a
-              href="#rfq"
-              className="hidden rounded-full bg-[color:var(--wm-primary)] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] md:inline-flex"
-            >
-              {t.hero.ctaPrimary}
-            </a>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {t.lines.map((it, i) => (
-              <div
-                key={i}
-                className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+        <section id="solutions" className="relative py-16 md:py-24">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-white/60 to-transparent" aria-hidden="true" />
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.solutionsTitle}</h2>
+              <a
+                href="#rfq"
+                className="hidden rounded-full bg-[color:var(--wm-primary)] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] md:inline-flex"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-xl text-white shadow">
-                    <span>{it.icon ?? "•"}</span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-neutral-900">{it.title}</h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-600">{it.desc}</p>
-                <a
-                  href="#rfq"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--wm-primary-700)] underline decoration-[color:var(--wm-primary-300)] decoration-2 underline-offset-4 transition group-hover:text-[color:var(--wm-primary-800)]"
+                {t.hero.ctaPrimary}
+              </a>
+            </div>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {t.lines.map((it, i) => (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  {t.askQuote}
-                  <span aria-hidden="true">{inlineArrow}</span>
-                </a>
-              </div>
-            ))}
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-xl text-white shadow">
+                      <span>{it.icon ?? "•"}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-neutral-900">{it.title}</h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">{it.desc}</p>
+                  <a
+                    href="#rfq"
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--wm-primary-700)] underline decoration-[color:var(--wm-primary-300)] decoration-2 underline-offset-4 transition group-hover:text-[color:var(--wm-primary-800)]"
+                  >
+                    {t.askQuote}
+                    <span aria-hidden="true">{inlineArrow}</span>
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
         </section>
 
         {/* How it works */}
-        <section id="como" className="relative py-16 md:py-24">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent" aria-hidden="true" />
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.howTitle}</h2>
-          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
-            {t.howSteps.map((s, i) => (
-              <div
-                key={i}
-                className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
-              >
+        <section id="how" className="relative py-16 md:py-24">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent" aria-hidden="true" />
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.howTitle}</h2>
+            <div className="relative mt-10 grid gap-6 md:grid-cols-3">
+              {t.howSteps.map((s, i) => (
                 <div
-                  className={`absolute inset-y-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-lg font-semibold text-white shadow ${isRTL ? "right-6" : "left-6"}`}
+                  key={i}
+                  className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
                 >
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div style={{ paddingInlineStart: "5rem" }}>
-                  <h3 className="text-xl font-semibold text-neutral-900">{s.t}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">{s.d}</p>
-                </div>
-                {i < t.howSteps.length - 1 ? (
                   <div
-                    className={`absolute top-1/2 hidden h-px w-16 translate-y-[-50%] md:block ${
-                      isRTL ? "left-6 bg-gradient-to-l" : "right-6 bg-gradient-to-r"
-                    } from-[color:var(--wm-accent-200)] to-transparent`}
-                  />
-                ) : null}
-              </div>
-            ))}
+                    className={`absolute inset-y-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-lg font-semibold text-white shadow ${isRTL ? "right-6" : "left-6"}`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div style={{ paddingInlineStart: "5rem" }}>
+                    <h3 className="text-xl font-semibold text-neutral-900">{s.t}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-neutral-600">{s.d}</p>
+                  </div>
+                  {i < t.howSteps.length - 1 ? (
+                    <div
+                      className={`absolute top-1/2 hidden h-px w-16 translate-y-[-50%] md:block ${
+                        isRTL ? "left-6 bg-gradient-to-l" : "right-6 bg-gradient-to-r"
+                      } from-[color:var(--wm-accent-200)] to-transparent`}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
         </section>
 
         {/* Compliance */}
         <section id="compliance" className="relative py-16 md:py-24">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/80 via-[color:var(--wm-accent-50)] to-transparent" aria-hidden="true" />
-        <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.complianceTitle}</h2>
-            <p className="text-neutral-700">{t.complianceDesc}</p>
-            <ul className="space-y-3 text-sm leading-relaxed text-neutral-600">
-              {t.complianceList.map((x) => (
-                <li key={x} className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--wm-primary-700)] text-[10px] font-bold text-white">✓</span>
-                  <span>{x}</span>
-                </li>
-              ))}
-            </ul>
-            <a
-              href="#rfq"
-              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)]"
-            >
-              {t.requestChecklist}
-              <span aria-hidden="true">{diagonalArrow}</span>
-            </a>
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/80 via-[color:var(--wm-accent-50)] to-transparent" aria-hidden="true" />
+          <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 md:grid-cols-[1.1fr_0.9fr]">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.complianceTitle}</h2>
+              <p className="text-neutral-700">{t.complianceDesc}</p>
+              <ul className="space-y-3 text-sm leading-relaxed text-neutral-600">
+                {t.complianceList.map((x) => (
+                  <li key={x} className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--wm-primary-700)] text-[10px] font-bold text-white">✓</span>
+                    <span>{x}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#rfq"
+                className="inline-flex items-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)]"
+              >
+                {t.requestChecklist}
+                <span aria-hidden="true">{diagonalArrow}</span>
+              </a>
+            </div>
+            <div className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur">
+              <h3 className="text-lg font-semibold text-neutral-900">{t.verifiedCriteriaTitle}</h3>
+              <ol className="mt-4 space-y-3 text-sm leading-relaxed text-neutral-600">
+                {t.verifiedCriteria.map((x, idx) => (
+                  <li key={x} className="flex gap-3">
+                    <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] text-xs font-semibold text-[color:var(--wm-primary-700)]">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{x}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-6 rounded-2xl border border-dashed border-[color:var(--wm-accent-200)] bg-white/80 p-4 text-xs leading-relaxed text-neutral-500">
+                {complianceNote}
+              </p>
+            </div>
           </div>
-          <div className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur">
-            <h3 className="text-lg font-semibold text-neutral-900">{t.verifiedCriteriaTitle}</h3>
-            <ol className="mt-4 space-y-3 text-sm leading-relaxed text-neutral-600">
-              {t.verifiedCriteria.map((x, idx) => (
-                <li key={x} className="flex gap-3">
-                  <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] text-xs font-semibold text-[color:var(--wm-primary-700)]">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span>{x}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-6 rounded-2xl border border-dashed border-[color:var(--wm-accent-200)] bg-white/80 p-4 text-xs leading-relaxed text-neutral-500">
-              {complianceNote}
-            </p>
-          </div>
-        </div>
         </section>
 
         {/* Cases */}
@@ -1580,7 +1660,7 @@ export default function Page() {
             <ul className="mt-4 space-y-2 text-white/70">
               {t.lines.map((it, i) => (
                 <li key={i}>
-                  <a href="#linhas" className="transition hover:text-white">
+                  <a href="#solutions" className="transition hover:text-white">
                     {it.title}
                   </a>
                 </li>
@@ -1601,7 +1681,7 @@ export default function Page() {
                 </a>
               </li>
               <li>
-                <a href="#como" className="transition hover:text-white">
+                <a href="#how" className="transition hover:text-white">
                   {nav.how}
                 </a>
               </li>
