@@ -685,15 +685,29 @@ function BrandStyles() {
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap');
       :root{
-        --wm-primary: #29566f;
-        --wm-primary-700: #21495e;
-        --wm-primary-800: #1b3d4f;
-        --wm-accent-50: #eef7f7;
-        --wm-accent-200: #c7e6e6;
-        --wm-accent-300: #a9dede;
+        --wm-primary: #1d4f67;
+        --wm-primary-600: #1b4a60;
+        --wm-primary-700: #163d4f;
+        --wm-primary-800: #102f3d;
+        --wm-accent-50: #edf6f8;
+        --wm-accent-100: #d8ecf2;
+        --wm-accent-200: #b9dbe4;
+        --wm-accent-300: #8fc4d6;
+        --wm-surface: #f3f6f8;
+        --wm-ink: #0f172a;
       }
       * { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans KR", "Noto Sans SC", "Noto Sans Arabic", sans-serif; }
-      body { background: #fafafa; }
+      body {
+        background:
+          radial-gradient(120% 120% at 100% 0%, rgba(143, 196, 214, 0.16), transparent 55%),
+          radial-gradient(140% 140% at 0% 10%, rgba(29, 79, 103, 0.12), transparent 60%),
+          var(--wm-surface);
+        color: var(--wm-ink);
+      }
+      ::selection {
+        background: var(--wm-primary);
+        color: #ffffff;
+      }
     `}</style>
   );
 }
@@ -706,7 +720,7 @@ function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
-      className="fixed right-4 bottom-20 z-40 inline-flex items-center justify-center rounded-full w-14 h-14 shadow-lg bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-200"
+      className="fixed bottom-24 right-6 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-2xl transition hover:from-emerald-500/90 hover:to-emerald-600/90 focus:outline-none focus:ring-4 focus:ring-emerald-200/80"
     >
       <svg
         className="h-7 w-7"
@@ -723,13 +737,20 @@ function WhatsAppButton() {
   );
 }
 
-function BrandWordmark({ label, className = "", emblemClassName = "h-9 w-9 text-sm" }) {
+function BrandWordmark({
+  label,
+  className = "",
+  emblemClassName = "h-9 w-9 text-sm",
+  labelClassName = "font-semibold text-[color:var(--wm-primary-800)] tracking-tight",
+}) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <span className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[color:var(--wm-primary)] to-[color:var(--wm-primary-700)] text-white font-semibold shadow-sm ${emblemClassName}`}>
+      <span
+        className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[color:var(--wm-primary)] via-[color:var(--wm-primary-600)] to-[color:var(--wm-primary-800)] text-white font-semibold shadow ${emblemClassName}`}
+      >
         WM
       </span>
-      <span className="font-semibold text-[color:var(--wm-primary-800)] tracking-tight">{label}</span>
+      <span className={labelClassName}>{label}</span>
     </div>
   );
 }
@@ -747,7 +768,7 @@ function SectionHeading({ eyebrow, title, subtitle }) {
 function ValueCard({ title, description }) {
   if (!title && !description) return null;
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white/80 p-5 shadow-sm">
+    <div className="rounded-2xl border border-white/60 bg-white/80 p-5 shadow-sm backdrop-blur">
       {title ? <h4 className="text-base font-semibold text-neutral-900">{title}</h4> : null}
       {description ? <p className="mt-2 text-sm leading-relaxed text-neutral-600">{description}</p> : null}
     </div>
@@ -757,9 +778,9 @@ function ValueCard({ title, description }) {
 function Field({ label, name, type = "text", value, onChange, placeholder }) {
   return (
     <label className="block">
-      <span className="text-sm font-medium text-neutral-800">{label}</span>
+      <span className="text-sm font-medium text-neutral-700">{label}</span>
       <input
-        className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-neutral-200"
+        className="mt-1 w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         type={type}
         value={value}
@@ -772,9 +793,9 @@ function Field({ label, name, type = "text", value, onChange, placeholder }) {
 function Select({ label, name, value, onChange, opts = [] }) {
   return (
     <label className="block">
-      <span className="text-sm font-medium text-neutral-800">{label}</span>
+      <span className="text-sm font-medium text-neutral-700">{label}</span>
       <select
-        className="mt-1 w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-neutral-200"
+        className="mt-1 w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         value={value}
         onChange={onChange}
@@ -791,9 +812,9 @@ function Select({ label, name, value, onChange, opts = [] }) {
 function Area({ label, name, value, onChange, placeholder }) {
   return (
     <label className="block mt-4">
-      <span className="text-sm font-medium text-neutral-800">{label}</span>
+      <span className="text-sm font-medium text-neutral-700">{label}</span>
       <textarea
-        className="mt-1 min-h-[110px] w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-neutral-200"
+        className="mt-1 min-h-[110px] w-full rounded-2xl border border-white/60 bg-white/80 px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[color:var(--wm-primary-700)] focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
         name={name}
         value={value}
         onChange={onChange}
@@ -850,6 +871,10 @@ export default function Page() {
     { href: "#compliance", label: nav.compliance },
   ];
   const portalHref = "mailto:contato@wonnymed.com?subject=Portal%20Wonnymed";
+  const topBarMessage = t.sticky || fallback.sticky;
+  const heroHighlights = ((t.hero?.badgeList?.length ? t.hero.badgeList : fallback.hero.badgeList) || []).slice(0, 3);
+  const heroMetrics = ((t.metrics?.length ? t.metrics : fallback.metrics) || []).slice(0, 2);
+  const [primaryMetric, secondaryMetric] = heroMetrics;
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -873,45 +898,72 @@ export default function Page() {
   }
 
   return (
-    <div dir={dir} className="min-h-screen bg-neutral-50 text-neutral-900">
+    <div dir={dir} className="min-h-screen text-neutral-900">
       <BrandStyles />
 
+      {topBarMessage ? (
+        <div className="hidden md:block bg-[color:var(--wm-primary-800)] text-white">
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 text-xs md:text-sm">
+            <span className="font-medium tracking-tight">{topBarMessage}</span>
+            <a
+              href="#rfq"
+              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 font-semibold uppercase tracking-[0.25em] transition hover:bg-white/25"
+            >
+              {t.hero.ctaPrimary}
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      ) : null}
+
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
-        <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-6">
+      <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur-xl shadow-sm supports-[backdrop-filter]:bg-white/60">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
           <div className="flex items-center gap-3">
             <Image
-  src="/assets/logo/wonnymed-logo.png"
-  alt="Wonnymed"
-  width={296}   // o dobro de 148
-  height={80}   // o dobro de 40 (mantém proporção)
-  priority
-  className="h-10 md:h-14 lg:h-16 w-auto"   // controla o tamanho visível
-/>
-            <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[color:var(--wm-accent-50)] text-[color:var(--wm-primary-700)] border border-[color:var(--wm-accent-200)]">
+              src="/assets/logo/wonnymed-logo.png"
+              alt="Wonnymed"
+              width={296}
+              height={80}
+              priority
+              className="h-11 w-auto md:h-14"
+            />
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="text-sm font-semibold tracking-tight text-[color:var(--wm-primary-800)]">{t.brand}</span>
+              <span className="text-xs text-neutral-500">
+                {primaryMetric ? `${primaryMetric.k}: ${primaryMetric.v}` : nav.compliance}
+              </span>
+            </div>
+            <span className="ml-2 hidden rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-2.5 py-0.5 text-xs text-[color:var(--wm-primary-700)] sm:inline-flex">
               HQ 🇭🇰 Hong Kong
             </span>
           </div>
 
-          <nav className="hidden md:flex flex-1 items-center justify-center gap-6 text-sm font-medium text-neutral-600">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="transition-colors hover:text-neutral-900">
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden flex-1 items-center justify-center gap-2 text-sm font-medium text-neutral-600 md:flex">
+            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/70 px-4 py-1.5 shadow-sm">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-full px-3 py-1 transition-colors hover:bg-[color:var(--wm-accent-50)] hover:text-[color:var(--wm-primary-700)]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </nav>
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="ml-auto flex items-center gap-2">
             <a
               href={portalHref}
-              className="hidden md:inline-flex px-3 py-2 rounded-xl border border-neutral-300 text-sm font-medium hover:border-[color:var(--wm-primary)] hover:text-[color:var(--wm-primary-700)]"
+              className="hidden rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 transition hover:border-[color:var(--wm-primary)] hover:text-[color:var(--wm-primary-700)] md:inline-flex"
             >
               {nav.portal}
             </a>
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value)}
-              className="px-3 py-2 rounded-xl border border-neutral-300 bg-white text-sm"
+              className="rounded-full border border-neutral-200 bg-white/80 px-3 py-2 text-sm shadow-sm focus:border-[color:var(--wm-primary-700)] focus:outline-none focus:ring-2 focus:ring-[color:var(--wm-accent-200)]"
             >
               {LOCALES.map((l) => (
                 <option key={l.code} value={l.code}>
@@ -921,7 +973,7 @@ export default function Page() {
             </select>
             <a
               href="#rfq"
-              className="hidden md:inline-flex px-4 py-2 rounded-xl bg-[color:var(--wm-primary)] text-white text-sm font-semibold hover:bg-[color:var(--wm-primary-700)]"
+              className="hidden items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:shadow-lg md:inline-flex"
             >
               {t.hero.ctaPrimary}
             </a>
@@ -930,60 +982,127 @@ export default function Page() {
       </header>
 
       {/* Hero */}
-      <section className="pt-14 md:pt-24 pb-12 bg-gradient-to-b from-white to-[color:var(--wm-accent-50)]">
-        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {t.hero.titleA}
-              <span className="underline decoration-[color:var(--wm-accent-300)]">{t.hero.titleB}</span>
-              {t.hero.titleC}
-            </h1>
-            <p className="mt-4 text-neutral-700 text-lg">{t.hero.sub}</p>
-            <div className="mt-6 flex gap-3">
-              <a
-                href="#rfq"
-                className="px-5 py-3 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold hover:bg-[color:var(--wm-primary-700)]"
-              >
-                {t.hero.ctaPrimary}
-              </a>
-              <a href="#compliance" className="px-5 py-3 rounded-xl border border-neutral-300 font-semibold">
-                {t.hero.ctaSecondary}
-              </a>
-            </div>
-            <p className="mt-4 text-sm text-neutral-500">{t.hero.note}</p>
-          </div>
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-3xl bg-[color:var(--wm-accent-50)] shadow-inner border border-[color:var(--wm-accent-200)]" />
-            <div className="absolute -bottom-6 -right-6 bg-white border border-neutral-200 shadow rounded-2xl p-4 w-64">
-              <p className="text-sm font-semibold">{t.hero.badgeTitle}</p>
-              <ul className="mt-2 text-xs text-neutral-600 space-y-1">
-                {t.hero.badgeList.map((x) => (
-                  <li key={x}>• {x}</li>
+      <section className="relative overflow-hidden pb-16 pt-20 md:pt-28">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white/70 to-transparent" aria-hidden="true" />
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-[color:var(--wm-primary-700)] shadow-sm">
+                {nav.compliance}
+              </div>
+              <h1 className="mt-6 text-4xl font-bold tracking-tight text-neutral-900 md:text-5xl lg:text-6xl">
+                {t.hero.titleA}
+                <span className="bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] bg-clip-text text-transparent">
+                  {t.hero.titleB}
+                </span>
+                {t.hero.titleC}
+              </h1>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-600 md:text-lg">{t.hero.sub}</p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="#rfq"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
+                >
+                  {t.hero.ctaPrimary}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href="#compliance"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-6 py-3 font-semibold text-[color:var(--wm-primary-700)] transition hover:border-[color:var(--wm-primary-700)] hover:text-[color:var(--wm-primary-800)]"
+                >
+                  {t.hero.ctaSecondary}
+                </a>
+              </div>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {heroHighlights.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-start gap-3 rounded-2xl border border-white/60 bg-white/80 p-4 shadow-sm backdrop-blur"
+                  >
+                    <span className="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--wm-primary-700)] text-xs font-bold text-white">
+                      ✓
+                    </span>
+                    <p className="text-sm leading-relaxed text-neutral-600">{item}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                {heroMetrics.map((metric) => (
+                  <div
+                    key={`${metric.k}-${metric.v}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-white/80 px-4 py-2 text-sm font-semibold text-[color:var(--wm-primary-700)] shadow-sm"
+                  >
+                    <span className="text-neutral-500">{metric.k}:</span>
+                    <span>{metric.v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-8 -z-10 rounded-[48px] bg-gradient-to-br from-white via-[color:var(--wm-accent-50)] to-transparent blur-2xl" aria-hidden="true" />
+              <div className="relative overflow-hidden rounded-[32px] border border-white/60 bg-white/80 p-6 shadow-2xl backdrop-blur">
+                <BrandWordmark
+                  label={t.brand}
+                  className="text-base"
+                  emblemClassName="h-11 w-11 text-base"
+                  labelClassName="text-lg font-semibold tracking-tight text-[color:var(--wm-primary-800)]"
+                />
+                {secondaryMetric ? (
+                  <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] px-3 py-1 text-xs font-semibold text-[color:var(--wm-primary-700)]">
+                    {secondaryMetric.k}: {secondaryMetric.v}
+                  </div>
+                ) : null}
+                <p className="mt-5 text-sm leading-relaxed text-neutral-600">{t.hero.note}</p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {(t.metrics || fallback.metrics).slice(0, 4).map((metric) => (
+                    <div
+                      key={`${metric.k}-${metric.v}`}
+                      className="rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/70 p-4 shadow-sm"
+                    >
+                      <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{metric.k}</div>
+                      <div className="mt-1 text-2xl font-semibold text-[color:var(--wm-primary-800)]">{metric.v}</div>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="#rfq"
+                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] hover:shadow-lg"
+                >
+                  {t.hero.ctaPrimary}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Metrics */}
-      <section className="py-10">
-        <div className="mx-auto max-w-6xl px-4 grid grid-cols-2 md:grid-cols-5 gap-4">
-          {t.metrics.map((m, i) => (
-            <div key={i} className="p-5 rounded-2xl bg-white border border-neutral-200 text-center">
-              <div className="text-2xl font-bold">{m.v}</div>
-              <div className="mt-1 text-sm text-neutral-600">{m.k}</div>
+      <section className="py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="rounded-[32px] border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {t.metrics.map((m, i) => (
+                <div
+                  key={`${m.k}-${m.v}-${i}`}
+                  className="flex flex-col justify-between rounded-2xl border border-[color:var(--wm-accent-200)] bg-white/80 p-5 shadow-sm"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{m.k}</span>
+                  <span className="mt-3 text-2xl font-semibold text-[color:var(--wm-primary-800)] md:text-3xl">{m.v}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
       {/* About */}
-      <section id="about" className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-4 grid gap-12 md:grid-cols-[1.2fr_0.8fr] items-start">
+      <section id="about" className="relative py-16 md:py-24">
+        <div className="absolute inset-x-0 top-0 -z-10 h-1/2 bg-gradient-to-b from-white/70 to-transparent" aria-hidden="true" />
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 md:grid-cols-[1.2fr_0.8fr]">
           <div>
             <SectionHeading eyebrow={about.eyebrow} title={about.title} subtitle={about.subtitle} />
-            <div className="mt-8 rounded-3xl border border-neutral-200 bg-gradient-to-br from-white to-[color:var(--wm-accent-50)] p-8 shadow-sm">
+            <div className="mt-8 rounded-3xl border border-white/60 bg-gradient-to-br from-white via-white to-[color:var(--wm-accent-50)] p-8 shadow-sm backdrop-blur">
               <h3 className="text-lg font-semibold text-[color:var(--wm-primary-800)]">{about.missionTitle}</h3>
               <p className="mt-3 text-neutral-700 leading-relaxed">{about.mission}</p>
             </div>
@@ -999,41 +1118,52 @@ export default function Page() {
           <div className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
               {(about.stats ?? []).map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
-                  <div className="text-3xl font-bold text-[color:var(--wm-primary-800)]">{stat.value}</div>
-                  <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{stat.label}</p>
+                <div key={stat.label} className="rounded-2xl border border-white/60 bg-white/80 p-5 text-left shadow-sm backdrop-blur">
+                  <div className="text-3xl font-semibold text-[color:var(--wm-primary-800)]">{stat.value}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">{stat.label}</p>
                 </div>
               ))}
             </div>
-            <figure className="rounded-3xl border border-neutral-900/10 bg-neutral-900 p-6 text-white shadow-lg">
+            <figure className="rounded-3xl border border-white/60 bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] p-8 text-white shadow-xl">
               <blockquote className="text-lg leading-relaxed">{about.quote}</blockquote>
-              <figcaption className="mt-4 text-sm uppercase tracking-wide text-neutral-400">{about.quoteBy}</figcaption>
+              <figcaption className="mt-4 text-xs uppercase tracking-[0.4em] text-white/70">{about.quoteBy}</figcaption>
             </figure>
           </div>
         </div>
       </section>
 
       {/* Solutions */}
-      <section id="linhas" className="py-16 md:py-24 bg-white">
+      <section id="linhas" className="relative py-16 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
-          <div className="flex items-end justify-between">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.solutionsTitle}</h2>
-            <a href="#rfq" className="hidden md:inline-block px-4 py-2 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.solutionsTitle}</h2>
+            <a
+              href="#rfq"
+              className="hidden rounded-full bg-[color:var(--wm-primary)] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)] md:inline-flex"
+            >
               {t.hero.ctaPrimary}
             </a>
           </div>
-          <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {t.lines.map((it, i) => (
-              <div key={i} className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50 shadow-sm">
+              <div
+                key={i}
+                className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--wm-primary)] text-xl text-white">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-xl text-white shadow">
                     <span>{it.icon ?? "•"}</span>
                   </div>
-                  <h3 className="text-xl font-semibold">{it.title}</h3>
+                  <h3 className="text-xl font-semibold text-neutral-900">{it.title}</h3>
                 </div>
-                <p className="mt-3 text-neutral-700">{it.desc}</p>
-                <a href="#rfq" className="mt-4 inline-block text-sm font-semibold underline">
+                <p className="mt-3 text-sm leading-relaxed text-neutral-600">{it.desc}</p>
+                <a
+                  href="#rfq"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--wm-primary-700)] underline decoration-[color:var(--wm-primary-300)] decoration-2 underline-offset-4 transition group-hover:text-[color:var(--wm-primary-800)]"
+                >
                   {t.askQuote}
+                  <span aria-hidden="true">→</span>
                 </a>
               </div>
             ))}
@@ -1042,15 +1172,26 @@ export default function Page() {
       </section>
 
       {/* How it works */}
-      <section id="como" className="py-16 md:py-24 bg-neutral-100">
+      <section id="como" className="relative py-16 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.howTitle}</h2>
-          <div className="mt-8 grid md:grid-cols-3 gap-6">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.howTitle}</h2>
+          <div className="relative mt-10 grid gap-6 md:grid-cols-3">
             {t.howSteps.map((s, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white border border-neutral-200">
-                <div className="text-4xl font-black text-neutral-300">{String(i + 1).padStart(2, "0")}</div>
-                <h3 className="mt-2 text-xl font-semibold">{s.t}</h3>
-                <p className="mt-2 text-neutral-700">{s.d}</p>
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
+              >
+                <div className="absolute inset-y-6 left-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] text-lg font-semibold text-white shadow">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="pl-20">
+                  <h3 className="text-xl font-semibold text-neutral-900">{s.t}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-600">{s.d}</p>
+                </div>
+                {i < t.howSteps.length - 1 ? (
+                  <div className="absolute right-6 top-1/2 hidden h-px w-16 translate-y-[-50%] bg-gradient-to-r from-[color:var(--wm-accent-200)] to-transparent md:block" />
+                ) : null}
               </div>
             ))}
           </div>
@@ -1058,41 +1199,61 @@ export default function Page() {
       </section>
 
       {/* Compliance */}
-      <section id="compliance" className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-10 items-start">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.complianceTitle}</h2>
-            <p className="mt-3 text-neutral-700">{t.complianceDesc}</p>
-            <ul className="mt-6 space-y-3 text-neutral-700">
+      <section id="compliance" className="relative py-16 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/80 via-[color:var(--wm-accent-50)] to-transparent" aria-hidden="true" />
+        <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 md:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.complianceTitle}</h2>
+            <p className="text-neutral-700">{t.complianceDesc}</p>
+            <ul className="space-y-3 text-sm leading-relaxed text-neutral-600">
               {t.complianceList.map((x) => (
-                <li key={x}>• {x}</li>
+                <li key={x} className="flex items-start gap-3">
+                  <span className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--wm-primary-700)] text-[10px] font-bold text-white">✓</span>
+                  <span>{x}</span>
+                </li>
               ))}
             </ul>
-            <a href="#rfq" className="mt-6 inline-block px-5 py-3 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold">
+            <a
+              href="#rfq"
+              className="inline-flex items-center gap-2 rounded-full bg-[color:var(--wm-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[color:var(--wm-primary-700)]"
+            >
               {t.requestChecklist}
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <div className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50">
-            <h3 className="text-lg font-semibold">{t.verifiedCriteriaTitle}</h3>
-            <ol className="mt-3 list-decimal list-inside space-y-1 text-neutral-700">
-              {t.verifiedCriteria.map((x) => (
-                <li key={x}>{x}</li>
+          <div className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur">
+            <h3 className="text-lg font-semibold text-neutral-900">{t.verifiedCriteriaTitle}</h3>
+            <ol className="mt-4 space-y-3 text-sm leading-relaxed text-neutral-600">
+              {t.verifiedCriteria.map((x, idx) => (
+                <li key={x} className="flex gap-3">
+                  <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[color:var(--wm-accent-200)] bg-[color:var(--wm-accent-50)] text-xs font-semibold text-[color:var(--wm-primary-700)]">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span>{x}</span>
+                </li>
               ))}
             </ol>
-            <p className="mt-4 text-sm text-neutral-600">{complianceNote}</p>
+            <p className="mt-6 rounded-2xl border border-dashed border-[color:var(--wm-accent-200)] bg-white/80 p-4 text-xs leading-relaxed text-neutral-500">
+              {complianceNote}
+            </p>
           </div>
         </div>
       </section>
 
       {/* Cases */}
-      <section className="py-16 md:py-24 bg-neutral-100">
+      <section className="relative py-16 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-transparent via-white/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.casesTitle}</h2>
-          <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.casesTitle}</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {t.cases.map((c, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white border border-neutral-200">
-                <h3 className="text-lg font-semibold">{c.t}</h3>
-                <p className="mt-2 text-neutral-700">{c.d}</p>
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur"
+              >
+                <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-transparent" aria-hidden="true" />
+                <h3 className="text-lg font-semibold text-neutral-900">{c.t}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-neutral-600">{c.d}</p>
               </div>
             ))}
           </div>
@@ -1100,25 +1261,31 @@ export default function Page() {
       </section>
 
       {/* RFQ */}
-      <section id="rfq" className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-10 items-start">
+      <section id="rfq" className="relative py-16 md:py-24">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white via-white/60 to-transparent" aria-hidden="true" />
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 md:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.rfqTitle}</h2>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.rfqTitle}</h2>
             <p className="mt-3 text-neutral-600">{t.rfqSub}</p>
-            <ul className="mt-6 space-y-3 text-sm text-neutral-700">
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-neutral-600">
               {t.rfqBullets.map((x) => (
-                <li key={x}>• {x}</li>
+                <li key={x} className="flex items-start gap-3">
+                  <span className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--wm-primary-700)] text-[10px] font-bold text-white">✓</span>
+                  <span>{x}</span>
+                </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-neutral-500">{t.rfqHint}</p>
+            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-dashed border-[color:var(--wm-accent-200)] bg-white/70 px-4 py-2 text-xs font-medium text-neutral-500">
+              {t.rfqHint}
+            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50">
+          <form onSubmit={handleSubmit} className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-lg backdrop-blur">
             {sent ? (
               <div className="text-center">
                 <h3 className="text-lg font-semibold">{t.form.okTitle}</h3>
                 <p className="mt-2 text-neutral-700">{t.form.okMsg}</p>
-                <a href="#" onClick={() => setSent(false)} className="mt-4 inline-block underline">
+                <a href="#" onClick={() => setSent(false)} className="mt-4 inline-block text-sm font-semibold text-[color:var(--wm-primary-700)] underline">
                   {t.form.backTop}
                 </a>
               </div>
@@ -1127,23 +1294,27 @@ export default function Page() {
                 <Field label={t.form.name} name="nome" value={form.nome} onChange={handleChange} />
                 <Field label={t.form.company} name="empresa" value={form.empresa} onChange={handleChange} />
                 <Select label={t.form.accountType} name="tipoConta" value={form.tipoConta} onChange={handleChange} opts={t.form.types} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
                   <Field label={t.form.email} name="email" type="email" value={form.email} onChange={handleChange} />
                   <Field label={t.form.phone} name="telefone" value={form.telefone} onChange={handleChange} />
                 </div>
                 <Select label={t.form.line} name="linha" value={form.linha} onChange={handleChange} opts={t.form.lines} />
                 <Area label={t.form.specs} name="especificacoes" value={form.especificacoes} onChange={handleChange} placeholder={t.form.specsPH} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   <Field label={t.form.qty} name="quantidade" value={form.quantidade} onChange={handleChange} />
                   <Field label={t.form.freq} name="frequencia" value={form.frequencia} onChange={handleChange} />
                   <Field label={t.form.deadline} name="prazo" value={form.prazo} onChange={handleChange} />
                   <Field label={t.form.delivery} name="entrega" value={form.entrega} onChange={handleChange} />
                 </div>
                 <Area label={t.form.reg} name="regulatorio" value={form.regulatorio} onChange={handleChange} placeholder={t.form.regPH} />
-                <button disabled={loading} type="submit" className="mt-4 w-full px-5 py-3 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold hover:bg-[color:var(--wm-primary-700)]">
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="mt-6 w-full rounded-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:shadow-lg disabled:opacity-60"
+                >
                   {loading ? "..." : t.form.submit}
                 </button>
-                <p className="mt-3 text-xs text-neutral-500">{t.form.legal}</p>
+                <p className="mt-4 text-xs text-neutral-500">{t.form.legal}</p>
               </>
             )}
           </form>
@@ -1156,28 +1327,36 @@ export default function Page() {
       {/* Sticky footer CTA */}
       <div className="fixed bottom-4 left-0 right-0 z-30">
         <div className="mx-auto max-w-3xl px-4">
-          <div className="flex items-center justify-between gap-3 rounded-2xl shadow-lg border border-[color:var(--wm-accent-200)] bg-white px-4 py-3">
-            <p className="text-sm text-neutral-700 hidden md:block">{t.sticky}</p>
-            <a href="#rfq" className="px-5 py-2 rounded-xl bg-[color:var(--wm-primary)] text-white font-semibold hover:bg-[color:var(--wm-primary-700)]">
+          <div className="flex items-center justify-between gap-3 rounded-full border border-white/60 bg-white/90 px-5 py-3 shadow-lg backdrop-blur">
+            <p className="hidden text-sm font-medium text-neutral-600 md:block">{t.sticky}</p>
+            <a
+              href="#rfq"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--wm-primary-800)] via-[color:var(--wm-primary-700)] to-[color:var(--wm-primary)] px-6 py-2 text-sm font-semibold text-white shadow-md transition hover:shadow-lg"
+            >
               {t.hero.ctaPrimary}
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="pt-16 pb-24 bg-white border-t border-neutral-200">
-        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-4 gap-8 text-sm">
+      <footer className="mt-16 border-t border-white/10 bg-[color:var(--wm-primary-800)] py-16 text-white/80">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 text-sm md:grid-cols-4">
           <div>
-            <BrandWordmark label={t.brand} />
-            <p className="mt-3 text-neutral-600">{t.footer.blurb}</p>
+            <BrandWordmark
+              label={t.brand}
+              labelClassName="font-semibold tracking-tight text-white"
+              emblemClassName="h-10 w-10 text-sm"
+            />
+            <p className="mt-3 max-w-xs text-white/70">{t.footer.blurb}</p>
           </div>
           <div>
-            <h4 className="font-semibold">{t.footer.solutions}</h4>
-            <ul className="mt-3 space-y-2 text-neutral-600">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">{t.footer.solutions}</h4>
+            <ul className="mt-4 space-y-2 text-white/70">
               {t.lines.map((it, i) => (
                 <li key={i}>
-                  <a href="#linhas" className="hover:text-neutral-900">
+                  <a href="#linhas" className="transition hover:text-white">
                     {it.title}
                   </a>
                 </li>
@@ -1185,49 +1364,49 @@ export default function Page() {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold">{t.footer.institutional || "Company"}</h4>
-            <ul className="mt-3 space-y-2 text-neutral-600">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">{t.footer.institutional || "Company"}</h4>
+            <ul className="mt-4 space-y-2 text-white/70">
               <li>
-                <a href="#about" className="hover:text-neutral-900">
+                <a href="#about" className="transition hover:text-white">
                   {nav.about}
                 </a>
               </li>
               <li>
-                <a href="#compliance" className="hover:text-neutral-900">
+                <a href="#compliance" className="transition hover:text-white">
                   {nav.compliance}
                 </a>
               </li>
               <li>
-                <a href="#como" className="hover:text-neutral-900">
+                <a href="#como" className="transition hover:text-white">
                   {nav.how}
                 </a>
               </li>
               <li>
-                <a href="#rfq" className="hover:text-neutral-900">
+                <a href="#rfq" className="transition hover:text-white">
                   {nav.rfq}
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold">{t.footer.contact}</h4>
-            <ul className="mt-3 space-y-2 text-neutral-600">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">{t.footer.contact}</h4>
+            <ul className="mt-4 space-y-2 text-white/70">
               <li>
-                <a href="https://wa.me/15615966097" target="_blank" className="underline" rel="noreferrer">
+                <a href="https://wa.me/15615966097" target="_blank" className="underline decoration-white/40 underline-offset-4 transition hover:text-white" rel="noreferrer">
                   WhatsApp: +1 561 596 6097
                 </a>
               </li>
               <li>Instagram: @wonnymed</li>
               <li>contato@wonnymed.com</li>
               <li>
-                <a href="mailto:contato@wonnymed.com?subject=Portal%20Wonnymed" className="underline">
+                <a href="mailto:contato@wonnymed.com?subject=Portal%20Wonnymed" className="underline decoration-white/40 underline-offset-4 transition hover:text-white">
                   {nav.portal}
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        <div className="mt-10 text-center text-xs text-neutral-500">{t.footer.rights(new Date().getFullYear())}</div>
+        <div className="mt-12 text-center text-xs text-white/50">{t.footer.rights(new Date().getFullYear())}</div>
       </footer>
     </div>
   );
