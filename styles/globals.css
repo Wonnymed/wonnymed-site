@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  min-height: 100%;
-  scroll-behavior: smooth;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+::selection {
+  background: rgba(13, 79, 130, 0.15);
+}
+
+/* Hide scrollbar on nav */
+nav::-webkit-scrollbar { display: none; }
+nav { scrollbar-width: none; }
