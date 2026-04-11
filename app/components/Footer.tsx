@@ -2,67 +2,108 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#e0e0e0] bg-[#f7f8fa]">
-      <div className="mx-auto max-w-[1400px] px-4 py-6">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-5 md:grid-cols-5">
-          {/* About */}
+    <footer className="bg-gray-900">
+      <div className="mx-auto max-w-[1400px] px-4 py-10">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-3 lg:grid-cols-5">
+          {/* Column 1 — About */}
+          <div className="col-span-2 md:col-span-1">
+            <h4 className="mb-3 text-sm font-semibold text-white">About WonnyMed</h4>
+            <p className="mb-3 text-xs leading-relaxed text-gray-400">
+              WonnyMed Ltd is a Hong Kong-registered authorized sourcing platform connecting Latin American buyers with exclusive manufacturer partnerships in China and South Korea. Specialized in medical devices, consumables, aesthetic equipment, dental, beauty, electronics, industrial, and rehabilitation equipment.
+            </p>
+            <p className="text-[10px] leading-relaxed text-gray-500">
+              HQ Hong Kong | Sourcing: Shanghai · Guangzhou · Suzhou · Seoul
+            </p>
+          </div>
+
+          {/* Column 2 — Product Categories */}
           <div>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#333]">About WonnyMed</h4>
-            <ul className="space-y-1">
-              {["Company Profile", "Why WonnyMed", "Quality Assurance", "Careers"].map((t) => (
-                <li key={t}><span className="cursor-pointer text-[11px] text-[#777] hover:text-[#0d4f82]">{t}</span></li>
+            <h4 className="mb-3 text-sm font-semibold text-white">Product Categories</h4>
+            <ul className="space-y-1.5">
+              {[
+                ["Medical Devices", "medical-devices"],
+                ["Consumables", "consumables"],
+                ["Aesthetic Equipment", "aesthetic-equipment"],
+                ["Dental", "dental"],
+                ["Electronics", "electronics"],
+                ["Beauty", "beauty"],
+                ["Industrial", "industrial"],
+                ["Rehabilitation", "rehabilitation"],
+              ].map(([label, slug]) => (
+                <li key={slug}>
+                  <Link href={`/category/${slug}`} className="text-xs text-gray-400 transition-colors hover:text-white">{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
-          {/* Categories */}
+
+          {/* Column 3 — Trade Services */}
           <div>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#333]">Product Categories</h4>
-            <ul className="space-y-1">
-              {[["Medical Devices", "medical-devices"], ["Consumables", "consumables"], ["Aesthetic Equipment", "aesthetic-equipment"], ["Dental", "dental"], ["Electronics", "electronics"], ["Rehabilitation", "rehabilitation"]].map(([t, s]) => (
-                <li key={s}><Link href={`/category/${s}`} className="text-[11px] text-[#777] hover:text-[#0d4f82]">{t}</Link></li>
+            <h4 className="mb-3 text-sm font-semibold text-white">Trade Services</h4>
+            <ul className="space-y-1.5">
+              {["Sourcing & Procurement", "Quality Inspection", "Regulatory Compliance", "Shipping & Logistics", "Trade Assurance", "Payment Protection"].map((t) => (
+                <li key={t}><span className="cursor-pointer text-xs text-gray-400 transition-colors hover:text-white">{t}</span></li>
               ))}
             </ul>
           </div>
-          {/* Services */}
+
+          {/* Column 4 — Regulatory */}
           <div>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#333]">Services</h4>
-            <ul className="space-y-1">
-              {["Global Sourcing", "Factory Inspection", "OEM / ODM", "Regulatory Support", "Logistics & Shipping", "Trade Assurance"].map((t) => (
-                <li key={t}><span className="cursor-pointer text-[11px] text-[#777] hover:text-[#0d4f82]">{t}</span></li>
+            <h4 className="mb-3 text-sm font-semibold text-white">Regulatory</h4>
+            <ul className="space-y-1.5">
+              {[
+                "ANVISA (Brazil)",
+                "FDA 510(k) (USA)",
+                "CE Marking (EU)",
+                "INVIMA (Colombia)",
+                "ANMAT (Argentina)",
+                "COFEPRIS (Mexico)",
+                "SFDA (Saudi Arabia)",
+              ].map((t) => (
+                <li key={t}>
+                  <Link href="/regulatory" className="text-xs text-gray-400 transition-colors hover:text-white">{t}</Link>
+                </li>
               ))}
             </ul>
           </div>
-          {/* Support */}
+
+          {/* Column 5 — Contact */}
           <div>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#333]">Support</h4>
-            <ul className="space-y-1">
-              <li><Link href="/rfq" className="text-[11px] text-[#777] hover:text-[#0d4f82]">Request Quotation</Link></li>
-              <li><Link href="/regulatory" className="text-[11px] text-[#777] hover:text-[#0d4f82]">Regulatory Guide</Link></li>
-              {["FAQ", "Buyer Guide", "Dispute Resolution"].map((t) => (
-                <li key={t}><span className="cursor-pointer text-[11px] text-[#777] hover:text-[#0d4f82]">{t}</span></li>
-              ))}
-            </ul>
-          </div>
-          {/* Contact */}
-          <div>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#333]">Contact</h4>
-            <ul className="space-y-1.5 text-[11px] text-[#777]">
-              <li>sourcing@wonnymed.com</li>
-              <li>WhatsApp: +1 (561) 596-6097</li>
-              <li>HQ: Hong Kong SAR</li>
-              <li>Operations: Guangzhou, China</li>
+            <h4 className="mb-3 text-sm font-semibold text-white">Contact</h4>
+            <ul className="space-y-2 text-xs text-gray-400">
+              <li>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-wider text-gray-500">Email</span>
+                contact@wonnymed.com
+              </li>
+              <li>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-wider text-gray-500">WeChat</span>
+                WonnyMed
+              </li>
+              <li>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-wider text-gray-500">WhatsApp</span>
+                <a href="https://wa.me/15615966097" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">Available →</a>
+              </li>
+              <li>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-wider text-gray-500">Business Hours</span>
+                Mon–Fri 9:00–18:00 HKT
+              </li>
             </ul>
           </div>
         </div>
       </div>
+
       {/* Bottom bar */}
-      <div className="border-t border-[#e0e0e0] bg-[#f0f1f3]">
-        <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-1 px-4 py-2.5 md:flex-row">
-          <p className="text-[10px] text-[#aaa]">&copy; 2026 WonnyMed Ltd. Hong Kong SAR. All rights reserved.</p>
-          <div className="flex gap-4 text-[10px] text-[#aaa]">
-            <span className="cursor-pointer hover:text-[#666]">Terms of Service</span>
-            <span className="cursor-pointer hover:text-[#666]">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-[#666]">Cookie Policy</span>
+      <div className="border-t border-gray-800">
+        <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-2 px-4 py-3 md:flex-row">
+          <p className="text-xs text-gray-500">
+            &copy; 2026 WonnyMed Ltd. Authorized Regional Distribution Network for Latin America. Registered in Hong Kong SAR.
+          </p>
+          <div className="flex gap-4 text-xs text-gray-500">
+            <span className="cursor-pointer transition-colors hover:text-gray-300">Trade Assurance</span>
+            <span className="text-gray-700">|</span>
+            <span className="cursor-pointer transition-colors hover:text-gray-300">Buyer Protection</span>
+            <span className="text-gray-700">|</span>
+            <span className="cursor-pointer transition-colors hover:text-gray-300">Privacy Policy</span>
           </div>
         </div>
       </div>
