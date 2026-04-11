@@ -12,11 +12,13 @@ interface SidebarProps {
   onVerifiedChange: (value: boolean) => void;
   selectedCertifications: string[];
   onCertificationChange: (cert: string) => void;
+  productCounts?: Record<string, number>;
+  certCounts?: Record<string, number>;
 }
 
 const CERTS = ["CE", "FDA", "ISO 13485", "ISO 9001"];
 
-export default function Sidebar({ categories, selectedCategories, onCategoryChange, verifiedOnly, onVerifiedChange, selectedCertifications, onCertificationChange }: SidebarProps) {
+export default function Sidebar({ categories, selectedCategories, onCategoryChange, verifiedOnly, onVerifiedChange, selectedCertifications, onCertificationChange, productCounts, certCounts }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const content = (
@@ -32,6 +34,9 @@ export default function Sidebar({ categories, selectedCategories, onCategoryChan
                 className={`block w-full py-1.5 pl-2 text-left text-[13px] hover:text-[#155e6b] ${selectedCategories.includes(c.slug) ? "font-semibold text-[#155e6b] border-l-2 border-[#155e6b] pl-1.5" : "text-gray-700"}`}
               >
                 {c.name}
+                {productCounts && productCounts[c.slug] !== undefined && (
+                  <span className="text-[10px] text-gray-400 ml-1">({productCounts[c.slug]})</span>
+                )}
               </button>
             </li>
           ))}
@@ -55,6 +60,9 @@ export default function Sidebar({ categories, selectedCategories, onCategoryChan
               <label className="flex cursor-pointer items-center gap-2 py-[3px]">
                 <input type="checkbox" checked={selectedCertifications.includes(c)} onChange={() => onCertificationChange(c)} className="h-3.5 w-3.5 border-[#d9d9d9] text-[#155e6b]" />
                 <span className="text-xs text-gray-600">{c}</span>
+                {certCounts && certCounts[c] !== undefined && (
+                  <span className="text-[10px] text-gray-400 ml-1">({certCounts[c]})</span>
+                )}
               </label>
             </li>
           ))}

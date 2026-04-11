@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
@@ -15,10 +15,32 @@ import { categories } from "./data/categories";
 export default function Home() {
   const [lang, setLang] = useState<string>("en");
   const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sort, setSort] = useState("relevance");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Debounce: when searchQuery changes, wait 300ms then update the search filter
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setSearch(searchQuery);
+    }, 300);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [searchQuery]);
+
+  const handleSearchInput = useCallback((q: string) => {
+    setSearchQuery(q);
+  }, []);
+
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery("");
+    setSearch("");
+  }, []);
 
   const categoryList = categories.map((c) => ({
     slug: c.slug,
@@ -36,6 +58,26 @@ export default function Home() {
       prev.includes(cert) ? prev.filter((c) => c !== cert) : [...prev, cert]
     );
   }, []);
+
+  // Compute search results for the dropdown (instant, no debounce)
+  const searchResults = useMemo(() => {
+    if (searchQuery.length < 2) return [];
+    const q = searchQuery.toLowerCase();
+    const matches = products.filter(
+      (p) =>
+        (p.name[lang] || p.name.en).toLowerCase().includes(q) ||
+        (p.longName?.en || "").toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.subcategory.toLowerCase().includes(q) ||
+        p.certs.some((c) => c.toLowerCase().includes(q))
+    );
+    return matches.slice(0, 6).map((p) => ({
+      slug: p.slug,
+      name: p.name[lang] || p.name.en,
+      category: p.category,
+      cert: p.certs[0] || "",
+    }));
+  }, [searchQuery, lang]);
 
   const filtered = useMemo(() => {
     let result = products;
@@ -70,6 +112,60 @@ export default function Home() {
     return result;
   }, [search, selectedCategories, selectedCerts, verifiedOnly, lang, sort]);
 
+  // Compute product counts per category (considering search filter)
+  const productCounts = useMemo(() => {
+    let base = products;
+    if (search) {
+      const q = search.toLowerCase();
+      base = base.filter(
+        (p) =>
+          (p.name[lang] || p.name.en).toLowerCase().includes(q) ||
+          (p.longName?.en || "").toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.subcategory.toLowerCase().includes(q)
+      );
+    }
+    const counts: Record<string, number> = {};
+    for (const p of base) {
+      const catSlug = p.category.toLowerCase().replace(/\s+/g, "-");
+      counts[catSlug] = (counts[catSlug] || 0) + 1;
+    }
+    return counts;
+  }, [search, lang]);
+
+  // Compute cert counts
+  const certCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of products) {
+      for (const cert of p.certs) {
+        counts[cert] = (counts[cert] || 0) + 1;
+      }
+    }
+    return counts;
+  }, []);
+
+  // Active category for header nav sync
+  const activeCategory = selectedCategories.length === 1 ? selectedCategories[0] : undefined;
+
+  // Handler for category nav in header
+  const handleCategorySelect = useCallback((slug: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+    );
+  }, []);
+
+  // Handler for clicking a search result: scroll to card and highlight
+  const handleResultClick = useCallback((slug: string) => {
+    const el = document.querySelector(`a[href="/product/${slug}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("ring-2", "ring-[#155e6b]/30");
+      setTimeout(() => {
+        el.classList.remove("ring-2", "ring-[#155e6b]/30");
+      }, 1500);
+    }
+  }, []);
+
   const recommended = products.slice(0, 8);
 
   const sidebarProps = {
@@ -80,12 +176,24 @@ export default function Home() {
     onVerifiedChange: setVerifiedOnly,
     selectedCertifications: selectedCerts,
     onCertificationChange: toggleCert,
+    productCounts,
+    certCounts,
   };
 
   return (
     <>
       <TopBar />
-      <Header categories={categoryList} lang={lang} onLangChange={setLang} onSearch={setSearch} />
+      <Header
+        categories={categoryList}
+        lang={lang}
+        onLangChange={setLang}
+        onSearch={handleSearchInput}
+        activeCategory={activeCategory}
+        onCategorySelect={handleCategorySelect}
+        searchQuery={searchQuery}
+        searchResults={searchResults}
+        onResultClick={handleResultClick}
+      />
 
       <main className="mx-auto max-w-[1400px] px-4 py-3">
         <div className="flex gap-4">
@@ -105,7 +213,7 @@ export default function Home() {
               <div className="mb-4">
                 <div className="mb-2 flex items-center justify-between">
                   <h2 className="text-[15px] font-semibold text-gray-800">Recommended For You</h2>
-                  <Link href="/rfq" className="text-[12px] text-[#155e6b] hover:underline">View all →</Link>
+                  <Link href="/rfq" className="text-[12px] text-[#155e6b] hover:underline">View all &rarr;</Link>
                 </div>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                   {recommended.map((p) => (
@@ -118,7 +226,7 @@ export default function Home() {
                       moq={p.moq}
                       certifications={p.certs}
                       supplierCode={p.supplierId}
-  
+
                       transactions={p.transactions}
                       exclusive={p.exclusive}
                       image={p.image}
@@ -142,9 +250,13 @@ export default function Home() {
             {/* Results bar */}
             <div className="mb-3 flex items-center justify-between border-b border-gray-200 py-2">
               <p className="text-[13px] text-gray-500">
-                <span className="font-semibold text-gray-800">{filtered.length}</span> products found
+                <span className="font-semibold text-gray-800">{filtered.length}</span>{" "}
+                {search
+                  ? <>products found for &apos;{search}&apos;</>
+                  : <>products found</>
+                }
                 {search && (
-                  <button onClick={() => setSearch("")} className="ml-3 text-xs text-[#155e6b] hover:underline">Clear search</button>
+                  <button onClick={handleClearSearch} className="ml-3 text-xs text-[#155e6b] hover:underline">Clear search</button>
                 )}
               </p>
               <div className="flex items-center">
@@ -161,6 +273,49 @@ export default function Home() {
                 </select>
               </div>
             </div>
+
+            {/* Filter tags */}
+            {(selectedCategories.length > 0 || selectedCerts.length > 0 || search) && (
+              <div className="mb-3 flex flex-wrap items-center gap-1.5">
+                {search && (
+                  <span
+                    onClick={handleClearSearch}
+                    className="bg-gray-100 text-gray-600 text-[11px] px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer hover:bg-gray-200"
+                  >
+                    Search: &apos;{search}&apos; <span className="text-gray-400">&#10005;</span>
+                  </span>
+                )}
+                {selectedCategories.map((slug) => {
+                  const cat = categoryList.find((c) => c.slug === slug);
+                  return (
+                    <span
+                      key={slug}
+                      onClick={() => toggleCategory(slug)}
+                      className="bg-gray-100 text-gray-600 text-[11px] px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer hover:bg-gray-200"
+                    >
+                      {cat?.name || slug} <span className="text-gray-400">&#10005;</span>
+                    </span>
+                  );
+                })}
+                {selectedCerts.map((cert) => (
+                  <span
+                    key={cert}
+                    onClick={() => toggleCert(cert)}
+                    className="bg-gray-100 text-gray-600 text-[11px] px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer hover:bg-gray-200"
+                  >
+                    {cert} <span className="text-gray-400">&#10005;</span>
+                  </span>
+                ))}
+                {(selectedCategories.length + selectedCerts.length + (search ? 1 : 0)) >= 2 && (
+                  <button
+                    onClick={() => { setSelectedCategories([]); setSelectedCerts([]); handleClearSearch(); }}
+                    className="text-[11px] text-[#155e6b] hover:underline ml-2"
+                  >
+                    Clear all
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* Product grid */}
             {filtered.length > 0 ? (
