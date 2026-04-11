@@ -104,7 +104,7 @@ export default function Home() {
               <div className="mb-4">
                 <div className="mb-2 flex items-center justify-between">
                   <h2 className="text-[14px] font-bold text-[#333]">Recommended For You</h2>
-                  <Link href="/rfq" className="text-[12px] text-[#0d4f82] hover:underline">View all →</Link>
+                  <Link href="/rfq" className="text-[12px] text-[#155e6b] hover:underline">View all →</Link>
                 </div>
                 <div className="grid grid-cols-2 gap-[12px] sm:grid-cols-3 lg:grid-cols-4">
                   {recommended.map((p) => (
@@ -142,7 +142,7 @@ export default function Home() {
               <p className="text-sm text-gray-600">
                 <strong>{filtered.length}</strong> products found
                 {search && (
-                  <button onClick={() => setSearch("")} className="ml-3 text-xs text-[#0d4f82] hover:underline">Clear search</button>
+                  <button onClick={() => setSearch("")} className="ml-3 text-xs text-[#155e6b] hover:underline">Clear search</button>
                 )}
               </p>
               <div className="flex items-center">
@@ -150,7 +150,7 @@ export default function Home() {
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
-                  className="rounded border border-gray-300 px-2 py-1 text-xs text-[#333] focus:border-[#0d4f82] focus:outline-none"
+                  className="rounded border border-gray-300 px-2 py-1 text-xs text-[#333] focus:border-[#155e6b] focus:outline-none"
                 >
                   <option value="relevance">Relevance</option>
                   <option value="moq-asc">MOQ: Low to High</option>

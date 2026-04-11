@@ -44,8 +44,9 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
     <header className="sticky top-0 z-50 border-b border-[#e5e5e5] bg-white">
       <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-2">
         {/* Logo */}
-        <Link href="/" className="mr-2 flex-shrink-0">
-          <span className="text-[22px] font-bold tracking-tight" style={{ color: "#0d4f82" }}>
+        <Link href="/" className="mr-2 flex flex-shrink-0 items-center gap-2">
+          <img src="/assets/logo/w-logo.png" alt="WonnyMed" className="h-[36px] w-auto" />
+          <span className="text-[20px] font-bold tracking-tight" style={{ color: "#155e6b" }}>
             WonnyMed
           </span>
         </Link>
@@ -79,10 +80,10 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={onKey}
               placeholder="Search products, suppliers, categories..."
-              className="h-[36px] w-full border border-[#d9d9d9] px-3 text-[13px] text-[#333] placeholder:text-[#999] focus:border-[#0d4f82] focus:outline-none"
+              className="h-[36px] w-full border border-[#d9d9d9] px-3 text-[13px] text-[#333] placeholder:text-[#999] focus:border-[#155e6b] focus:outline-none"
             />
             {/* Search button */}
-            <button onClick={search} className="flex h-[36px] items-center gap-1 bg-[#0d4f82] px-5 text-[13px] font-semibold text-white hover:bg-[#093760]" style={{ borderRadius: "0 2px 2px 0" }}>
+            <button onClick={search} className="flex h-[36px] items-center gap-1 bg-[#ff6a00] px-5 text-[13px] font-semibold text-white hover:bg-[#e85e00]" style={{ borderRadius: "0 2px 2px 0" }}>
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
               Search
             </button>
@@ -100,7 +101,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
             {langOpen && (
               <div className="absolute right-0 mt-px w-20 border border-[#d9d9d9] bg-white shadow-md">
                 {LANGS.map((l) => (
-                  <button key={l.code} onClick={() => { onLangChange(l.code); setLangOpen(false); }} className={`block w-full px-3 py-1 text-left text-[12px] hover:bg-[#f5f5f5] ${l.code === lang ? "font-semibold text-[#0d4f82]" : "text-[#333]"}`}>{l.label}</button>
+                  <button key={l.code} onClick={() => { onLangChange(l.code); setLangOpen(false); }} className={`block w-full px-3 py-1 text-left text-[12px] hover:bg-[#f5f5f5] ${l.code === lang ? "font-semibold text-[#155e6b]" : "text-[#333]"}`}>{l.label}</button>
                 ))}
               </div>
             )}
@@ -127,18 +128,18 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
         <div className="border-t border-[#e5e5e5] bg-white px-4 pb-3 md:hidden">
           <div className="flex py-2">
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={onKey} placeholder="Search..." className="h-[34px] w-full border border-[#d9d9d9] px-3 text-[13px] focus:outline-none" style={{ borderRadius: "2px 0 0 2px" }} />
-            <button onClick={search} className="h-[34px] bg-[#0d4f82] px-4 text-white" style={{ borderRadius: "0 2px 2px 0" }}>
+            <button onClick={search} className="h-[34px] bg-[#ff6a00] px-4 text-white" style={{ borderRadius: "0 2px 2px 0" }}>
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
             </button>
           </div>
           <div className="flex gap-1 py-1">
             {LANGS.map((l) => (
-              <button key={l.code} onClick={() => onLangChange(l.code)} className={`px-2 py-1 text-[11px] ${l.code === lang ? "font-semibold text-[#0d4f82]" : "text-[#666]"}`}>{l.label}</button>
+              <button key={l.code} onClick={() => onLangChange(l.code)} className={`px-2 py-1 text-[11px] ${l.code === lang ? "font-semibold text-[#155e6b]" : "text-[#666]"}`}>{l.label}</button>
             ))}
           </div>
           <div className="space-y-0.5 border-t border-[#eee] pt-2">
             {categories.map((c) => (
-              <Link key={c.slug} href={`/category/${c.slug}`} onClick={() => setMobileOpen(false)} className="block py-1.5 text-[12px] text-[#333] hover:text-[#0d4f82]">{c.name}</Link>
+              <Link key={c.slug} href={`/category/${c.slug}`} onClick={() => setMobileOpen(false)} className="block py-1.5 text-[12px] text-[#333] hover:text-[#155e6b]">{c.name}</Link>
             ))}
           </div>
           <Link href="/rfq" onClick={() => setMobileOpen(false)} className="mt-2 block w-full bg-[#f97316] py-2 text-center text-[12px] font-semibold text-white">Request Quote</Link>
@@ -150,7 +151,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
         <div className="mx-auto max-w-[1400px] px-4">
           <nav className="flex gap-0 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
             {categories.map((c) => (
-              <Link key={c.slug} href={`/category/${c.slug}`} className="flex-shrink-0 border-b-2 border-transparent px-4 py-2 text-[12px] text-[#555] hover:border-[#0d4f82] hover:text-[#0d4f82]">{c.name}</Link>
+              <Link key={c.slug} href={`/category/${c.slug}`} className="flex-shrink-0 border-b-2 border-transparent px-4 py-2 text-[12px] text-[#555] hover:border-[#ff6a00] hover:text-[#155e6b]">{c.name}</Link>
             ))}
           </nav>
         </div>

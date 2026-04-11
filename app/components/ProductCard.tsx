@@ -18,14 +18,14 @@ export default function ProductCard({ slug, name, longName, category, moq, certi
     <Link href={`/product/${slug}`} className="group block border border-[#e8e8e8] bg-white hover:shadow-[0_1px_4px_rgba(0,0,0,0.08)]" style={{ borderRadius: 2 }}>
       <CategoryPlaceholder category={category} height={160} />
       <div className="p-2">
-        <h3 className="mb-1 line-clamp-2 h-[34px] text-[12px] font-semibold leading-[17px] text-[#333] group-hover:text-[#0d4f82]">
+        <h3 className="mb-1 line-clamp-2 h-[34px] text-[12px] font-semibold leading-[17px] text-[#333] group-hover:text-[#155e6b]">
           {longName || name}
         </h3>
         <p className="mb-1 text-[11px] text-[#999]">Min. Order: {moq}</p>
         {certifications.length > 0 && (
           <div className="mb-1 flex flex-wrap gap-[2px]">
             {certifications.slice(0, 3).map((c) => (
-              <span key={c} className="border border-[#e0e0e0] px-1 py-px text-[9px] font-medium text-[#888]" style={{ borderRadius: 1 }}>{c}</span>
+              <span key={c} className="border border-[#155e6b]/20 bg-[#155e6b]/5 px-1 py-px text-[9px] font-medium text-[#155e6b]" style={{ borderRadius: 1 }}>{c}</span>
             ))}
           </div>
         )}
@@ -35,7 +35,7 @@ export default function ProductCard({ slug, name, longName, category, moq, certi
           {transactions && <span className="text-[9px] text-[#ccc]">· {transactions} deals</span>}
         </div>
         <div className="flex gap-2">
-          <span className="block w-1/2 border border-[#0d4f82] bg-white py-2 text-center text-xs font-semibold text-[#0d4f82] hover:bg-blue-50" style={{ borderRadius: 2 }}>
+          <span className="block w-1/2 border border-[#155e6b] bg-white py-2 text-center text-xs font-semibold text-[#155e6b] hover:bg-[#155e6b]/5" style={{ borderRadius: 2 }}>
             Contact Supplier
           </span>
           <span className="block w-1/2 bg-[#ff6a00] py-2 text-center text-xs font-bold text-white hover:bg-[#e85e00]" style={{ borderRadius: 2 }}>

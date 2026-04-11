@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900">
+    <footer className="bg-[#0f4a52]">
       <div className="mx-auto max-w-[1400px] px-4 py-10">
         <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-3 lg:grid-cols-5">
           {/* Column 1 — About */}
@@ -93,7 +93,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-[#0a3a40]">
         <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-2 px-4 py-3 md:flex-row">
           <p className="text-xs text-gray-500">
             &copy; 2026 WonnyMed Ltd. Authorized Regional Distribution Network for Latin America. Registered in Hong Kong SAR.

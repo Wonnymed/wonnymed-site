@@ -31,7 +31,7 @@ export default function RegulatoryPage() {
       <Header categories={categoryList} lang={lang} onLangChange={setLang} onSearch={() => {}} />
       <main className="mx-auto max-w-[1200px] px-4 py-4">
         <nav className="mb-3 text-[11px] text-[#999]">
-          <a href="/" className="hover:text-[#0d4f82]">Home</a>
+          <a href="/" className="hover:text-[#155e6b]">Home</a>
           <span className="mx-1.5">/</span>
           <span className="text-[#333]">Regulatory Guide</span>
         </nav>
@@ -44,7 +44,7 @@ export default function RegulatoryPage() {
           <select
             value={selected || ""}
             onChange={(e) => setSelected(e.target.value || null)}
-            className="border border-[#d9d9d9] px-3 py-2 text-[13px] text-[#333] focus:border-[#0d4f82] focus:outline-none"
+            className="border border-[#d9d9d9] px-3 py-2 text-[13px] text-[#333] focus:border-[#155e6b] focus:outline-none"
             style={{ borderRadius: 2, minWidth: 280 }}
           >
             <option value="">Select destination country...</option>
@@ -60,7 +60,7 @@ export default function RegulatoryPage() {
             <button
               key={c.code}
               onClick={() => setSelected(selected === c.code ? null : c.code)}
-              className={`flex flex-col items-center gap-1 border p-2.5 text-center transition-colors ${selected === c.code ? "border-[#0d4f82] bg-[#f0f7ff]" : "border-[#e8e8e8] bg-white hover:border-[#ccc]"}`}
+              className={`flex flex-col items-center gap-1 border p-2.5 text-center transition-colors ${selected === c.code ? "border-[#155e6b] bg-[#f0f7ff]" : "border-[#e8e8e8] bg-white hover:border-[#ccc]"}`}
               style={{ borderRadius: 2 }}
             >
               <span className="text-[11px] font-bold text-[#333]">{c.code}</span>
@@ -84,11 +84,11 @@ export default function RegulatoryPage() {
               </div>
 
               {/* Documents */}
-              <h3 className="mb-3 text-[12px] font-bold uppercase tracking-wider text-[#0d4f82]">Required Documents & Steps</h3>
+              <h3 className="mb-3 text-[12px] font-bold uppercase tracking-wider text-[#155e6b]">Required Documents & Steps</h3>
               <ul className="space-y-2">
                 {country.docs.map((doc, i) => (
                   <li key={i} className="flex gap-2.5 text-[12px] text-[#555]">
-                    <span className="flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center bg-[#0d4f82] text-[9px] font-bold text-white" style={{ borderRadius: 2 }}>{i + 1}</span>
+                    <span className="flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center bg-[#155e6b] text-[9px] font-bold text-white" style={{ borderRadius: 2 }}>{i + 1}</span>
                     {doc}
                   </li>
                 ))}
@@ -97,7 +97,7 @@ export default function RegulatoryPage() {
               {/* CTA */}
               <div className="mt-5 border-t border-[#eee] pt-4">
                 <p className="mb-2 text-[12px] text-[#666]">Need help with {country.agency} registration? Our regulatory team can assist.</p>
-                <a href="/rfq" className="inline-block bg-[#0d4f82] px-4 py-[6px] text-[12px] font-semibold text-white hover:bg-[#093760]" style={{ borderRadius: 2 }}>Request Regulatory Support</a>
+                <a href="/rfq" className="inline-block bg-[#155e6b] px-4 py-[6px] text-[12px] font-semibold text-white hover:bg-[#0f4a52]" style={{ borderRadius: 2 }}>Request Regulatory Support</a>
               </div>
             </div>
           </div>

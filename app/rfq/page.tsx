@@ -25,7 +25,7 @@ export default function RFQPage() {
     setSubmitted(true);
   };
 
-  const inputCls = "w-full border border-[#d9d9d9] px-3 py-2 text-[12px] text-[#333] placeholder:text-[#bbb] focus:border-[#0d4f82] focus:outline-none";
+  const inputCls = "w-full border border-[#d9d9d9] px-3 py-2 text-[12px] text-[#333] placeholder:text-[#bbb] focus:border-[#155e6b] focus:outline-none";
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function RFQPage() {
       <Header categories={categoryList} lang={lang} onLangChange={setLang} onSearch={() => {}} />
       <main className="mx-auto max-w-[1000px] px-4 py-4">
         <nav className="mb-3 text-[11px] text-[#999]">
-          <a href="/" className="hover:text-[#0d4f82]">Home</a>
+          <a href="/" className="hover:text-[#155e6b]">Home</a>
           <span className="mx-1.5">/</span>
           <span className="text-[#333]">Request for Quotation</span>
         </nav>
@@ -49,7 +49,7 @@ export default function RFQPage() {
                 <svg className="mx-auto mb-2 h-8 w-8 text-[#52c41a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <p className="text-[14px] font-semibold text-[#333]">Request Submitted</p>
                 <p className="mt-1 text-[12px] text-[#888]">Our team will contact you within 24 hours.</p>
-                <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", company: "", whatsapp: "", country: "", product: "", quantity: "", message: "" }); }} className="mt-3 border border-[#0d4f82] px-4 py-1.5 text-[12px] font-medium text-[#0d4f82] hover:bg-[#0d4f82] hover:text-white" style={{ borderRadius: 2 }}>Submit Another Request</button>
+                <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", company: "", whatsapp: "", country: "", product: "", quantity: "", message: "" }); }} className="mt-3 border border-[#155e6b] px-4 py-1.5 text-[12px] font-medium text-[#155e6b] hover:bg-[#155e6b] hover:text-white" style={{ borderRadius: 2 }}>Submit Another Request</button>
               </div>
             ) : (
               <form onSubmit={submit} className="space-y-3">
@@ -107,7 +107,7 @@ export default function RFQPage() {
           {/* Sidebar */}
           <div>
             <div className="border border-[#e8e8e8] bg-[#f5f7fa] p-4" style={{ borderRadius: 2 }}>
-              <h3 className="mb-3 text-[12px] font-bold uppercase tracking-wider text-[#0d4f82]">Why WonnyMed</h3>
+              <h3 className="mb-3 text-[12px] font-bold uppercase tracking-wider text-[#155e6b]">Why WonnyMed</h3>
               <ul className="space-y-2.5">
                 {[
                   ["200+ Verified Suppliers", "Factory audit and quality verification for every supplier."],

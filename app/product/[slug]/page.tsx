@@ -61,7 +61,7 @@ export default function ProductDetailPage() {
             <Link
               href="/"
               className="inline-block px-5 py-2 text-[12px] font-semibold text-white"
-              style={{ background: "#0d4f82", borderRadius: 2 }}
+              style={{ background: "#155e6b", borderRadius: 2 }}
             >
               Back to Home
             </Link>
@@ -107,11 +107,11 @@ export default function ProductDetailPage() {
       <main className="mx-auto w-full max-w-[1200px] flex-1 px-3 py-3">
         {/* Breadcrumb */}
         <nav className="mb-3 flex items-center gap-1 text-[11px]" style={{ color: "#999" }}>
-          <Link href="/" className="hover:underline" style={{ color: "#0d4f82" }}>
+          <Link href="/" className="hover:underline" style={{ color: "#155e6b" }}>
             Home
           </Link>
           <span>&gt;</span>
-          <Link href={`/category/${categorySlug}`} className="hover:underline" style={{ color: "#0d4f82" }}>
+          <Link href={`/category/${categorySlug}`} className="hover:underline" style={{ color: "#155e6b" }}>
             {categoryName}
           </Link>
           <span>&gt;</span>
@@ -137,7 +137,7 @@ export default function ProductDetailPage() {
             {/* Category badge */}
             <span
               className="mb-2 inline-block border px-2 py-[2px] text-[10px] font-medium"
-              style={{ color: "#0d4f82", borderColor: "#0d4f82", borderRadius: 2 }}
+              style={{ color: "#155e6b", borderColor: "#155e6b", borderRadius: 2 }}
             >
               {categoryName}
             </span>
@@ -185,7 +185,7 @@ export default function ProductDetailPage() {
             {/* Contact Supplier button */}
             <button
               className="mb-2 w-full py-2.5 text-[13px] font-bold text-white"
-              style={{ background: "#0d4f82", borderRadius: 2 }}
+              style={{ background: "#155e6b", borderRadius: 2 }}
             >
               Contact Supplier
             </button>
@@ -238,8 +238,8 @@ export default function ProductDetailPage() {
                   onClick={() => setActiveRegTab(code)}
                   className="px-3 py-1.5 text-[11px] font-medium"
                   style={{
-                    color: activeRegTab === code ? "#0d4f82" : "#999",
-                    borderBottom: activeRegTab === code ? "2px solid #0d4f82" : "2px solid transparent",
+                    color: activeRegTab === code ? "#155e6b" : "#999",
+                    borderBottom: activeRegTab === code ? "2px solid #155e6b" : "2px solid transparent",
                     background: activeRegTab === code ? "#f0f7ff" : "transparent",
                     marginBottom: -1,
                   }}
@@ -285,7 +285,7 @@ export default function ProductDetailPage() {
 
           {/* You Handle */}
           <div className="border border-[#e8e8e8] bg-white" style={{ borderRadius: 2 }}>
-            <div className="px-4 py-2" style={{ background: "#0d4f82" }}>
+            <div className="px-4 py-2" style={{ background: "#155e6b" }}>
               <h3 className="text-[12px] font-bold text-white">What You Handle</h3>
             </div>
             <ul className="p-4">
@@ -297,7 +297,7 @@ export default function ProductDetailPage() {
                 "Local distribution & storage",
               ].map((item) => (
                 <li key={item} className="mb-2 flex items-start gap-2 text-[11px] last:mb-0" style={{ color: "#333" }}>
-                  <svg className="mt-0.5 h-3 w-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#0d4f82" }}>
+                  <svg className="mt-0.5 h-3 w-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#155e6b" }}>
                     <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                   </svg>
                   {item}
@@ -327,7 +327,7 @@ export default function ProductDetailPage() {
                   <div className="flex flex-col items-center text-center" style={{ width: "100%" }}>
                     <div
                       className="mb-1.5 flex h-8 w-8 items-center justify-center text-[13px] font-bold text-white"
-                      style={{ background: "#0d4f82", borderRadius: "50%" }}
+                      style={{ background: "#155e6b", borderRadius: "50%" }}
                     >
                       {step.num}
                     </div>
@@ -353,7 +353,7 @@ export default function ProductDetailPage() {
 
         {/* ─── RFQ FORM ─── */}
         <div id="rfq-form" className="mb-3 border border-[#e8e8e8] bg-white" style={{ borderRadius: 2 }}>
-          <div className="border-b px-4 py-2.5" style={{ borderColor: "#e8e8e8", background: "#0d4f82" }}>
+          <div className="border-b px-4 py-2.5" style={{ borderColor: "#e8e8e8", background: "#155e6b" }}>
             <h2 className="text-[13px] font-bold text-white">
               Request for Quotation — {productName}
             </h2>
@@ -374,7 +374,7 @@ export default function ProductDetailPage() {
                   type="text"
                   required
                   placeholder="John Doe"
-                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                   style={{ borderColor: "#ddd", color: "#333", borderRadius: 2 }}
                 />
               </div>
@@ -386,7 +386,7 @@ export default function ProductDetailPage() {
                   type="email"
                   required
                   placeholder="john@company.com"
-                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                   style={{ borderColor: "#ddd", color: "#333", borderRadius: 2 }}
                 />
               </div>
@@ -398,7 +398,7 @@ export default function ProductDetailPage() {
                   type="text"
                   required
                   placeholder="Company Name"
-                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                   style={{ borderColor: "#ddd", color: "#333", borderRadius: 2 }}
                 />
               </div>
@@ -408,7 +408,7 @@ export default function ProductDetailPage() {
                 </label>
                 <select
                   required
-                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                   style={{ borderColor: "#ddd", color: "#333", borderRadius: 2, background: "#fff" }}
                   defaultValue=""
                 >
@@ -426,7 +426,7 @@ export default function ProductDetailPage() {
                   type="text"
                   required
                   placeholder={`Min. ${product.moq}`}
-                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                  className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                   style={{ borderColor: "#ddd", color: "#333", borderRadius: 2 }}
                 />
               </div>
@@ -438,7 +438,7 @@ export default function ProductDetailPage() {
               <textarea
                 rows={3}
                 placeholder="Additional requirements, delivery timeline, packaging preferences..."
-                className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#0d4f82]"
+                className="w-full border px-2.5 py-1.5 text-[12px] outline-none focus:border-[#155e6b]"
                 style={{ borderColor: "#ddd", color: "#333", borderRadius: 2 }}
               />
             </div>

@@ -47,7 +47,7 @@ export default function ChatWidget() {
       {/* Chat button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-5 right-5 z-50 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#0d4f82] text-white shadow-lg transition-transform hover:scale-105"
+        className="fixed bottom-5 right-5 z-50 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#155e6b] text-white shadow-lg transition-transform hover:scale-105"
         style={{ animation: open ? "none" : "chatPulse 2s infinite" }}
       >
         {open ? (
@@ -61,7 +61,7 @@ export default function ChatWidget() {
       {open && (
         <div className="fixed bottom-[72px] right-5 z-50 flex h-[480px] w-[360px] flex-col overflow-hidden border border-[#d9d9d9] bg-white shadow-xl" style={{ borderRadius: 4 }}>
           {/* Header */}
-          <div className="flex items-center justify-between bg-[#0d4f82] px-4 py-3">
+          <div className="flex items-center justify-between bg-[#155e6b] px-4 py-3">
             <div>
               <p className="text-[13px] font-semibold text-white">WonnyMed Support</p>
               <p className="text-[10px] text-white/60">AI-Powered · 24/7</p>
@@ -78,7 +78,7 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] px-3 py-2 text-[12px] leading-[1.5] ${
                     msg.role === "user"
-                      ? "bg-[#0d4f82] text-white"
+                      ? "bg-[#155e6b] text-white"
                       : "border border-[#e8e8e8] bg-[#f5f7fa] text-[#333]"
                   }`}
                   style={{ borderRadius: 4 }}
@@ -106,7 +106,7 @@ export default function ChatWidget() {
                   <button
                     key={a}
                     onClick={() => send(a)}
-                    className="border border-[#0d4f82] px-2.5 py-1 text-[11px] font-medium text-[#0d4f82] hover:bg-[#0d4f82] hover:text-white"
+                    className="border border-[#155e6b] px-2.5 py-1 text-[11px] font-medium text-[#155e6b] hover:bg-[#155e6b] hover:text-white"
                     style={{ borderRadius: 2 }}
                   >
                     {a}
@@ -127,13 +127,13 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && send(input)}
                 placeholder="Type your message..."
-                className="flex-1 border border-[#d9d9d9] px-3 py-2 text-[12px] text-[#333] placeholder:text-[#bbb] focus:border-[#0d4f82] focus:outline-none"
+                className="flex-1 border border-[#d9d9d9] px-3 py-2 text-[12px] text-[#333] placeholder:text-[#bbb] focus:border-[#155e6b] focus:outline-none"
                 style={{ borderRadius: 2 }}
               />
               <button
                 onClick={() => send(input)}
                 disabled={!input.trim()}
-                className="bg-[#0d4f82] px-3 py-2 text-white disabled:opacity-40"
+                className="bg-[#155e6b] px-3 py-2 text-white disabled:opacity-40"
                 style={{ borderRadius: 2 }}
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
