@@ -25,13 +25,13 @@ export default function ProductCard({ slug, name, longName, category, moq, certi
         <CategoryPlaceholder category={category} height={160} />
         {/* Exclusive / Verified badge */}
         {exclusive ? (
-          <span className="absolute left-2 top-2 inline-flex items-center gap-1 bg-[#155e6b] text-white px-1.5 py-0.5 rounded-[3px] text-[9px] font-semibold uppercase tracking-wider">
+          <span className="absolute left-2 top-2 inline-flex items-center gap-0.5 bg-[#155e6b] text-white px-1.5 py-[2px] rounded-[2px] text-[8px] font-semibold uppercase tracking-wider">
             <svg width="8" height="8" viewBox="0 0 24 24" fill="white"><path d="M12 2L6 7v5c0 5.55 2.56 10.74 6 13 3.44-2.26 6-7.45 6-13V7l-6-5zm-1 15l-3.5-3.5 1.41-1.41L11 14.17l5.09-5.09L17.5 10.5 11 17z" /></svg>
-            Exclusive LATAM Distributor
+            Exclusive LATAM
           </span>
         ) : (
-          <span className="absolute left-2 top-2 text-[9px] text-gray-500 bg-gray-50 border border-gray-200 px-1.5 py-0.5 rounded-[3px]">
-            Verified Supplier
+          <span className="absolute left-2 top-2 text-[8px] text-gray-500 bg-white/80 border border-gray-200 px-1.5 py-[2px] rounded-[2px]">
+            Verified
           </span>
         )}
       </div>
@@ -40,18 +40,18 @@ export default function ProductCard({ slug, name, longName, category, moq, certi
         <h3 className="mb-1 line-clamp-2 text-[13px] font-medium leading-snug text-gray-800 group-hover:text-[#155e6b]">
           {longName || name}
         </h3>
-        <p className="mb-1 text-[11px] text-gray-400">Min. Order: {moq}</p>
+        <p className="mb-1 text-[10px] text-gray-400">Min. Order: {moq}</p>
         {certifications.length > 0 && (
           <div className="mb-1 flex flex-wrap gap-[2px]">
             {certifications.slice(0, 3).map((c) => (
-              <span key={c} className="text-[9px] font-medium text-gray-500 bg-gray-50 border border-gray-200 px-1.5 py-[1px] rounded-[2px]">{c}</span>
+              <span key={c} className="text-[9px] font-medium text-gray-500 bg-gray-50 border border-gray-100 px-1 py-[1px] rounded-[2px]">{c}</span>
             ))}
           </div>
         )}
         <div className="mb-1.5 flex items-center gap-1">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block"></span>
-          <span className="text-[11px] text-gray-400">Verified #{supplierCode}</span>
-          {transactions && <span className="text-[9px] text-[#ccc]">&middot; {transactions} deals</span>}
+          <span className="text-[10px] text-gray-400">Verified #{supplierCode}</span>
+          {transactions && <span className="text-[9px] text-gray-300">&middot; {transactions} deals</span>}
         </div>
         <span className="block w-full bg-[#ff6a00] text-white text-[11px] font-semibold py-2 rounded-md text-center hover:bg-[#e85e00] transition-colors duration-150">
           Request Quote
