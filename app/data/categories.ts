@@ -14,7 +14,7 @@ export const categories: Category[] = [
       es: "Dispositivos Médicos",
     },
     icon: "🩺",
-    count: 5,
+    count: 11,
   },
   {
     slug: "consumables",
@@ -24,7 +24,7 @@ export const categories: Category[] = [
       es: "Consumibles",
     },
     icon: "🧤",
-    count: 4,
+    count: 8,
   },
   {
     slug: "aesthetic-equipment",
@@ -34,7 +34,7 @@ export const categories: Category[] = [
       es: "Equipos Estéticos",
     },
     icon: "✨",
-    count: 4,
+    count: 8,
   },
   {
     slug: "dental",
@@ -44,7 +44,7 @@ export const categories: Category[] = [
       es: "Dental",
     },
     icon: "🦷",
-    count: 4,
+    count: 7,
   },
   {
     slug: "electronics",
@@ -54,7 +54,7 @@ export const categories: Category[] = [
       es: "Electrónicos",
     },
     icon: "⚡",
-    count: 3,
+    count: 6,
   },
   {
     slug: "beauty",
@@ -64,7 +64,7 @@ export const categories: Category[] = [
       es: "Belleza",
     },
     icon: "💆",
-    count: 3,
+    count: 7,
   },
   {
     slug: "industrial",
@@ -74,7 +74,7 @@ export const categories: Category[] = [
       es: "Industrial",
     },
     icon: "🏭",
-    count: 3,
+    count: 5,
   },
   {
     slug: "rehabilitation",
@@ -84,6 +84,6 @@ export const categories: Category[] = [
       es: "Rehabilitación",
     },
     icon: "♿",
-    count: 4,
+    count: 6,
   },
 ];
