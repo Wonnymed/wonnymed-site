@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar";
 import ProductCard from "./components/ProductCard";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget";
+import HowItWorks from "./components/HowItWorks";
 import { products } from "./data/products";
 import { categories } from "./data/categories";
 
@@ -119,6 +120,7 @@ export default function Home() {
                       supplierCode={p.supplierId}
   
                       transactions={p.transactions}
+                      exclusive={p.exclusive}
                       image={p.image}
                     />
                   ))}
@@ -175,6 +177,7 @@ export default function Home() {
                     supplierCode={product.supplierId}
 
                     transactions={product.transactions}
+                    exclusive={product.exclusive}
                     image={product.image}
                   />
                 ))}
@@ -192,6 +195,7 @@ export default function Home() {
         </div>
       </main>
 
+      <HowItWorks />
       <Footer />
       <ChatWidget />
     </>

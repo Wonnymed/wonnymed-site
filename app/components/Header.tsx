@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
+const PULSE_CSS = `@keyframes rfqPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }`;
+
 interface Category { slug: string; name: string; }
 
 interface HeaderProps {
@@ -24,6 +26,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
   const [selectedCat, setSelectedCat] = useState("All Categories");
   const [langOpen, setLangOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
   const catRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +36,9 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
       if (catRef.current && !catRef.current.contains(e.target as Node)) setCatDropdown(false);
     };
     document.addEventListener("mousedown", close);
-    return () => document.removeEventListener("mousedown", close);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => { document.removeEventListener("mousedown", close); window.removeEventListener("scroll", onScroll); };
   }, []);
 
   const search = () => { if (query.trim()) onSearch(query.trim()); };
@@ -41,7 +46,8 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
   const currentLang = LANGS.find((l) => l.code === lang) ?? LANGS[0];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#e5e5e5] bg-white">
+    <header className={`sticky top-0 z-50 border-b border-[#e5e5e5] bg-white transition-shadow duration-200 ${scrolled ? "shadow-md" : ""}`}>
+      <style dangerouslySetInnerHTML={{ __html: PULSE_CSS }} />
       <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-2">
         {/* Logo */}
         <Link href="/" className="mr-2 flex flex-shrink-0 items-center gap-2">
@@ -108,7 +114,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
           </div>
 
           {/* RFQ */}
-          <Link href="/rfq" className="hidden rounded-sm bg-[#f97316] px-4 py-[7px] text-[12px] font-semibold text-white hover:bg-[#ea6c0e] md:inline-block">
+          <Link href="/rfq" className="hidden rounded-sm bg-[#ff6a00] px-4 py-[7px] text-[12px] font-semibold text-white hover:bg-[#e85e00] md:inline-block" style={{ animation: "rfqPulse 600ms ease 2s 1" }}>
             Request Quote
           </Link>
 

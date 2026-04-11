@@ -10,6 +10,7 @@ export type Product = {
   moq: string;
   certs: string[];
   supplierId: string;
+  exclusive: boolean;
   specs: Record<string, string>;
   regulatory: Record<string, string>;
 };
@@ -36,6 +37,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1001",
+    exclusive: true,
     specs: {
       "Display": "15.6\" LED touchscreen",
       "Probe Frequency": "2–12 MHz",
@@ -70,6 +72,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "FDA 510(k)", "IEC 60601-1"],
     supplierId: "W-1002",
+    exclusive: true,
     specs: {
       "Detector Size": "17\" × 17\" flat panel",
       "Resolution": "3.6 lp/mm",
@@ -105,6 +108,7 @@ export const products: Product[] = [
     moq: "10 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1003",
+    exclusive: true,
     specs: {
       "Display": "12.1\" TFT color screen",
       "Parameters": "ECG, SpO2, NIBP, Temp, Resp, IBP",
@@ -139,6 +143,7 @@ export const products: Product[] = [
     moq: "10 Units",
     certs: ["CE", "ISO 13485", "IEC 60601-1"],
     supplierId: "W-1004",
+    exclusive: false,
     specs: {
       "Flow Rate": "0.1–1200 mL/h",
       "Accuracy": "±5%",
@@ -174,6 +179,7 @@ export const products: Product[] = [
     moq: "100 Boxes",
     certs: ["CE", "ISO 11193", "FDA 510(k)", "ASTM D6319"],
     supplierId: "W-1005",
+    exclusive: true,
     specs: {
       "Material": "100% nitrile, powder-free",
       "Thickness": "0.10 mm (finger), 0.07 mm (palm)",
@@ -208,6 +214,7 @@ export const products: Product[] = [
     moq: "500 Boxes",
     certs: ["CE", "ISO 7886-1", "FDA 510(k)"],
     supplierId: "W-1006",
+    exclusive: true,
     specs: {
       "Capacity": "3 mL",
       "Material": "Medical-grade polypropylene",
@@ -242,6 +249,7 @@ export const products: Product[] = [
     moq: "200 Boxes",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1007",
+    exclusive: false,
     specs: {
       "Material": "Hydrocolloid with polyurethane film backing",
       "Sizes": "10 × 10 cm, 15 × 15 cm, 20 × 20 cm",
@@ -276,6 +284,7 @@ export const products: Product[] = [
     moq: "1000 Boxes",
     certs: ["CE", "ISO 13485", "ASTM F2100 Level 2", "EN 14683 Type IIR"],
     supplierId: "W-1008",
+    exclusive: true,
     specs: {
       "Material": "Non-woven polypropylene (SMS)",
       "BFE": "≥ 98%",
@@ -311,6 +320,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1009",
+    exclusive: true,
     specs: {
       "Wavelength": "10,600 nm",
       "Power": "60 W max",
@@ -346,6 +356,7 @@ export const products: Product[] = [
     moq: "2 Units",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1010",
+    exclusive: true,
     specs: {
       "Wavelength Range": "530–1200 nm",
       "Energy Density": "10–50 J/cm²",
@@ -381,6 +392,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1011",
+    exclusive: false,
     specs: {
       "Technology": "High-Intensity Focused Ultrasound",
       "Depth Cartridges": "6 mm, 9 mm, 13 mm",
@@ -416,6 +428,7 @@ export const products: Product[] = [
     moq: "50 Boxes",
     certs: ["CE", "ISO 13485", "KFDA"],
     supplierId: "W-1012",
+    exclusive: true,
     specs: {
       "Active Ingredient": "Cross-linked hyaluronic acid",
       "Concentration": "24 mg/mL",
@@ -451,6 +464,7 @@ export const products: Product[] = [
     moq: "2 Units",
     certs: ["CE", "ISO 13485", "ISO 7494-1"],
     supplierId: "W-1013",
+    exclusive: true,
     specs: {
       "Chair Movement": "Electro-hydraulic, programmable positions",
       "Headrest": "Double-articulated, 360° rotation",
@@ -486,6 +500,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485", "EN 13060"],
     supplierId: "W-1014",
+    exclusive: false,
     specs: {
       "Chamber Volume": "23 L",
       "Sterilization Temp": "121°C / 134°C",
@@ -521,6 +536,7 @@ export const products: Product[] = [
     moq: "20 Kits",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1015",
+    exclusive: true,
     specs: {
       "Material": "Grade 5 titanium (Ti-6Al-4V)",
       "Surface Treatment": "SLA (sandblasted, large-grit, acid-etched)",
@@ -555,6 +571,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "FDA 510(k)", "IEC 60601-1"],
     supplierId: "W-1016",
+    exclusive: false,
     specs: {
       "Imaging Modes": "Panoramic, Cephalometric, CBCT (optional)",
       "Sensor Type": "CMOS flat panel",
@@ -591,6 +608,7 @@ export const products: Product[] = [
     moq: "3 Units",
     certs: ["CE", "ISO 13485", "IEC 60601-1"],
     supplierId: "W-1017",
+    exclusive: true,
     specs: {
       "Illuminance": "160,000 lux",
       "Color Temperature": "3,500–5,000 K adjustable",
@@ -626,6 +644,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)", "IEC 60601-2-2"],
     supplierId: "W-1018",
+    exclusive: true,
     specs: {
       "Cutting Power": "300 W max",
       "Coagulation Power": "120 W max",
@@ -661,6 +680,7 @@ export const products: Product[] = [
     moq: "10 Units",
     certs: ["CE", "IEC 62040-1", "UL 1778"],
     supplierId: "W-1019",
+    exclusive: false,
     specs: {
       "Capacity": "3 kVA / 2.7 kW",
       "Topology": "Online double-conversion",
@@ -697,6 +717,7 @@ export const products: Product[] = [
     moq: "20 Units",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1020",
+    exclusive: true,
     specs: {
       "Needle Depth": "0.25–2.5 mm adjustable",
       "Speed": "4,500–6,000 RPM",
@@ -731,6 +752,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1021",
+    exclusive: false,
     specs: {
       "Cooling Temperature": "-11°C to 5°C",
       "Applicators": "4 cryo handles, simultaneous operation",
@@ -766,6 +788,7 @@ export const products: Product[] = [
     moq: "3 Units",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1022",
+    exclusive: true,
     specs: {
       "Frequency": "1–10 MHz multipolar",
       "Power": "50 W max",
@@ -802,6 +825,7 @@ export const products: Product[] = [
     moq: "500 Pieces",
     certs: ["ISO 9001", "ISO 14001", "IATF 16949"],
     supplierId: "W-1023",
+    exclusive: true,
     specs: {
       "Materials": "Stainless steel, aluminum, titanium, brass",
       "Tolerance": "±0.005 mm",
@@ -836,6 +860,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["ISO 9001", "CE", "ASME"],
     supplierId: "W-1024",
+    exclusive: true,
     specs: {
       "Power": "22 kW / 30 HP",
       "Air Delivery": "3.6 m³/min at 8 bar",
@@ -871,6 +896,7 @@ export const products: Product[] = [
     moq: "2 Units",
     certs: ["ISO 9001", "CE", "ATEX"],
     supplierId: "W-1025",
+    exclusive: false,
     specs: {
       "Pumping Speed": "100 m³/h",
       "Ultimate Pressure": "0.5 mbar",
@@ -907,6 +933,7 @@ export const products: Product[] = [
     moq: "10 Units",
     certs: ["CE", "ISO 7176", "FDA Class I"],
     supplierId: "W-1026",
+    exclusive: true,
     specs: {
       "Motor": "Dual 250 W brushless",
       "Battery": "24V 20Ah lithium-ion",
@@ -942,6 +969,7 @@ export const products: Product[] = [
     moq: "20 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1027",
+    exclusive: true,
     specs: {
       "Channels": "4 independent",
       "Waveforms": "TENS, EMS, Interferential, Russian",
@@ -977,6 +1005,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 9001"],
     supplierId: "W-1028",
+    exclusive: false,
     specs: {
       "Material": "304 stainless steel uprights, hardwood handrails",
       "Length": "3 m (adjustable width)",
@@ -1011,6 +1040,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1029",
+    exclusive: false,
     specs: {
       "ROM": "0°–130° (flexion), 0°–10° (extension)",
       "Speed": "15–180 seconds per cycle adjustable",
@@ -1046,6 +1076,7 @@ export const products: Product[] = [
     moq: "100 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1030",
+    exclusive: true,
     specs: {
       "SpO2 Range": "0–100%, accuracy ±2%",
       "Pulse Rate": "30–250 BPM, accuracy ±1%",
@@ -1081,6 +1112,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "IEC 60601-1"],
     supplierId: "W-1031",
+    exclusive: true,
     specs: {
       "Table Top": "304 stainless steel, radiolucent carbon fiber options",
       "Load Capacity": "250 kg",
@@ -1115,6 +1147,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1032",
+    exclusive: false,
     specs: {
       "Illuminance": "160,000 lux (combined dual head)",
       "Color Temperature": "3,700–5,000 K adjustable",
