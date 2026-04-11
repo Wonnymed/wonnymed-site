@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <h4 className="mb-3 text-sm font-semibold text-white">About WonnyMed</h4>
             <p className="mb-3 text-xs leading-relaxed text-gray-400">
-              WonnyMed Ltd is a Hong Kong-registered authorized sourcing platform connecting Latin American buyers with exclusive manufacturer partnerships in China and South Korea. Specialized in medical devices, consumables, aesthetic equipment, dental, beauty, electronics, industrial, and rehabilitation equipment.
+              WonnyMed Ltd is a Hong Kong-registered sourcing company helping Latin American businesses import directly from verified factories in China and South Korea. We handle sourcing, negotiation, quality inspection, regulatory documentation, and shipping.
             </p>
             <p className="text-[10px] leading-relaxed text-gray-500">
               HQ Hong Kong | Sourcing: Shanghai · Guangzhou · Suzhou · Seoul
