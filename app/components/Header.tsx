@@ -45,7 +45,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
       <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-2">
         {/* Logo */}
         <Link href="/" className="mr-2 flex flex-shrink-0 items-center gap-2">
-          <img src="/assets/logo/w-logo.png" alt="WonnyMed" className="h-[36px] w-auto" />
+          <img src="/w-logo.png" alt="WonnyMed" className="h-[36px] w-auto" />
           <span className="text-[20px] font-bold tracking-tight" style={{ color: "#155e6b" }}>
             WonnyMed
           </span>
