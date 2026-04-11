@@ -17,6 +17,7 @@ export default function Home() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [sort, setSort] = useState("relevance");
 
   const categoryList = categories.map((c) => ({
     slug: c.slug,
@@ -59,8 +60,14 @@ export default function Home() {
         selectedCerts.some((cert) => p.certs.includes(cert))
       );
     }
+    if (sort === "moq-asc" || sort === "moq-desc") {
+      const parseMoq = (m: string) => parseInt(m.replace(/[^0-9]/g, "")) || 0;
+      result = [...result].sort((a, b) => sort === "moq-asc" ? parseMoq(a.moq) - parseMoq(b.moq) : parseMoq(b.moq) - parseMoq(a.moq));
+    } else if (sort === "verified") {
+      result = [...result].sort((a, b) => (b.transactions || 0) - (a.transactions || 0));
+    }
     return result;
-  }, [search, selectedCategories, selectedCerts, verifiedOnly, lang]);
+  }, [search, selectedCategories, selectedCerts, verifiedOnly, lang, sort]);
 
   const recommended = products.slice(0, 8);
 
@@ -130,17 +137,27 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Results count */}
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-[12px] text-[#999]">
-                Showing <span className="font-semibold text-[#333]">{filtered.length}</span> of{" "}
-                <span className="font-semibold text-[#333]">{products.length}</span> products
+            {/* Results bar */}
+            <div className="mb-3 flex items-center justify-between border-b border-gray-200 py-2">
+              <p className="text-sm text-gray-600">
+                <strong>{filtered.length}</strong> products found
+                {search && (
+                  <button onClick={() => setSearch("")} className="ml-3 text-xs text-[#0d4f82] hover:underline">Clear search</button>
+                )}
               </p>
-              {search && (
-                <button onClick={() => setSearch("")} className="text-[12px] text-[#0d4f82] hover:underline">
-                  Clear search
-                </button>
-              )}
+              <div className="flex items-center">
+                <span className="mr-2 text-xs text-gray-500">Sort by:</span>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="rounded border border-gray-300 px-2 py-1 text-xs text-[#333] focus:border-[#0d4f82] focus:outline-none"
+                >
+                  <option value="relevance">Relevance</option>
+                  <option value="moq-asc">MOQ: Low to High</option>
+                  <option value="moq-desc">MOQ: High to Low</option>
+                  <option value="verified">Most Verified</option>
+                </select>
+              </div>
             </div>
 
             {/* Product grid */}
