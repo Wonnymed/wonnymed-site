@@ -27,8 +27,8 @@ export default function RegulatoryPage() {
 
   return (
     <>
-      <TopBar />
-      <Header categories={categoryList} lang={lang} onLangChange={setLang} onSearch={() => {}} />
+      <TopBar lang={lang} onLangChange={setLang} />
+      <Header />
       <main className="mx-auto max-w-[1200px] px-4 py-4">
         <nav className="mb-3 text-[11px] text-[#999]">
           <a href="/" className="hover:text-[#155e6b]">Home</a>

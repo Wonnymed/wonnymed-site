@@ -43,13 +43,8 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="flex min-h-screen flex-col" style={{ background: "#f5f7fa" }}>
-        <TopBar />
-        <Header
-          categories={headerCategories}
-          lang={lang}
-          onLangChange={setLang}
-          onSearch={() => {}}
-        />
+        <TopBar lang={lang} onLangChange={setLang} />
+        <Header />
         <main className="flex flex-1 items-center justify-center">
           <div className="text-center">
             <h1 className="mb-2 text-[15px] font-bold" style={{ color: "#333" }}>
@@ -96,13 +91,8 @@ export default function ProductDetailPage() {
 
   return (
     <div className="flex min-h-screen flex-col" style={{ background: "#f5f7fa" }}>
-      <TopBar />
-      <Header
-        categories={headerCategories}
-        lang={lang}
-        onLangChange={setLang}
-        onSearch={() => {}}
-      />
+      <TopBar lang={lang} onLangChange={setLang} />
+      <Header />
 
       <main className="mx-auto w-full max-w-[1200px] flex-1 px-3 py-3">
         {/* Breadcrumb */}

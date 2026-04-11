@@ -1,3 +1,5 @@
+import React from "react";
+
 const CATEGORY_STYLES: Record<string, { bg: string; border: string; color: string }> = {
   "Medical Devices":       { bg: "#eff6ff", border: "#bfdbfe", color: "#3b82f6" },
   "Consumables":           { bg: "#ecfdf5", border: "#a7f3d0", color: "#10b981" },
@@ -9,7 +11,7 @@ const CATEGORY_STYLES: Record<string, { bg: string; border: string; color: strin
   "Rehabilitation":        { bg: "#f0fdfa", border: "#99f6e4", color: "#14b8a6" },
 };
 
-const CATEGORY_ICONS: Record<string, JSX.Element> = {
+const CATEGORY_ICONS: Record<string, React.ReactElement> = {
   "Medical Devices": (
     <svg width="48" height="48" viewBox="0 0 56 56" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="14" y="8" width="28" height="36" rx="3" /><line x1="28" y1="16" x2="28" y2="28" /><line x1="22" y1="22" x2="34" y2="22" /><rect x="18" y="44" width="20" height="4" rx="1" /><line x1="24" y1="48" x2="24" y2="52" /><line x1="32" y1="48" x2="32" y2="52" />

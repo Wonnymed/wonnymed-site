@@ -107,13 +107,8 @@ export default function CategoryPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
-      <TopBar />
-      <Header
-        categories={headerCategories}
-        lang={lang}
-        onLangChange={setLang}
-        onSearch={setSearch}
-      />
+      <TopBar lang={lang} onLangChange={setLang} />
+      <Header />
 
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6">
         {/* Breadcrumb */}

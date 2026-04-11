@@ -1,3 +1,9 @@
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://wonnymed.com
+
+# Sitemaps
 Sitemap: https://wonnymed.com/sitemap.xml
