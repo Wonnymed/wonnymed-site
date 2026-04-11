@@ -180,7 +180,7 @@ export default function Home() {
 
   return (
     <>
-      <TopBar />
+      <TopBar lang={lang} onLangChange={setLang} />
       <Header
         categories={categoryList}
         lang={lang}
