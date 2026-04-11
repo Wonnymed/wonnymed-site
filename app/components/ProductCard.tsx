@@ -53,14 +53,9 @@ export default function ProductCard({ slug, name, longName, category, moq, certi
           <span className="text-[11px] text-gray-400">Verified #{supplierCode}</span>
           {transactions && <span className="text-[9px] text-[#ccc]">&middot; {transactions} deals</span>}
         </div>
-        <div className="flex gap-1.5">
-          <span className="block w-1/2 text-[11px] py-1.5 rounded-md text-center text-gray-600 border border-gray-200 bg-white hover:border-[#155e6b] hover:text-[#155e6b] transition-colors duration-150">
-            Contact Supplier
-          </span>
-          <span className="block w-1/2 text-[11px] py-1.5 rounded-md text-center bg-[#ff6a00] text-white hover:bg-[#e85e00] transition-colors duration-150">
-            Request Quote
-          </span>
-        </div>
+        <span className="block w-full bg-[#ff6a00] text-white text-[11px] font-semibold py-2 rounded-md text-center hover:bg-[#e85e00] transition-colors duration-150">
+          Request Quote
+        </span>
       </div>
     </Link>
   );
