@@ -34,12 +34,6 @@ export default function ProductDetailPage() {
 
   const product = products.find((p) => p.slug === slug);
 
-  const headerCategories = categories.map((c) => ({
-    slug: c.slug,
-    name: c.name[lang] || c.name.en,
-    icon: c.icon,
-  }));
-
   if (!product) {
     return (
       <div className="flex min-h-screen flex-col" style={{ background: "#f5f7fa" }}>
@@ -94,7 +88,7 @@ export default function ProductDetailPage() {
       <TopBar lang={lang} onLangChange={setLang} />
       <Header />
 
-      <main className="mx-auto w-full max-w-[1200px] flex-1 px-3 py-3">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">
         {/* Breadcrumb */}
         <nav className="mb-3 flex items-center gap-1 text-[11px]" style={{ color: "#999" }}>
           <Link href="/" className="hover:underline" style={{ color: "#155e6b" }}>

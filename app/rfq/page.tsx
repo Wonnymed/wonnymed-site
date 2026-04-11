@@ -5,7 +5,6 @@ import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ChatWidget from "../components/ChatWidget";
-import { categories } from "../data/categories";
 import { products } from "../data/products";
 
 const WA = "15615966097";
@@ -14,8 +13,6 @@ export default function RFQPage() {
   const [lang, setLang] = useState("en");
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", whatsapp: "", country: "", product: "", quantity: "", message: "" });
-  const categoryList = categories.map((c) => ({ slug: c.slug, name: c.name[lang] || c.name.en }));
-
   const set = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
   const submit = (e: React.FormEvent) => {

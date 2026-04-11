@@ -5,8 +5,6 @@ import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ChatWidget from "../components/ChatWidget";
-import { categories } from "../data/categories";
-
 const COUNTRIES = [
   { code: "BR", name: "Brazil", flag: "BR", agency: "ANVISA", full: "Agência Nacional de Vigilância Sanitária", timeline: "30-365 days", docs: ["Product registration (Registro) or notification (Cadastro) by risk class", "Good Manufacturing Practices (GMP) certificate", "Brazilian Representative (BRH) for foreign manufacturers", "Technical documentation translated to Portuguese", "Import license (LI) per shipment", "Risk class: I (low), II (medium), III (high), IV (maximum)"] },
   { code: "US", name: "United States", flag: "US", agency: "FDA", full: "Food and Drug Administration", timeline: "90 days (510k) to 12+ months (PMA)", docs: ["510(k) Premarket Notification or PMA depending on class", "Establishment Registration and Device Listing", "Quality System Regulation (21 CFR Part 820)", "US Agent for foreign manufacturers", "Unique Device Identification (UDI) labeling", "Class I: general controls, Class II: 510(k), Class III: PMA"] },
@@ -22,7 +20,6 @@ const COUNTRIES = [
 export default function RegulatoryPage() {
   const [lang, setLang] = useState("en");
   const [selected, setSelected] = useState<string | null>(null);
-  const categoryList = categories.map((c) => ({ slug: c.slug, name: c.name[lang] || c.name.en }));
   const country = COUNTRIES.find((c) => c.code === selected);
 
   return (
