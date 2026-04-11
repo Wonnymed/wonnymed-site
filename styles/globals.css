@@ -20,3 +20,11 @@ body {
 /* Hide scrollbar on nav */
 nav::-webkit-scrollbar { display: none; }
 nav { scrollbar-width: none; }
+
+html { scroll-behavior: smooth; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
