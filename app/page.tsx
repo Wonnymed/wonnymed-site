@@ -166,8 +166,6 @@ export default function Home() {
     }
   }, []);
 
-  const recommended = products.slice(0, 8);
-
   const sidebarProps = {
     categories: categoryList,
     selectedCategories,
@@ -207,34 +205,6 @@ export default function Home() {
             <div className="mb-2 lg:hidden">
               <Sidebar {...sidebarProps} />
             </div>
-
-            {/* Recommended section */}
-            {!search && selectedCategories.length === 0 && (
-              <div className="mb-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <h2 className="text-[15px] font-semibold text-gray-800">Recommended For You</h2>
-                  <Link href="/rfq" className="text-[12px] text-[#155e6b] hover:underline">View all &rarr;</Link>
-                </div>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                  {recommended.map((p) => (
-                    <ProductCard
-                      key={p.slug}
-                      slug={p.slug}
-                      name={p.name[lang] || p.name.en}
-                      longName={p.longName?.en}
-                      category={p.category}
-                      moq={p.moq}
-                      certifications={p.certs}
-                      supplierCode={p.supplierId}
-
-                      transactions={p.transactions}
-                      exclusive={p.exclusive}
-                      image={p.image}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* RFQ Banner */}
             <div className="mb-4 flex items-center justify-between rounded border border-orange-100 bg-[#fdf8f0] px-4 py-2.5">
