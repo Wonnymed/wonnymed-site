@@ -8,6 +8,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import ChatWidget from "@/app/components/ChatWidget";
 import ProductCard from "@/app/components/ProductCard";
+import CategoryPlaceholder from "@/app/components/CategoryPlaceholder";
 import { products } from "@/app/data/products";
 import { categories } from "@/app/data/categories";
 
@@ -121,12 +122,10 @@ export default function ProductDetailPage() {
         <div className="mb-3 flex gap-3" style={{ flexWrap: "wrap" }}>
           {/* Left: Image */}
           <div
-            className="flex items-center justify-center border border-[#e8e8e8] bg-white"
-            style={{ width: "40%", minWidth: 260, height: 280, background: "#f5f7fa", borderRadius: 2 }}
+            className="overflow-hidden border border-[#e8e8e8]"
+            style={{ width: "40%", minWidth: 260, borderRadius: 2 }}
           >
-            <svg className="h-16 w-16" style={{ color: "#d4d4d4" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={0.7}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-            </svg>
+            <CategoryPlaceholder category={product.category} height={280} />
           </div>
 
           {/* Right: Product Info */}
