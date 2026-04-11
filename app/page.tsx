@@ -90,7 +90,7 @@ export default function Home() {
       <main className="mx-auto max-w-[1400px] px-4 py-3">
         <div className="flex gap-4">
           {/* Sidebar */}
-          <aside className="hidden w-[200px] flex-shrink-0 lg:block">
+          <aside className="hidden w-[220px] flex-shrink-0 lg:block">
             <Sidebar {...sidebarProps} />
           </aside>
 
@@ -104,10 +104,10 @@ export default function Home() {
             {!search && selectedCategories.length === 0 && (
               <div className="mb-4">
                 <div className="mb-2 flex items-center justify-between">
-                  <h2 className="text-[14px] font-bold text-[#333]">Recommended For You</h2>
+                  <h2 className="text-[15px] font-semibold text-gray-800">Recommended For You</h2>
                   <Link href="/rfq" className="text-[12px] text-[#155e6b] hover:underline">View all →</Link>
                 </div>
-                <div className="grid grid-cols-2 gap-[12px] sm:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                   {recommended.map((p) => (
                     <ProductCard
                       key={p.slug}
@@ -129,20 +129,20 @@ export default function Home() {
             )}
 
             {/* RFQ Banner */}
-            <div className="mb-4 flex items-center justify-between border border-[#e0e0e0] bg-[#fdf8f0] px-4 py-3" style={{ borderRadius: 2 }}>
+            <div className="mb-4 flex items-center justify-between rounded border border-orange-100 bg-[#fdf8f0] px-4 py-2.5">
               <div>
-                <p className="text-[13px] font-semibold text-[#333]">Can&apos;t find the right product?</p>
-                <p className="text-[11px] text-[#888]">Submit an RFQ and let verified suppliers quote you directly.</p>
+                <p className="text-[12px] font-semibold text-gray-700">Can&apos;t find the right product?</p>
+                <p className="text-[11px] text-gray-400">Submit an RFQ and let verified suppliers quote you directly.</p>
               </div>
-              <Link href="/rfq" className="flex-shrink-0 bg-[#f97316] px-4 py-[6px] text-[12px] font-semibold text-white hover:bg-[#ea6c0e]" style={{ borderRadius: 2 }}>
+              <Link href="/rfq" className="flex-shrink-0 rounded bg-[#f97316] px-3.5 py-[5px] text-[11px] font-semibold text-white hover:bg-[#ea6c0e]">
                 Request for Quotation
               </Link>
             </div>
 
             {/* Results bar */}
             <div className="mb-3 flex items-center justify-between border-b border-gray-200 py-2">
-              <p className="text-sm text-gray-600">
-                <strong>{filtered.length}</strong> products found
+              <p className="text-[13px] text-gray-500">
+                <span className="font-semibold text-gray-800">{filtered.length}</span> products found
                 {search && (
                   <button onClick={() => setSearch("")} className="ml-3 text-xs text-[#155e6b] hover:underline">Clear search</button>
                 )}
@@ -164,7 +164,7 @@ export default function Home() {
 
             {/* Product grid */}
             {filtered.length > 0 ? (
-              <div className="grid grid-cols-2 gap-[12px] sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {filtered.map((product) => (
                   <ProductCard
                     key={product.slug}

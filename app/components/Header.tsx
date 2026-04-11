@@ -48,9 +48,9 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
   return (
     <header className={`sticky top-0 z-50 border-b border-[#e5e5e5] bg-white transition-shadow duration-200 ${scrolled ? "shadow-md" : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: PULSE_CSS }} />
-      <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-2">
+      <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-6 py-2.5" style={{ height: 56 }}>
         {/* Logo */}
-        <Link href="/" className="mr-2 flex flex-shrink-0 items-center gap-2">
+        <Link href="/" className="mr-2 flex flex-shrink-0 items-center gap-2.5">
           <img src="/w-logo.png" alt="WonnyMed" className="h-[36px] w-auto" />
           <span className="text-[20px] font-bold tracking-tight" style={{ color: "#155e6b" }}>
             WonnyMed
@@ -59,15 +59,15 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
 
         {/* Search bar with category dropdown */}
         <div className="hidden flex-1 md:flex">
-          <div className="flex w-full max-w-[700px]">
+          <div className="flex w-full max-w-[600px]">
             {/* Category dropdown */}
             <div ref={catRef} className="relative">
               <button
                 onClick={() => setCatDropdown(!catDropdown)}
-                className="flex h-[36px] items-center gap-1 border border-r-0 border-[#d9d9d9] bg-[#f5f5f5] px-3 text-[12px] text-[#333] hover:bg-[#eee]"
+                className="flex h-[38px] items-center gap-1 border border-r-0 border-[#d9d9d9] bg-[#f5f5f5] px-2.5 text-[11px] text-[#333] hover:bg-[#eee]"
                 style={{ borderRadius: "2px 0 0 2px" }}
               >
-                <span className="max-w-[120px] truncate">{selectedCat}</span>
+                <span className="max-w-[100px] truncate">{selectedCat}</span>
                 <svg className="h-3 w-3 text-[#999]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
               </button>
               {catDropdown && (
@@ -86,10 +86,10 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={onKey}
               placeholder="Search products, suppliers, categories..."
-              className="h-[36px] w-full border border-[#d9d9d9] px-3 text-[13px] text-[#333] placeholder:text-[#999] focus:border-[#155e6b] focus:outline-none"
+              className="h-[38px] w-full border border-[#d9d9d9] px-3 text-[13px] text-[#333] placeholder:text-[#999] focus:border-[#155e6b] focus:outline-none"
             />
             {/* Search button */}
-            <button onClick={search} className="flex h-[36px] items-center gap-1 bg-[#ff6a00] px-5 text-[13px] font-semibold text-white hover:bg-[#e85e00]" style={{ borderRadius: "0 2px 2px 0" }}>
+            <button onClick={search} className="flex h-[38px] items-center gap-1 bg-[#ff6a00] px-5 text-[13px] font-semibold text-white hover:bg-[#e85e00]" style={{ borderRadius: "0 2px 2px 0" }}>
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
               Search
             </button>
@@ -97,7 +97,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
         </div>
 
         {/* Right side */}
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-4">
           {/* Lang */}
           <div ref={langRef} className="relative hidden md:block">
             <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 px-2 py-1 text-[12px] text-[#666] hover:text-[#333]">
@@ -114,7 +114,7 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
           </div>
 
           {/* RFQ */}
-          <Link href="/rfq" className="hidden rounded-sm bg-[#ff6a00] px-4 py-[7px] text-[12px] font-semibold text-white hover:bg-[#e85e00] md:inline-block" style={{ animation: "rfqPulse 600ms ease 2s 1" }}>
+          <Link href="/rfq" className="hidden rounded-md bg-[#ff6a00] px-4 py-[7px] text-[12px] font-semibold text-white hover:bg-[#e85e00] md:inline-block" style={{ animation: "rfqPulse 600ms ease 2s 1" }}>
             Request Quote
           </Link>
 
@@ -153,11 +153,11 @@ export default function Header({ categories, lang, onLangChange, onSearch }: Hea
       )}
 
       {/* Category nav bar */}
-      <div className="border-t border-[#eee] bg-[#fafafa]">
-        <div className="mx-auto max-w-[1400px] px-4">
+      <div className="border-t border-[#eee] bg-white">
+        <div className="mx-auto max-w-[1400px] px-6">
           <nav className="flex gap-0 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
             {categories.map((c) => (
-              <Link key={c.slug} href={`/category/${c.slug}`} className="flex-shrink-0 border-b-2 border-transparent px-4 py-2 text-[12px] text-[#555] hover:border-[#ff6a00] hover:text-[#155e6b]">{c.name}</Link>
+              <Link key={c.slug} href={`/category/${c.slug}`} className="flex-shrink-0 border-b-2 border-transparent px-5 py-2.5 text-[13px] font-medium text-[#555] hover:text-[#155e6b]">{c.name}</Link>
             ))}
           </nav>
         </div>

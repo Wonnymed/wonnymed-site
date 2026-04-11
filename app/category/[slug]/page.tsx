@@ -164,6 +164,7 @@ export default function CategoryPage() {
                     moq={p.moq}
                     certifications={p.certs}
                     supplierCode={p.supplierId}
+                    exclusive={p.exclusive}
                     image={p.image}
                   />
                 ))}

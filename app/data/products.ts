@@ -1182,6 +1182,7 @@ export const products: Product[] = [
     moq: "2 Units",
     certs: ["CE", "FDA 510(k)", "ISO 13485"],
     supplierId: "W-1033",
+    exclusive: true,
     specs: {
       "Ventilation Modes": "CPAP, BiPAP, SIMV, PCV, VCV, PSV",
       "Tidal Volume": "20–2000 mL",
@@ -1216,6 +1217,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1034",
+    exclusive: false,
     specs: {
       "Display": "8\" touchscreen TFT color",
       "Parameters": "ECG, SpO2, NIBP, Temp, Resp",
@@ -1250,6 +1252,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "IEC 60601-1"],
     supplierId: "W-1035",
+    exclusive: true,
     specs: {
       "Image Intensifier": "9\" / 12\" field of view",
       "Detector": "Flat panel digital detector",
@@ -1284,6 +1287,7 @@ export const products: Product[] = [
     moq: "10 Units",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1036",
+    exclusive: false,
     specs: {
       "Functions": "5-function electric (back, leg, height, Trendelenburg, reverse)",
       "Load Capacity": "250 kg",
@@ -1319,6 +1323,7 @@ export const products: Product[] = [
     moq: "500 Packs",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1037",
+    exclusive: true,
     specs: {
       "Material": "Polyglycolic acid (PGA), braided, coated",
       "Sizes": "USP 2/0, 3/0, 4/0, 5/0",
@@ -1353,6 +1358,7 @@ export const products: Product[] = [
     moq: "200 Packs",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1038",
+    exclusive: false,
     specs: {
       "Material": "Oxidized regenerated cellulose (ORC)",
       "Size": "5 × 10 cm per sheet",
@@ -1387,6 +1393,7 @@ export const products: Product[] = [
     moq: "10000 Pieces",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1039",
+    exclusive: true,
     specs: {
       "Drip Rate": "20 drops/mL",
       "Connector": "Luer lock, latex-free",
@@ -1421,6 +1428,7 @@ export const products: Product[] = [
     moq: "5000 Pieces",
     certs: ["CE", "ASTM F2100", "ISO 13485"],
     supplierId: "W-1040",
+    exclusive: false,
     specs: {
       "Material": "SMS non-woven polypropylene, reinforced",
       "Protection Level": "AAMI Level 3",
@@ -1456,6 +1464,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1041",
+    exclusive: true,
     specs: {
       "Wavelength": "10,600 nm fractional CO2",
       "Power": "40 W max",
@@ -1490,6 +1499,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1042",
+    exclusive: false,
     specs: {
       "Technology": "3D High-Intensity Focused Ultrasound",
       "Cartridges": "8 cartridges (1.5, 3.0, 4.5, 6.0, 8.0, 10.0, 13.0, 16.0 mm)",
@@ -1524,6 +1534,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1043",
+    exclusive: true,
     specs: {
       "Cooling Temperature": "-11°C to 5°C adjustable",
       "Handles": "4 cryo handles, simultaneous operation",
@@ -1558,6 +1569,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1044",
+    exclusive: false,
     specs: {
       "Wavelength": "980 nm diode laser",
       "Power": "30 W max",
@@ -1593,6 +1605,7 @@ export const products: Product[] = [
     moq: "50 Sets",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1045",
+    exclusive: true,
     specs: {
       "Material": "Grade 5 titanium (Ti-6Al-4V)",
       "Connection": "Conical internal connection",
@@ -1627,6 +1640,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485", "IEC 60601-1"],
     supplierId: "W-1046",
+    exclusive: true,
     specs: {
       "Imaging Modes": "Panoramic, CBCT 3D, Cephalometric",
       "FOV Options": "8 × 8 cm, 16 × 9 cm",
@@ -1661,6 +1675,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1047",
+    exclusive: false,
     specs: {
       "Included": "LED curing light, ultrasonic scaler, handpiece, suction",
       "Spittoon": "Ceramic rotary spittoon",
@@ -1696,6 +1711,7 @@ export const products: Product[] = [
     moq: "500 Bottles",
     certs: ["ISO 22716", "ISO 9001"],
     supplierId: "W-1048",
+    exclusive: false,
     specs: {
       "Active Ingredient": "97% snail mucin extract",
       "Volume": "50 mL per bottle",
@@ -1730,6 +1746,7 @@ export const products: Product[] = [
     moq: "10000 Pieces",
     certs: ["ISO 22716", "ISO 9001"],
     supplierId: "W-1049",
+    exclusive: true,
     specs: {
       "Material": "Hydrogel with marine collagen",
       "Essence Volume": "25 mL per mask",
@@ -1764,6 +1781,7 @@ export const products: Product[] = [
     moq: "20 Units",
     certs: ["CE", "ISO 9001"],
     supplierId: "W-1050",
+    exclusive: true,
     specs: {
       "LED Colors": "7 colors (red, blue, green, yellow, purple, cyan, white)",
       "Wavelengths": "460–640 nm",
@@ -1798,6 +1816,7 @@ export const products: Product[] = [
     moq: "100 Kits",
     certs: ["ISO 22716"],
     supplierId: "W-1051",
+    exclusive: false,
     specs: {
       "Contents": "12 ampoules × 8 mL each",
       "Compatibility": "Derma pen / MTS micro-needling devices",
@@ -1833,6 +1852,7 @@ export const products: Product[] = [
     moq: "100 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1052",
+    exclusive: true,
     specs: {
       "Measurement": "Oscillometric upper arm",
       "Pressure Range": "0–300 mmHg",
@@ -1867,6 +1887,7 @@ export const products: Product[] = [
     moq: "200 Units",
     certs: ["CE", "FDA 510(k)", "ISO 13485"],
     supplierId: "W-1053",
+    exclusive: true,
     specs: {
       "SpO2 Range": "70–100%, accuracy ±2%",
       "Pulse Rate": "30–250 BPM, accuracy ±1%",
@@ -1901,6 +1922,7 @@ export const products: Product[] = [
     moq: "500 Units",
     certs: ["CE", "ISO 13485", "FDA 510(k)"],
     supplierId: "W-1054",
+    exclusive: false,
     specs: {
       "Measurement": "Non-contact infrared, 3–5 cm distance",
       "Accuracy": "±0.1°C (±0.2°F)",
@@ -1936,6 +1958,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1055",
+    exclusive: true,
     specs: {
       "Motor": "Dual brushless hub motors",
       "Battery": "24V 12Ah lithium-ion, removable",
@@ -1970,6 +1993,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 13485"],
     supplierId: "W-1056",
+    exclusive: false,
     specs: {
       "Pressure": "1–6 Bar adjustable",
       "Frequency": "1–21 Hz",
@@ -2005,6 +2029,7 @@ export const products: Product[] = [
     moq: "5 Units",
     certs: ["CE", "ISO 9001"],
     supplierId: "W-1057",
+    exclusive: true,
     specs: {
       "Tank Capacity": "30 L stainless steel SUS304",
       "Frequency": "40 kHz",
@@ -2039,6 +2064,7 @@ export const products: Product[] = [
     moq: "1 Unit",
     certs: ["CE", "ISO 9001", "ISO 14644-1"],
     supplierId: "W-1058",
+    exclusive: false,
     specs: {
       "Clean Class": "ISO 5 (Class 100)",
       "Flow Direction": "Horizontal / Vertical selectable models",

@@ -477,6 +477,7 @@ export default function ProductDetailPage() {
                   certifications={p.certs}
                   supplierCode={p.supplierId}
                   transactions={p.transactions}
+                  exclusive={p.exclusive}
                 />
               ))}
             </div>
